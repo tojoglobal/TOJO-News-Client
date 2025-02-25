@@ -7,7 +7,7 @@ const NavigationBar = () => {
 
   return (
     <nav>
-      <div className="max-w-[1440px] h-[55px] flex justify-center items-center bg-light-gray w-full mx-auto px-4 sm:px-6 lg:px-16">
+      <div className="h-[55px] flex justify-center items-center bg-light-gray w-full mx-auto px-4 sm:px-6 lg:px-16">
         {/* Desktop Navigation */}
         <div className="hidden md:flex justify-center items-center gap-8 h-11">
           {[

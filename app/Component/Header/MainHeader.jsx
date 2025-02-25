@@ -18,7 +18,7 @@ import twitterx from "@/public/SocaiIcons/X.png";
 
 const MainHeader = () => {
   return (
-    <div className="max-w-[1440px] w-full h-24 mx-auto px-4 sm:px-10 md:px-16 lg:px-[162px] flex flex-wrap items-center justify-between">
+    <div className="max-w-[1440px] w-full h-24 mx-auto px-4 sm:px-10 md:px-16 lg:px-[72px] flex flex-wrap items-center justify-between">
       {/* Left Section: Social Icons */}
       <div className="flex items-center gap-2">
         <Link href="https://www.facebook.com/TOJONews" target="_blank">
@@ -43,13 +43,15 @@ const MainHeader = () => {
 
       {/* Center Section: Logo */}
       <div className="flex justify-center w-full md:w-auto">
-        <Image
-          src={logo}
-          alt="TOJO News logo"
-          width={176}
-          height={80}
-          className="mx-auto"
-        />
+        <Link href="/" passHref>
+          <Image
+            src={logo}
+            alt="TOJO News logo"
+            width={176}
+            height={80}
+            className="mx-auto"
+          />
+        </Link>
       </div>
 
       {/* Right Section: Subscribe Button */}
