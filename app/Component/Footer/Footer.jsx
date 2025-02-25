@@ -1,10 +1,6 @@
 import React from "react";
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedinIn,
-} from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { FaTelegram, FaXTwitter, FaYoutube } from "react-icons/fa6";
 import footerLogo from "@/public/tojo-news-footer-logo.png";
 import Link from "next/link";
 import Image from "next/image";
@@ -55,17 +51,47 @@ const Footer = () => {
           </div>
           {/* footer socail media */}
           <div className="flex space-x-4">
-            <a href="#" className="text-gray-400 hover:text-white">
+            <a
+              href="https://www.facebook.com/profile.php?id=61561671656944&mibextid=ZbWKwL"
+              target="_blank"
+              className="flex items-center justify-center w-10 h-10 text-white border border-white rounded-full hover:bg-white hover:text-[#0A192F] transition text-xl"
+            >
               <FaFacebookF />
             </a>
-            <a href="#" className="text-gray-400 hover:text-white">
-              <FaTwitter />
+            <a
+              href="https://x.com/TOJONews24"
+              target="_blank"
+              className="flex items-center justify-center w-10 h-10 text-white border border-white rounded-full hover:bg-white hover:text-[#0A192F] transition text-xl"
+            >
+              <FaXTwitter />
             </a>
-            <a href="#" className="text-gray-400 hover:text-white">
+            <a
+              href="https://www.instagram.com/tojonews?igsh=ZXdiZ3JvbjBoYjB1"
+              target="_blank"
+              className="flex items-center justify-center w-10 h-10 text-white border border-white rounded-full hover:bg-white hover:text-[#0A192F] transition text-xl"
+            >
               <FaInstagram />
             </a>
-            <a href="#" className="text-gray-400 hover:text-white">
+            <a
+              href="https://www.linkedin.com/company/tojo-news"
+              target="_blank"
+              className="flex items-center justify-center w-10 h-10 text-white border border-white rounded-full hover:bg-white hover:text-[#0A192F] transition text-xl"
+            >
               <FaLinkedinIn />
+            </a>
+            <a
+              href="https://www.youtube.com/channel/@tojonews"
+              target="_blank"
+              className="flex items-center justify-center w-10 h-10 text-white border border-white rounded-full hover:bg-white hover:text-[#0A192F] transition text-xl"
+            >
+              <FaYoutube />
+            </a>
+            <a
+              href="https://t.me/tojo-news "
+              target="_blank"
+              className="flex items-center justify-center w-10 h-10 text-white border border-white rounded-full hover:bg-white hover:text-[#0A192F] transition text-xl"
+            >
+              <FaTelegram />
             </a>
           </div>
         </div>
