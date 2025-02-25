@@ -6,8 +6,8 @@ const NavigationBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-gray-100 w-full">
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-16">
+    <nav>
+      <div className="max-w-[1440px] h-[55px] flex justify-center items-center bg-light-gray w-full mx-auto px-4 sm:px-6 lg:px-16">
         {/* Desktop Navigation */}
         <div className="hidden md:flex justify-center items-center gap-8 h-11">
           {[
@@ -19,7 +19,7 @@ const NavigationBar = () => {
             "Events",
           ].map((item) => (
             <Link key={item} href={`/${item.toLowerCase()}`}>
-              <span className="text-purple-700 font-medium cursor-pointer hover:underline">
+              <span className="text-royal-indigo font-medium cursor-pointer hover:underline">
                 {item}
               </span>
             </Link>

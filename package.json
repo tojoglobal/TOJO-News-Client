@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.0.8",
+    "axios": "^1.7.9",
     "date-fns": "^4.1.0",
+    "gsap": "^3.12.7",
     "next": "15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

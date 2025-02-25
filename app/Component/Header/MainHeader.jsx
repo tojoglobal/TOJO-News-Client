@@ -2,39 +2,42 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import logo from "@/public/Tojo-News-Logo.png";
-// import logo from "@/public/logoWhite.jpg";
+import fb from "@/public/SocaiIcons/fb.png";
+import inst from "@/public/SocaiIcons/insta.png";
+import linkedin from "@/public/SocaiIcons/Linkedin.png";
+import twitterx from "@/public/SocaiIcons/X.png";
+
+// https://x.com/TOJONews24
+// https://www.linkedin.com/company/tojo-news/
+// https://t.me/tojo-news
+// https://www.instagram.com/tojonews?igsh=ZXdiZ3JvbjBoYjB1
+//https://www.pinterest.com/tojonews/
+//https://www.facebook.com/profile.php?id=61561671656944&mibextid=ZbWKwL
+//https://www.tiktok.com/@tojonewsofficial
+//https://www.youtube.com/channel/@tojonews
 
 const MainHeader = () => {
   return (
     <div className="max-w-[1440px] w-full h-24 mx-auto px-4 sm:px-10 md:px-16 lg:px-[162px] flex flex-wrap items-center justify-between">
       {/* Left Section: Social Icons */}
-      <div className="flex items-center gap-4">
-        <Link href="#">
-          <Image
-            src="/icons/facebook.svg"
-            alt="Facebook"
-            width={24}
-            height={24}
-          />
+      <div className="flex items-center gap-2">
+        <Link href="https://www.facebook.com/TOJONews" target="_blank">
+          <Image src={fb} alt="Facebook" width={24} height={24} />
         </Link>
-        <Link href="#">
-          <Image
-            src="/icons/instagram.svg"
-            alt="Instagram"
-            width={24}
-            height={24}
-          />
+        <Link
+          href="https://www.instagram.com/tojonews?igsh=ZXdiZ3JvbjBoYjB1"
+          target="_blank"
+        >
+          <Image src={inst} alt="Instagram" width={24} height={24} />
         </Link>
-        <Link href="#">
-          <Image src="/icons/x.svg" alt="X (Twitter)" width={24} height={24} />
+        <Link href="https://x.com/TOJONews24" target="_blank">
+          <Image src={twitterx} alt="X (Twitter)" width={24} height={24} />
         </Link>
-        <Link href="#">
-          <Image
-            src="/icons/linkedin.svg"
-            alt="LinkedIn"
-            width={24}
-            height={24}
-          />
+        <Link
+          href="https://www.linkedin.com/company/tojo-news/"
+          target="_blank"
+        >
+          <Image src={linkedin} alt="LinkedIn" width={24} height={24} />
         </Link>
       </div>
 
