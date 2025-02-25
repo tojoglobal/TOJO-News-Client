@@ -6,17 +6,22 @@ import { CiGlobe } from "react-icons/ci";
 const TopBar = () => {
   const formattedDate = format(new Date(), "EEEE, MMMM d, yyyy");
   return (
-    <div className="bg-royal-indigo w-[1440px] h-11 mx-auto px-[162px] flex items-center ">
+    <div className="bg-royal-indigo w-[1440px] h-11 mx-auto px-[162px] flex items-center">
       <div className="flex justify-between w-full text-white">
-        <h1>{formattedDate}</h1>
+        <h1 className="text-sm font-poppins font-normal">{formattedDate}</h1>
         <div className="flex items-center gap-7">
           <div className="flex items-center gap-2">
-            <Link href="/login">Login</Link>
+            <Link href="/login" className="text-sm font-poppins font-normal">
+              Login
+            </Link>
             <span>|</span>
-            <Link href="/register">Register</Link>
+            <Link href="/register" className="text-sm font-poppins font-normal">
+              Register
+            </Link>
           </div>
           <h2 className="flex items-center gap-1">
-            <CiGlobe /> <span>EN</span>
+            <CiGlobe />{" "}
+            <span className="text-sm font-poppins font-normal">EN</span>
           </h2>
         </div>
       </div>
