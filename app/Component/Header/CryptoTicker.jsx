@@ -45,7 +45,7 @@ const CryptoTicker = ({ symbol }) => {
       };
 
       ws.onclose = () => {
-        console.warn(`WebSocket closed: ${symbol}, reconnecting...`);
+        // console.warn(`WebSocket closed: ${symbol}, reconnecting...`);
         setTimeout(connectWebSocket, 2000); //2s timeout
       };
     };

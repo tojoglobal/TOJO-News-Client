@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import axios from "axios";
+import useApi from "./hooks/usePublicApi";
 
 const HomePage = () => {
   const [latestNews, setLatestNews] = useState([]);
@@ -9,6 +10,10 @@ const HomePage = () => {
   const [popularNews, setPopularNews] = useState([]);
   const [youtubeVideo, setYoutubeVideo] = useState(null);
   const [latestUploads, setLatestUploads] = useState([]);
+
+  const { data, error, loading } = useApi("/api/admin/blogpost");
+
+  console.log(data);
 
   useEffect(() => {
     // Fetch latest news

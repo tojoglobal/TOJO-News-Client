@@ -7,7 +7,7 @@ const TopBar = () => {
   const formattedDate = format(new Date(), "EEEE, MMMM d, yyyy");
   return (
     <div className="bg-royal-indigo  h-11 flex items-center">
-      <div className="max-w-[1440px] mx-auto px-[72px] flex justify-between w-full text-white">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-10 md:px-16 lg:px-[72px]  flex justify-between w-full text-white">
         <h1 className="text-sm font-poppins font-normal">{formattedDate}</h1>
         <div className="flex items-center gap-7">
           <div className="flex items-center gap-2">

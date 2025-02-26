@@ -8,7 +8,7 @@ import Image from "next/image";
 const Footer = () => {
   return (
     <footer className="bg-[#0A033C] text-white py-10">
-      <div className="max-w-[1440px] mx-auto px-[72px]">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-10 md:px-16 lg:px-[72px]">
         {/* Top Links */}
         <div className="flex flex-wrap items-center justify-between text-sm space-x-6 mb-6">
           {/*Footer logo */}
