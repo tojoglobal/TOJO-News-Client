@@ -25,3 +25,12 @@ body {
   background: var(--background);
   font-family: var(--font-poppins);
 }
+
+/* swiper */
+.swiper-button-prev,
+.swiper-button-next {
+  color: var(--color-royal-indigo) !important;
+}
+.swiper-pagination-bullet-active {
+  background-color: var(--color-royal-indigo) !important;
+}
