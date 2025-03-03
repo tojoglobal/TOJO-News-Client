@@ -7,6 +7,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
+import ContextProvider from "./context/AppContext";
 
 //Poppins Front
 const poppins = Poppins({
@@ -35,9 +36,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${poppins.variable} antialiased `}>
-        <Header />
-        {children}
-        <Footer />
+        <ContextProvider>
+          <Header />
+          {children}
+          <Footer />
+        </ContextProvider>
       </body>
     </html>
   );
