@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import ContextProvider from "./context/AppContext";
+import { ToastContainer } from "react-toastify";
 
 //Poppins Front
 const poppins = Poppins({
@@ -37,6 +38,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${poppins.variable} antialiased `}>
         <ContextProvider>
+          <ToastContainer />
           <Header />
           {children}
           <Footer />

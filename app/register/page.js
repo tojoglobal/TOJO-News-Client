@@ -1,10 +1,12 @@
+"use client";
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { updateProfile } from "firebase/auth";
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
-import { AppContext } from "../../Context/ContextProvider";
-import { useAxiospublic } from "../../Hook/useAxiospublic";
+import Link from "next/link";
+import { useAxiospublic } from "../hooks/useAxiospublic";
+import { AppContext } from "../context/AppContext";
+import { useRouter } from "next/navigation";
 
 const Registration = () => {
   const { RegisterUser, setUser, loginWithGoogle } = useContext(AppContext);
@@ -14,7 +16,7 @@ const Registration = () => {
   const [photoUrl, setPhotoUrl] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const navigate = useNavigate();
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   // Password validation function
   const validatePassword = (password) => {
@@ -75,7 +77,7 @@ const Registration = () => {
         // New user successfully registered
         setUser(response.data.newUser);
         toast.success("Registration successfully!");
-        navigate("/");
+        router.push("/");
       } else if (response.data.existingUser) {
         // User already exists
         setUser(response.data.existingUser);
@@ -108,7 +110,7 @@ const Registration = () => {
         // New user successfully registered
         setUser(response.data.newUser);
         toast.success("Google account registered successfully!");
-        navigate("/");
+        router.push("/");
       } else if (response.data.existingUser) {
         // User already exists
         setUser(response.data.existingUser);
@@ -202,7 +204,7 @@ const Registration = () => {
           {/* Register Button */}
           <button
             type="submit"
-            className="w-full py-3 bg-gradient-to-r from-[#031741] via-[#03d2fc] to-[#022d33] text-white font-bold rounded-lg hover:bg-gradient-to-r from-blue-400 to-green-500 transition duration-300"
+            className="w-full py-3 bg-gradient-to-r from-[#031741] via-[#03d2fc] to-[#022d33] text-white font-bold rounded-lg hover:bg-gradient-to-r hover:from-blue-400 hover:to-green-500 transition duration-300"
           >
             Register
           </button>
@@ -227,7 +229,7 @@ const Registration = () => {
         <p className="text-center text-gray-600 dark:text-white mt-6">
           Already have an account?{" "}
           <Link
-            to="/login"
+            href="/login"
             className="text-blue-600 dark:text-teal-500 hover:underline"
           >
             Login

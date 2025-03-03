@@ -20,14 +20,19 @@ const ContextProvider = ({ children }) => {
   // axios public import
   const axiosPublic = useAxiospublic();
   // api url
-  // const apiUrl = "http://localhost:5001";
-  const apiUrl = "https://server-side-seven-beta.vercel.app";
+  const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   // user State
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || null
-  );
+  const [user, setUser] = useState(null);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedUser = JSON.parse(localStorage.getItem("user")) || null;
+      setUser(storedUser);
+    }
+  }, []);
+
+  // logout user
   const [isLoading, setIsLoading] = useState(true);
 
   // singup or Register user
@@ -75,7 +80,7 @@ const ContextProvider = ({ children }) => {
               photoURL: updatedUser.photoURL,
               email: updatedUser.email,
             };
-            localStorage.setItem("user", JSON.stringify(newUser)); // ✅ Update local storage
+            window.localStorage.setItem("user", JSON.stringify(newUser)); // ✅ Update local storage
             return newUser;
           });
           toast.success("Profile updated successfully!");
@@ -93,8 +98,8 @@ const ContextProvider = ({ children }) => {
   //   return signOut(auth);
   // };
   const logoutUser = async () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("access-token");
+    windowlocalStorage.removeItem("user");
+    window.localStorage.removeItem("access-token");
     setUser(null);
     await signOut(auth);
   };
@@ -113,18 +118,18 @@ const ContextProvider = ({ children }) => {
         try {
           const res = await axiosPublic.post("/api/jwt", loggedInUser);
           if (res.data.success) {
-            localStorage.setItem("access-token", res.data.token);
+            window.localStorage.setItem("access-token", res.data.token);
           }
         } catch (error) {
           console.error("JWT error:", error);
         }
 
         setUser(loggedInUser);
-        localStorage.setItem("user", JSON.stringify(loggedInUser));
+        window.localStorage.setItem("user", JSON.stringify(loggedInUser));
       } else {
         setUser(null);
-        localStorage.removeItem("user");
-        localStorage.removeItem("access-token");
+        window.localStorage.removeItem("user");
+        window.localStorage.removeItem("access-token");
       }
       setIsLoading(false);
     });

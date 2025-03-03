@@ -1,17 +1,20 @@
+"use client";
 import React, { useContext, useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+
 import { toast } from "react-toastify";
 
 import { FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
-import { AppContext } from "../../Context/ContextProvider";
+import Link from "next/link";
+import { redirect, usePathname, useRouter } from "next/navigation";
+import { AppContext } from "../context/AppContext";
 
 const Login = () => {
   const { loginUser, setUser, loginWithGoogle } = useContext(AppContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
+  const location = usePathname();
 
   // Get the desired route or default to home page
   const from = location.state?.from?.pathname || "/";
@@ -39,7 +42,7 @@ const Login = () => {
         setUser(userData);
         localStorage.setItem("authToken", user.accessToken);
         toast.success("Login successful!");
-        navigate(from, { replace: true });
+        router.push(from, { replace: true });
       })
       .catch((error) => {
         // Handle errors based on Firebase error codes
@@ -61,7 +64,7 @@ const Login = () => {
     try {
       await loginWithGoogle();
       toast.success("Google login successful!");
-      navigate(from, { replace: true });
+      router.push(from, { replace: true });
     } catch (error) {
       toast.error("Google login failed!");
     }
@@ -138,7 +141,7 @@ const Login = () => {
         <p className="text-center text-gray-600 mt-6 dark:text-white">
           Don't have an account?{" "}
           <Link
-            to="/register"
+            href="/register"
             className="text-blue-600 dark:text-teal-500 hover:underline"
           >
             Register
