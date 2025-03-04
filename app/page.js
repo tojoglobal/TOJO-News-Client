@@ -102,7 +102,7 @@ const HomePage = () => {
         <div className="md:col-span-9 space-y-6">
           {/* Last Uploaded News */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
-            {latestUploads?.Result.length > 0 ? (
+            {latestUploads?.Result?.length > 0 ? (
               <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
                 navigation
