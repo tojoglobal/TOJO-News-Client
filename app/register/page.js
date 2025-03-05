@@ -70,6 +70,7 @@ const Registration = () => {
         displayName: name,
         photoURL: photoUrl,
       };
+      console.log(userData);
 
       // Use Axios to make the POST request
       const response = await axiosPublic.post("/api/register", userData);
