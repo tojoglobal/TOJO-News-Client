@@ -7,9 +7,11 @@ import { FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
 import { redirect, usePathname, useRouter } from "next/navigation";
 import { AppContext } from "../context/AppContext";
+import { useAxiospublic } from "../hooks/useAxiospublic";
 
 const Login = () => {
   const { loginUser, setUser, loginWithGoogle } = useContext(AppContext);
+  const axiosPublic = useAxiospublic();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -22,13 +24,11 @@ const Login = () => {
   //   handle login from
   const handleLogin = (e) => {
     e.preventDefault();
-
     // Validate input
     if (!email || !password) {
       toast.error("Please enter both email and password.");
       return;
     }
-
     // Attempt to log in the user with email and password
     loginUser(email, password)
       .then((userCredential) => {
@@ -47,7 +47,6 @@ const Login = () => {
       .catch((error) => {
         // Handle errors based on Firebase error codes
         const errorMessage = error.code;
-
         if (errorMessage === "auth/user-not-found") {
           toast.error("User not found. Please check the email.");
         } else if (errorMessage === "auth/wrong-password") {
@@ -62,11 +61,40 @@ const Login = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      await loginWithGoogle();
-      toast.success("Google login successful!");
-      router.push(from, { replace: true });
+      // Log in with Google
+      const userCredential = await loginWithGoogle();
+      const user = userCredential?.user;
+
+      // Extract user data
+      const userData = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+      };
+      console.log(userData);
+
+      // Send user data to the server for registration/check
+      const response = await axiosPublic.post("/api/register", userData);
+
+      if (response.status === 201 && response.data.newUser) {
+        // New user registered
+        setUser(response.data.newUser);
+        toast.success("Google account registered successfully!");
+      } else if (response.data.existingUser) {
+        // User already exists
+        setUser(response.data.existingUser);
+        toast.success("Login successful!");
+      }
+
+      // Redirect user after successful login
+      router.push(from || "/", { replace: true });
     } catch (error) {
-      toast.error("Google login failed!");
+      if (error.code === "auth/email-already-in-use") {
+        toast.error("Email already in use. Please login.");
+      } else {
+        toast.error("Google login failed!");
+      }
     }
   };
 
@@ -116,7 +144,7 @@ const Login = () => {
           {/* Login Button */}
           <button
             type="submit"
-            className="w-full py-3 bg-gradient-to-r from-[#031741] via-[#03d2fc] to-[#022d33] text-white font-bold rounded-lg hover:bg-gradient-to-r from-blue-400 to-green-500 transition duration-300"
+            className="w-full py-3 bg-gradient-to-r from-[#031741] via-[#03d2fc] to-[#022d33] text-white font-bold rounded-lg hover:bg-gradient-to-r  transition duration-300"
           >
             Login
           </button>
@@ -139,7 +167,7 @@ const Login = () => {
 
         {/* Register Link */}
         <p className="text-center text-gray-600 mt-6 dark:text-white">
-          Don't have an account?{" "}
+          Don&lsquo;t have an account?{" "}
           <Link
             href="/register"
             className="text-blue-600 dark:text-teal-500 hover:underline"

@@ -70,8 +70,6 @@ const Registration = () => {
         displayName: name,
         photoURL: photoUrl,
       };
-      console.log(userData);
-
       // Use Axios to make the POST request
       const response = await axiosPublic.post("/api/register", userData);
       if (response.status === 201 && response.data.newUser) {
@@ -85,7 +83,6 @@ const Registration = () => {
         toast.info("Welcome back! You are already registered.");
       }
     } catch (error) {
-      console.error("Registration error:", error);
       if (error.code === "auth/email-already-in-use") {
         toast.error("Email already in use. Please login.");
       }
@@ -105,6 +102,8 @@ const Registration = () => {
         displayName: user.displayName,
         photoURL: user.photoURL,
       };
+      console.log(userData);
+
       // Send the user data to the server to check or register
       const response = await axiosPublic.post("/api/register", userData);
       if (response.status === 201 && response.data.newUser) {
@@ -116,9 +115,9 @@ const Registration = () => {
         // User already exists
         setUser(response.data.existingUser);
         toast.info("Welcome back! You are already registered.");
+        router.push("/");
       }
     } catch (error) {
-      console.error("Google registration error:", error);
       toast.error("Google registration failed!");
     }
   };

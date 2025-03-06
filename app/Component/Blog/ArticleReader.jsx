@@ -5,7 +5,7 @@ import { useIdle } from "react-use";
 
 export default function ArticleReader({ articleId, articleContent }) {
   const [timeSpent, setTimeSpent] = useState(0);
-  const isIdle = useIdle(10000); // 10 seconds inactivity = idle
+  const isIdle = useIdle(10000);
   const intervalRef = useRef(null);
 
   // Generate session ID and get user ID
@@ -15,19 +15,19 @@ export default function ArticleReader({ articleId, articleContent }) {
   useEffect(() => {
     const storedTime = localStorage.getItem(`readingTime-${articleId}`);
     if (storedTime) setTimeSpent(parseInt(storedTime, 10));
-
     const startTime = Date.now();
+    console.log(startTime);
 
     intervalRef.current = setInterval(() => {
       if (!isIdle) {
         const elapsedTime = Math.round((Date.now() - startTime) / 1000);
         setTimeSpent((prev) => {
           const newTime = prev + elapsedTime;
-          localStorage.setItem(`readingTime-${articleId}`, newTime);
+          window.localStorage.setItem(`readingTime-${articleId}`, newTime);
           return newTime;
         });
       }
-    }, 10000); // Update every 10 seconds
+    }, 10000);
 
     return () => clearInterval(intervalRef.current);
   }, [isIdle]);
@@ -62,7 +62,7 @@ export default function ArticleReader({ articleId, articleContent }) {
 
   // Function to track article views
   useEffect(() => {
-    axios.post("/api/admin/updateViews", { articleId, userId, sessionId });
+    axios.post("/api/updateViews", { articleId, userId, sessionId });
   }, [articleId]);
 
   // Function to handle likes
@@ -98,5 +98,5 @@ const getSessionId = () => {
 };
 
 const getUserId = () => {
-  return localStorage.getItem("user_id") || null; // Assume user ID is stored
+  return window.localStorage?.getItem("user_id") || null;
 };

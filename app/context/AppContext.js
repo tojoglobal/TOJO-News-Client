@@ -95,13 +95,14 @@ const ContextProvider = ({ children }) => {
 
   // Logout User
   // const logoutUser = () => {
+  //   setUser(null);
   //   return signOut(auth);
   // };
   const logoutUser = async () => {
-    windowlocalStorage.removeItem("user");
+    window.localStorage.removeItem("user");
     window.localStorage.removeItem("access-token");
     setUser(null);
-    await signOut(auth);
+    return await signOut(auth);
   };
 
   // any change user Listen for authentication state changes
