@@ -1,9 +1,11 @@
 "use client";
+import { useAxiospublic } from "@/app/hooks/useAxiospublic";
 import axios from "axios";
 import { useEffect, useState, useRef } from "react";
 import { useIdle } from "react-use";
 
 export default function ArticleReader({ articleId, articleContent }) {
+  const axioPublicUrl = useAxiospublic();
   const [timeSpent, setTimeSpent] = useState(0);
   const isIdle = useIdle(10000);
   const intervalRef = useRef(null);
@@ -49,7 +51,7 @@ export default function ArticleReader({ articleId, articleContent }) {
           });
           navigator.sendBeacon("/api/admin/updateReadingTime", blob);
         } else {
-          axios.post("/api/admin/updateReadingTime", payload);
+          axioPublicUrl.post("/api/admin/updateReadingTime", payload);
         }
 
         localStorage.removeItem(`readingTime-${articleId}`);
@@ -62,12 +64,14 @@ export default function ArticleReader({ articleId, articleContent }) {
 
   // Function to track article views
   useEffect(() => {
-    axios.post("/api/updateViews", { articleId, userId, sessionId });
+    console.log({ articleId, userId, sessionId });
+
+    axioPublicUrl.post("/api/updateViews", { articleId, userId, sessionId });
   }, [articleId]);
 
   // Function to handle likes
   const handleLike = async (type) => {
-    await axios.post("/api/admin/updateLikes", {
+    await axioPublicUrl.post("/api/admin/updateLikes", {
       articleId,
       userId,
       likeType: type,
