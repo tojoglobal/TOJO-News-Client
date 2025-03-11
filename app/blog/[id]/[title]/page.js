@@ -13,34 +13,59 @@ const getBlogPost = async (id) => {
   }
 };
 
+const getView = async (id) => {
+  console.log(id);
+  try {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/${id}/view`
+    );
+    return data.Result || null;
+  } catch (error) {
+    return null;
+  }
+};
+
 export default async function BlogPost({ params }) {
   const { id } = await params;
-  const [blog] = await getBlogPost(id);
+  const blog = await getBlogPost(id);
+  const view = await getView(id);
 
-  if (!blog) {
+  console.log(id, view);
+
+  if (!blog || blog.length === 0) {
     return <div className="text-center text-red-500">Blog post not found</div>;
   }
-  console.log(blog);
+  console.log(blog[0]);
 
-  const stats = readingTime(blog.articalpost || "");
+  const {
+    subtitle,
+    dateAndTime,
+    author,
+    category,
+    commentsCount,
+    likesCount,
+    dislikesCount,
+    viewsCount,
+    articalpost,
+  } = blog[0];
+
+  const stats = readingTime(blog[0]?.articalpost || "");
 
   return (
     <div className="max-w-3xl mx-auto p-6">
-      <h1 className="text-3xl font-bold">{blog?.subtitle}</h1>
+      <h1 className="text-3xl font-bold">{subtitle}</h1>
       <div>
-        <p className="text-gray-600">
-          {new Date(blog?.dateAndTime).toDateString()}
-        </p>
+        <p className="text-gray-600">{new Date(dateAndTime).toDateString()}</p>
         <span className="text-sm">Reading Time: {stats.text}</span>
-        <span className="ml-2 text-sm">Author: {blog?.author}</span>
-        <span className="ml-2 text-sm">Category: {blog?.category}</span>
-        <span className="ml-2 text-sm">Comments: {blog?.commentsCount}</span>
-        <span className="ml-2 text-sm">Likes: {blog?.likesCount}</span>
-        <span className="ml-2 text-sm">Dislikes: {blog?.dislikesCount}</span>
-        <span className="ml-2 text-sm">Views: {blog?.viewsCount}</span>
+        <span className="ml-2 text-sm">Author: {author}</span>
+        <span className="ml-2 text-sm">Category: {category}</span>
+        <span className="ml-2 text-sm">Comments: {commentsCount}</span>
+        <span className="ml-2 text-sm">Likes: {likesCount}</span>
+        <span className="ml-2 text-sm">Dislikes: {dislikesCount}</span>
+        <span className="ml-2 text-sm">Views: {viewsCount}</span>
       </div>
 
-      <ArticleReader articleId={id} articleContent={blog?.articalpost} />
+      <ArticleReader articleId={id} articleContent={articalpost} />
     </div>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 import { useAxiospublic } from "@/app/hooks/useAxiospublic";
-import axios from "axios";
 import { useEffect, useState, useRef } from "react";
 import { useIdle } from "react-use";
 
@@ -9,6 +8,7 @@ export default function ArticleReader({ articleId, articleContent }) {
   const [timeSpent, setTimeSpent] = useState(0);
   const isIdle = useIdle(10000);
   const intervalRef = useRef(null);
+  const hasViewed = useRef(false);
 
   // Generate session ID and get user ID
   const sessionId = getSessionId();
@@ -63,10 +63,11 @@ export default function ArticleReader({ articleId, articleContent }) {
   }, [timeSpent]);
 
   // Function to track article views
-  useEffect(() => {
-    console.log({ articleId, userId, sessionId });
 
-    axioPublicUrl.post("/api/updateViews", { articleId, userId, sessionId });
+  useEffect(() => {
+    if (hasViewed.current) return;
+    hasViewed.current = true;
+    axioPublicUrl.post("/api/updateViews", { articleId });
   }, [articleId]);
 
   // Function to handle likes
@@ -92,15 +93,22 @@ export default function ArticleReader({ articleId, articleContent }) {
 }
 
 // Function to generate session ID (modify based on auth system)
+
 const getSessionId = () => {
-  let sessionId = localStorage.getItem("session_id");
-  if (!sessionId) {
-    sessionId = crypto.randomUUID(); // Generate unique ID
-    localStorage.setItem("session_id", sessionId);
+  if (typeof window !== "undefined") {
+    let sessionId = localStorage.getItem("session_id") || null;
+    if (!sessionId) {
+      sessionId = crypto.randomUUID(); // Generate unique ID
+      localStorage.setItem("session_id", sessionId);
+    }
+    return sessionId;
   }
-  return sessionId;
+  return null;
 };
 
 const getUserId = () => {
-  return window.localStorage?.getItem("user_id") || null;
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("user_id") || null;
+  }
+  return null;
 };
