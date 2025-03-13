@@ -14,28 +14,28 @@ const getBlogPost = async (id) => {
 };
 
 const getView = async (id) => {
-  console.log(id);
   try {
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/${id}/view`
     );
-    return data.Result || null;
+    return data.viewCount || 0;
   } catch (error) {
-    return null;
+    return 0;
   }
 };
 
 export default async function BlogPost({ params }) {
   const { id } = await params;
-  const blog = await getBlogPost(id);
-  const view = await getView(id);
+  // const blog = await getBlogPost(id);
+  // const view = await getView(id);
+  const [blog, viewCount] = await Promise.all([getBlogPost(id), getView(id)]);
 
-  console.log(id, view);
+  console.log(blog);
+  console.log(viewCount);
 
   if (!blog || blog.length === 0) {
     return <div className="text-center text-red-500">Blog post not found</div>;
   }
-  console.log(blog[0]);
 
   const {
     subtitle,
@@ -62,7 +62,7 @@ export default async function BlogPost({ params }) {
         <span className="ml-2 text-sm">Comments: {commentsCount}</span>
         <span className="ml-2 text-sm">Likes: {likesCount}</span>
         <span className="ml-2 text-sm">Dislikes: {dislikesCount}</span>
-        <span className="ml-2 text-sm">Views: {viewsCount}</span>
+        <span className="ml-2 text-sm">Views: {viewCount}</span>
       </div>
 
       <ArticleReader articleId={id} articleContent={articalpost} />

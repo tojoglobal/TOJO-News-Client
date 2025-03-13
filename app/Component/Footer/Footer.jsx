@@ -10,7 +10,7 @@ const Footer = () => {
     <footer className="bg-[#0A033C] text-white py-10">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-10 md:px-16 lg:px-[72px]">
         {/* Top Links */}
-        <div className="flex flex-wrap items-center justify-between text-sm space-x-6 mb-6">
+        <div className="md:flex flex-wrap items-center justify-between text-sm space-x-6 mb-6">
           {/*Footer logo */}
           <div>
             <Link href="/" passHref>
@@ -24,7 +24,7 @@ const Footer = () => {
             </Link>
           </div>
           {/* foote nav */}
-          <div className="flex flex-wrap items-center justify-between space-x-3 text-[16px]">
+          <div className="flex mt-5 md:mt-1 flex-wrap items-center justify-center md:justify-between space-x-1 md:space-x-3 text-[16px]">
             <a href="#" className="hover:underline">
               Home
             </a>
@@ -50,7 +50,7 @@ const Footer = () => {
             </a>
           </div>
           {/* footer socail media */}
-          <div className="flex space-x-4">
+          <div className="flex space-x-4 mt-5 md:mt-1 ">
             <a
               href="https://www.facebook.com/profile.php?id=61561671656944&mibextid=ZbWKwL"
               target="_blank"
@@ -96,7 +96,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex justify-between items-start mt-5 border-t border-gray-600 pt-5">
+        <div className="flex-none md:flex justify-between items-start mt-5 border-t border-gray-600 pt-5">
           {/* Left - About Section */}
           <div className="max-w-[400px]">
             <h3 className="text-lg font-semibold mb-2">ABOUT</h3>
