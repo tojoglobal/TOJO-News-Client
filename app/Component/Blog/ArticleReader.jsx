@@ -7,70 +7,73 @@ export default function ArticleReader({ articleId, articleContent }) {
   const axioPublicUrl = useAxiospublic();
   const [timeSpent, setTimeSpent] = useState(0);
   const isIdle = useIdle(10000);
-  const intervalRef = useRef(null);
+  const lastActiveTimeRef = useRef(Date.now());
   const hasViewed = useRef(false);
 
-  // Generate session ID and get user ID
   const sessionId = getSessionId();
   const userId = getUserId();
 
   useEffect(() => {
+    // Restore previous time spent from localStorage
     const storedTime = localStorage.getItem(`readingTime-${articleId}`);
     if (storedTime) setTimeSpent(parseInt(storedTime, 10));
-    const startTime = Date.now();
-    console.log(startTime);
 
-    intervalRef.current = setInterval(() => {
+    // Start tracking time
+    const interval = setInterval(() => {
       if (!isIdle) {
-        const elapsedTime = Math.round((Date.now() - startTime) / 1000);
+        const now = Date.now();
+        const elapsedTime = Math.round(
+          (now - lastActiveTimeRef.current) / 1000
+        );
+        lastActiveTimeRef.current = now;
+
         setTimeSpent((prev) => {
           const newTime = prev + elapsedTime;
-          window.localStorage.setItem(`readingTime-${articleId}`, newTime);
+          localStorage.setItem(`readingTime-${articleId}`, newTime);
           return newTime;
         });
       }
-    }, 10000);
+    }, 5000);
 
-    return () => clearInterval(intervalRef.current);
-  }, [isIdle]);
+    return () => clearInterval(interval);
+  }, [isIdle, articleId]);
 
-  useEffect(() => {
-    const sendReadingTime = () => {
-      if (timeSpent > 0) {
-        const payload = {
-          articleId,
-          userId,
-          sessionId,
-          duration: timeSpent,
-        };
-
-        // Use navigator.sendBeacon for reliability
-        if (navigator.sendBeacon) {
-          const blob = new Blob([JSON.stringify(payload)], {
-            type: "application/json",
-          });
-          navigator.sendBeacon("/api/admin/updateReadingTime", blob);
-        } else {
-          axioPublicUrl.post("/api/admin/updateReadingTime", payload);
-        }
-
+  // Function to send reading time data when user leaves the page
+  const sendReadingTime = async () => {
+    if (timeSpent > 0) {
+      const payload = { articleId, duration: timeSpent };
+      console.log("Sending reading time:", payload);
+      try {
+        await axioPublicUrl.post("/api/updatereadingtime", payload);
         localStorage.removeItem(`readingTime-${articleId}`);
+      } catch (error) {
+        console.error("Failed to send reading time:", error);
       }
-    };
+    }
+  };
 
-    window.addEventListener("beforeunload", sendReadingTime);
-    return () => window.removeEventListener("beforeunload", sendReadingTime);
-  }, [timeSpent]);
-
-  // Function to track article views
-
+  // Listen for tab close or page leave
   useEffect(() => {
-    if (hasViewed.current) return;
-    hasViewed.current = true;
-    axioPublicUrl.post("/api/updateViews", { articleId });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) sendReadingTime();
+    });
+    window.addEventListener("beforeunload", sendReadingTime);
+
+    return () => {
+      document.removeEventListener("visibilitychange", sendReadingTime);
+      window.removeEventListener("beforeunload", sendReadingTime);
+    };
+  }, [timeSpent, articleId]);
+
+  // Track article views (only once)
+  useEffect(() => {
+    if (!hasViewed.current) {
+      hasViewed.current = true;
+      axioPublicUrl.post("/api/updateViews", { articleId });
+    }
   }, [articleId]);
 
-  // Function to handle likes
+  // Handle likes
   const handleLike = async (type) => {
     await axioPublicUrl.post("/api/admin/updateLikes", {
       articleId,
@@ -92,13 +95,12 @@ export default function ArticleReader({ articleId, articleContent }) {
   );
 }
 
-// Function to generate session ID (modify based on auth system)
-
+// Helper functions for session and user ID
 const getSessionId = () => {
   if (typeof window !== "undefined") {
     let sessionId = localStorage.getItem("session_id") || null;
     if (!sessionId) {
-      sessionId = crypto.randomUUID(); // Generate unique ID
+      sessionId = crypto.randomUUID();
       localStorage.setItem("session_id", sessionId);
     }
     return sessionId;
