@@ -9,7 +9,6 @@ export default function ArticleReader({ articleId, articleContent }) {
   const isIdle = useIdle(10000);
   const lastActiveTimeRef = useRef(Date.now());
   const hasViewed = useRef(false);
-
   const sessionId = getSessionId();
   const userId = getUserId();
 
@@ -40,9 +39,14 @@ export default function ArticleReader({ articleId, articleContent }) {
 
   // Function to send reading time data when user leaves the page
   const sendReadingTime = async () => {
-    if (timeSpent > 0) {
-      const payload = { articleId, duration: timeSpent };
-      console.log("Sending reading time:", payload);
+    const storedTime = localStorage.getItem(`readingTime-${articleId}`);
+    const totalReadingTime = storedTime ? parseInt(storedTime, 10) : 0;
+    const readingTimeInMinutes = Math.floor(totalReadingTime / 60);
+
+    if (readingTimeInMinutes >= 1) {
+      // Ensure at least 1 minute before sending
+      const payload = { articleId, duration: readingTimeInMinutes };
+      console.log("Sending final reading time (in minutes):", payload);
       try {
         await axioPublicUrl.post("/api/updatereadingtime", payload);
         localStorage.removeItem(`readingTime-${articleId}`);
@@ -54,14 +58,16 @@ export default function ArticleReader({ articleId, articleContent }) {
 
   // Listen for tab close or page leave
   useEffect(() => {
-    document.addEventListener("visibilitychange", () => {
+    const handleVisibilityChange = () => {
       if (document.hidden) sendReadingTime();
-    });
+    };
+
     window.addEventListener("beforeunload", sendReadingTime);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
-      document.removeEventListener("visibilitychange", sendReadingTime);
       window.removeEventListener("beforeunload", sendReadingTime);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [timeSpent, articleId]);
 
@@ -73,20 +79,10 @@ export default function ArticleReader({ articleId, articleContent }) {
     }
   }, [articleId]);
 
-  // Handle likes
-  const handleLike = async (type) => {
-    await axioPublicUrl.post("/api/admin/updateLikes", {
-      articleId,
-      userId,
-      likeType: type,
-    });
-  };
-
   return (
     <div>
       <p>Time Spent: {timeSpent} sec</p>
-      <button onClick={() => handleLike("like")}>👍 Like</button>
-      <button onClick={() => handleLike("dislike")}>👎 Dislike</button>
+
       <div
         dangerouslySetInnerHTML={{ __html: articleContent || "" }}
         className="mt-4 text-lg"

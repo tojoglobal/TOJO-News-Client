@@ -1,7 +1,8 @@
-import ArticleReader from "@/app/Component/Blog/ArticleReader";
+import ArticleReader from "@/app/blog/[id]/[title]/(BLogComponent)/ArticleReader";
 import axios from "axios";
 import readingTime from "reading-time";
 import GetView from "./(BLogComponent)/GetView";
+import LoveBtn from "./(BLogComponent)/LoveBtn";
 
 const getBlogPost = async (id) => {
   try {
@@ -49,6 +50,9 @@ export default async function BlogPost({ params }) {
         <GetView blogId={id} />
       </div>
       <ArticleReader articleId={id} articleContent={articalpost} />
+      <div>
+        <LoveBtn articleId={id} />
+      </div>
     </div>
   );
 }
