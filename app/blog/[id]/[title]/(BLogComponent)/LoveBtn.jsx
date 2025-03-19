@@ -46,7 +46,7 @@ const LoveBtn = ({ articleId }) => {
       });
 
       if (res.data.success) {
-        setLikes((prev) => prev + (hasLiked ? -1 : 1)); // Toggle like count
+        setLikes((prev) => prev + (hasLiked ? -1 : 1));
         setHasLiked(!hasLiked);
       }
     } catch (error) {
