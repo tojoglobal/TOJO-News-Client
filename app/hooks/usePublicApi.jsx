@@ -13,8 +13,10 @@ const useApi = (endpoint, options = {}) => {
           options
         );
         if (!response.ok) throw new Error("Failed to fetch data");
-        const result = await response.json();
-        setData(result);
+        if (response.status === 200) {
+          const result = await response.json();
+          setData(result.Result);
+        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -23,7 +25,7 @@ const useApi = (endpoint, options = {}) => {
     };
 
     fetchData();
-  }, [endpoint, options]);
+  }, [endpoint, JSON.stringify(options)]);
 
   return { data, error, loading };
 };

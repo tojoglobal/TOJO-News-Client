@@ -13,7 +13,7 @@ const PopularNews = () => {
 
   useEffect(() => {
     axiosPublicUrl
-      .get("/api/getLatestNews")
+      .get("/api/getMostPopulerViews")
       .then((res) => {
         setPopularNews(res.data.result || []);
         setLoading(false);
