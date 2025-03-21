@@ -1,12 +1,14 @@
 "use client";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import MarketSkeleton from "./HomeSkeleton/MarketSkeleton";
 
 const WatchMarketToday = () => {
   const [latestVideoUrl, setLatestVideoUrl] = useState("");
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [latestVideoTitle, setLatestVideoTitle] = useState("");
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // YouTube Video Data
   useEffect(() => {
@@ -28,80 +30,82 @@ const WatchMarketToday = () => {
             `https://img.youtube.com/vi/${latestVideoId}/hqdefault.jpg`
           );
           setLatestVideoTitle(video.snippet.title);
+          setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching latest video:", error);
+        setLoading(false);
       }
     };
 
     fetchLatestVideo();
   }, []);
 
-  return (
-    <div className="bg-white p-4 rounded-lg shadow-md text-left">
-      <h2 className="text-lg font-bold text-purple-800 mb-3">
-        {"Watch Market Today"}
-      </h2>
-
-      {isVideoPlaying && latestVideoUrl ? (
-        // Embed YouTube Video when user clicks the button
-        <iframe
-          className="w-full h-48 md:h-64 rounded-lg"
-          src={latestVideoUrl || undefined}
-          title={latestVideoTitle || "YouTube Video"}
-          allowFullScreen
-          onEnded={() => setIsVideoPlaying(false)}
-          onLoadedData={() => setIsVideoPlaying(true)}
-          onPause={() => setIsVideoPlaying(false)}
-          onPlay={() => setIsVideoPlaying(true)}
-          onSeeked={() => setIsVideoPlaying(false)}
-          onTimeUpdate={() => setIsVideoPlaying(true)}
-          onVolumeChange={() => setIsVideoPlaying(true)}
-          onWaiting={() => setIsVideoPlaying(false)}
-        />
-      ) : (
-        // Show the thumbnail with a play button before clicking
-        thumbnailUrl && (
-          <div
-            className="relative w-full h-60 md:h-[183px] cursor-pointer"
-            onClick={() => {
-              setLatestVideoUrl(`${latestVideoUrl}?autoplay=1`);
-              setIsVideoPlaying(true);
-            }}
-          >
-            <img
-              className="w-full h-full object-cover rounded-lg"
-              src={thumbnailUrl || undefined}
-              alt={latestVideoTitle || "Video Thumbnail"}
-            />
-            {/* Play Button  */}
-            <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 rounded-lg">
-              <a className="button is-play" href="#17171731">
-                <div className="button-outer-circle has-scale-animation"></div>
-                <div className="button-outer-circle has-scale-animation has-delay-short"></div>
-                <div className="button-icon is-play">
-                  <svg height="100%" width="100%" fill="#gggf">
-                    <polygon
-                      className="triangle"
-                      points="5,0 30,15 5,30"
-                      viewBox="0 0 30 15"
-                    ></polygon>
-                    <path
-                      className="path"
-                      d="M5,0 L30,15 L5,30z"
-                      fill="none"
-                      // stroke="white"
-                      strokeWidth="1"
-                    ></path>
-                  </svg>
-                </div>
-              </a>
-            </div>
-          </div>
-        )
-      )}
-    </div>
-  );
+  if (loading) {
+    return <MarketSkeleton />;
+  }
+  return <MarketSkeleton />;
+  // return (
+  //   <div>
+  //     {isVideoPlaying && latestVideoUrl ? (
+  //       // Embed YouTube Video when user clicks the button
+  //       <iframe
+  //         className="w-full h-48 md:h-64 rounded-lg"
+  //         src={latestVideoUrl || undefined}
+  //         title={latestVideoTitle || "YouTube Video"}
+  //         allowFullScreen
+  //         onEnded={() => setIsVideoPlaying(false)}
+  //         onLoadedData={() => setIsVideoPlaying(true)}
+  //         onPause={() => setIsVideoPlaying(false)}
+  //         onPlay={() => setIsVideoPlaying(true)}
+  //         onSeeked={() => setIsVideoPlaying(false)}
+  //         onTimeUpdate={() => setIsVideoPlaying(true)}
+  //         onVolumeChange={() => setIsVideoPlaying(true)}
+  //         onWaiting={() => setIsVideoPlaying(false)}
+  //       />
+  //     ) : (
+  //       // Show the thumbnail with a play button before clicking
+  //       thumbnailUrl && (
+  //         <div
+  //           className="relative w-full h-60 md:h-[183px] cursor-pointer"
+  //           onClick={() => {
+  //             setLatestVideoUrl(`${latestVideoUrl}?autoplay=1`);
+  //             setIsVideoPlaying(true);
+  //           }}
+  //         >
+  //           <img
+  //             className="w-full h-full object-cover rounded-lg"
+  //             src={thumbnailUrl || undefined}
+  //             alt={latestVideoTitle || "Video Thumbnail"}
+  //           />
+  //           {/* Play Button  */}
+  //           <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 rounded-lg">
+  //             <a className="button is-play" href="#17171731">
+  //               <div className="button-outer-circle has-scale-animation"></div>
+  //               <div className="button-outer-circle has-scale-animation has-delay-short"></div>
+  //               <div className="button-icon is-play">
+  //                 <svg height="100%" width="100%" fill="#gggf">
+  //                   <polygon
+  //                     className="triangle"
+  //                     points="5,0 30,15 5,30"
+  //                     viewBox="0 0 30 15"
+  //                   ></polygon>
+  //                   <path
+  //                     className="path"
+  //                     d="M5,0 L30,15 L5,30z"
+  //                     fill="none"
+  //                     // stroke="white"
+  //                     strokeWidth="1"
+  //                   ></path>
+  //                 </svg>
+  //               </div>
+  //             </a>
+  //           </div>
+  //         </div>
+  //       )
+  //     )}
+  //   </div>
+  // );
 };
 
 export default WatchMarketToday;

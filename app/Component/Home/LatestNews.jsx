@@ -3,6 +3,7 @@ import { useAxiospublic } from "@/app/hooks/useAxiospublic";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { format } from "date-fns";
+import LatestNewsSkeleton from "./HomeSkeleton/LatestNewsSkeleton";
 
 const LatestNews = () => {
   const axiosPublicUrl = useAxiospublic();
@@ -26,9 +27,10 @@ const LatestNews = () => {
     return <p className="text-center text-gray-500">Loading latest news...</p>;
   }
 
+  // return <LatestNewsSkeleton />;
+
   return (
-    <div className="bg-white p-4 rounded-lg shadow-lg w-full max-w-sm">
-      <h2 className="text-lg font-bold mb-4 text-primary">Latest News</h2>
+    <div>
       <div className="space-y-4">
         {latestNews.length > 0 ? (
           latestNews.map((news) => (

@@ -13,9 +13,19 @@ const HomePage = () => {
         {/* Left Sidebar */}
         <div className="md:col-span-3 space-y-6">
           {/* Watch Market Today */}
-          <WatchMarketToday />
+          <div className="p-4 rounded-lg  text-left">
+            <h2 className="text-lg font-bold text-royal-indigo mb-3">
+              {"Watch Market Today"}
+            </h2>
+            <WatchMarketToday />
+          </div>
           {/* Latest news */}
-          <LatestNews />
+          <div className="p-4  w-full max-w-sm">
+            <h2 className="text-lg font-bold mb-3 text-royal-indigo">
+              Latest News
+            </h2>
+            <LatestNews />
+          </div>
           {/* Most read news */}
           <MostReadNews />
         </div>
