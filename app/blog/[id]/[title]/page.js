@@ -1,6 +1,8 @@
-import ArticleReader from "@/app/Component/Blog/ArticleReader";
+import ArticleReader from "@/app/blog/[id]/[title]/(BLogComponent)/ArticleReader";
 import axios from "axios";
 import readingTime from "reading-time";
+import GetView from "./(BLogComponent)/GetView";
+import LoveBtn from "./(BLogComponent)/LoveBtn";
 
 const getBlogPost = async (id) => {
   try {
@@ -13,25 +15,9 @@ const getBlogPost = async (id) => {
   }
 };
 
-const getView = async (id) => {
-  try {
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/${id}/view`
-    );
-    return data.viewCount || 0;
-  } catch (error) {
-    return 0;
-  }
-};
-
 export default async function BlogPost({ params }) {
   const { id } = await params;
-  // const blog = await getBlogPost(id);
-  // const view = await getView(id);
-  const [blog, viewCount] = await Promise.all([getBlogPost(id), getView(id)]);
-
-  console.log(blog);
-  console.log(viewCount);
+  const blog = await getBlogPost(id);
 
   if (!blog || blog.length === 0) {
     return <div className="text-center text-red-500">Blog post not found</div>;
@@ -45,7 +31,6 @@ export default async function BlogPost({ params }) {
     commentsCount,
     likesCount,
     dislikesCount,
-    viewsCount,
     articalpost,
   } = blog[0];
 
@@ -62,10 +47,12 @@ export default async function BlogPost({ params }) {
         <span className="ml-2 text-sm">Comments: {commentsCount}</span>
         <span className="ml-2 text-sm">Likes: {likesCount}</span>
         <span className="ml-2 text-sm">Dislikes: {dislikesCount}</span>
-        <span className="ml-2 text-sm">Views: {viewCount}</span>
+        <GetView blogId={id} />
       </div>
-
       <ArticleReader articleId={id} articleContent={articalpost} />
+      <div>
+        <LoveBtn articleId={id} />
+      </div>
     </div>
   );
 }

@@ -12,17 +12,19 @@ import { ToastContainer } from "react-toastify";
 
 //Poppins Front
 const poppins = Poppins({
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
   variable: "--font-poppins",
 });
 
 const geistSans = Geist({
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
@@ -36,7 +38,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} antialiased `}>
+      <body
+        className={`${poppins.variable} ${geistSans.variable} ${geistMono.variable} antialiased `}
+      >
         <ContextProvider>
           <ToastContainer />
           <Header />

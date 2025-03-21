@@ -94,10 +94,6 @@ const ContextProvider = ({ children }) => {
   };
 
   // Logout User
-  // const logoutUser = () => {
-  //   setUser(null);
-  //   return signOut(auth);
-  // };
   const logoutUser = async () => {
     window.localStorage.removeItem("user");
     window.localStorage.removeItem("access-token");
