@@ -13,21 +13,26 @@ const HomePage = () => {
         {/* Left Sidebar */}
         <div className="md:col-span-3 space-y-6">
           {/* Watch Market Today */}
-          <div className="p-4 rounded-lg  text-left">
+          <div className="p-4 pt-2 rounded-lg  text-left">
             <h2 className="text-lg font-bold text-royal-indigo mb-3">
               {"Watch Market Today"}
             </h2>
             <WatchMarketToday />
           </div>
           {/* Latest news */}
-          <div className="p-4  w-full max-w-sm">
+          <div className="p-4 w-full max-w-sm">
             <h2 className="text-lg font-bold mb-3 text-royal-indigo">
               Latest News
             </h2>
             <LatestNews />
           </div>
           {/* Most read news */}
-          <MostReadNews />
+          <div className="p-4 rounded-lg  w-full max-w-sm">
+            <h2 className="text-lg font-bold mb-4 text-royal-indigo">
+              Most Read
+            </h2>{" "}
+            <MostReadNews />
+          </div>
         </div>
         {/* right sidebar */}
         {/* Main Content */}

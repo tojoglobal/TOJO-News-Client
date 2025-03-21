@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import Link from "next/link";
 import Image from "next/image";
+import PopulerNewsSkeleton from "./HomeSkeleton/PopulerNewsSkeleton";
 
 const PopularNews = () => {
   const axiosPublicUrl = useAxiospublic();
@@ -24,8 +25,9 @@ const PopularNews = () => {
   }, []);
 
   if (loading) {
-    return <p className="text-center text-gray-500">Loading latest news...</p>;
+    return <PopulerNewsSkeleton />;
   }
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
       {popularNews.length > 0 ? (

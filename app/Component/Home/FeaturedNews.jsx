@@ -1,6 +1,9 @@
 import React, { useMemo } from "react";
 import Image from "next/image";
 import useApi from "@/app/hooks/usePublicApi";
+import DateAndTime from "../RecalcFunction/DateAndTime";
+import Author from "../RecalcFunction/Author";
+import FeaturedSkeleton from "./HomeSkeleton/FeaturedSkeleton";
 
 const FeaturedNews = () => {
   const { data: latestUploads, error, loading } = useApi("/api/admin/blogpost");
@@ -13,38 +16,47 @@ const FeaturedNews = () => {
       .slice(0, 8); // Pick first 4 articles
   }, [latestUploads]);
 
-  if (loading) return <p className="text-center text-gray-500">Loading...</p>;
-  if (error) return <p className="text-red-500">Error: {error}</p>;
+  if (loading) return <FeaturedSkeleton count={8} />;
+
+  if (error)
+    return <p className="text-gray-500 text-sm">No featured news available.</p>;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
       {featuredArticles.map((news) => (
-        <div key={news.ID} className="bg-white rounded-lg shadow-md">
-          {/* <Image
-            src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/Images/${news?.thumble}`}
-            alt={news.title}
-            width={400}
-            height={150}
-            className="rounded-t-lg w-full h-fit"
-          /> */}
+        <div key={news?.ID} className="rounded-lg flex flex-col h-full">
           {/* Image */}
-          <div className="w-full relative">
+          <div className="w-full relative aspect-[1.81/1]">
             <Image
               src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/Images/${news?.thumble}`}
               alt={news?.title}
-              width={80}
-              height={80}
-              objectFit="cover"
-              className="rounded-lg w-full"
+              fill
+              className="rounded-lg object-cover"
             />
             {/* Category Tag */}
-            <span className="bg-purple-600 text-white text-xs px-2 py-1 rounded-md font-medium absolute bottom-1 left-1">
+            <span className="bg-royal-indigo text-white text-xs px-2 py-1 rounded-md font-medium absolute bottom-1 left-1">
               {news?.category || "Crypto"}
             </span>
           </div>
-          <div className="p-4">
-            <h3 className="text-lg font-bold mt-2">{news.title}</h3>
-            <p className="text-sm text-gray-500 mt-1">{news.date}</p>
+
+          {/* Content */}
+          <div className="pt-3 flex flex-col h-full">
+            {/* Title (Flexible height) */}
+            <h3 className="text-2xl font-bold text-royal-indigo mt-2 font-poppins flex-grow">
+              {news.title}
+            </h3>
+
+            {/* Date & Author (Always at bottom) */}
+            <p className="text-sm text-royal-indigo mt-auto flex items-center flex-grow">
+              <DateAndTime dateAndTime={news?.dateAndTime} /> by{" "}
+              <span className="font-semibold">
+                <Author
+                  author1={news?.author1_id}
+                  author2={news?.author2_id}
+                  showSingle={true}
+                />
+              </span>
+            </p>
           </div>
         </div>
       ))}

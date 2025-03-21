@@ -2,6 +2,7 @@
 import { useAxiospublic } from "@/app/hooks/useAxiospublic";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import MostReadSkeleton from "./HomeSkeleton/MostReadSkeleton";
 
 const MostReadNews = () => {
   const axiosPublicUrl = useAxiospublic();
@@ -21,21 +22,17 @@ const MostReadNews = () => {
   }, []);
 
   if (loading) {
-    return <p className="text-center text-gray-500">Loading latest news...</p>;
+    return <MostReadSkeleton count={4} />;
   }
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-lg w-full max-w-sm">
-      <h2 className="text-lg font-bold mb-4 text-primary">Most Read</h2>
+    <div>
       <div className="space-y-4">
         {mostRead.length > 0 ? (
           mostRead.slice(0, 4).map((news) => (
-            <div
-              key={news?.ID}
-              className="flex items-start bg-gray-100 rounded-lg p-3 gap-3 shadow-md"
-            >
+            <div key={news?.ID} className="flex items-start rounded-lg gap-3">
               {/* Image */}
-              <div className="w-1/3 h-[75px] relative">
+              <div className="w-1/3 h-[70px] relative">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/Images/${news?.thumble}`}
                   alt={news?.title}
@@ -47,7 +44,7 @@ const MostReadNews = () => {
               </div>
               <div className="flex-1">
                 {/* Title */}
-                <h3 className="text-sm font-semibold mt-2 leading-tight">
+                <h3 className="text-sm font-semibold mt-2 leading-tight text-royal-indigo">
                   {news?.title}
                 </h3>
               </div>
