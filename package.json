@@ -28,7 +28,8 @@
     "sweetalert2": "^11.17.2",
     "swiper": "^11.2.4",
     "tailwind-merge": "^3.0.2",
-    "tw-animate-css": "^1.2.4"
+    "tw-animate-css": "^1.2.4",
+    "update": "^0.7.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
