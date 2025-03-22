@@ -25,7 +25,7 @@ const Author = ({ author1, author2, showSingle = false }) => {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <p>Loading authors...</p>;
+  if (loading) return <span>Loading authors...</span>;
 
   // Filter authors based on IDs
   const selectedAuthors = authors.filter(

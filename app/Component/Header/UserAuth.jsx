@@ -57,7 +57,7 @@ const UserAuth = () => {
           </div>
 
           {/* Display Name */}
-          <span className="text-sm font-poppins font-medium">
+          <span className="text-sm font-poppins font-medium hidden sm:block">
             {user?.displayName}
           </span>
         </div>

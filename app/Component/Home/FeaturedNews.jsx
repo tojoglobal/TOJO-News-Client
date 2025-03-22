@@ -13,10 +13,10 @@ const FeaturedNews = () => {
     if (!Array.isArray(latestUploads) || latestUploads.length === 0) return [];
     return [...latestUploads] // Create a copy to avoid mutating state
       .sort(() => 0.5 - Math.random()) // Shuffle array
-      .slice(0, 8); // Pick first 4 articles
+      .slice(0, 6); // Pick first 4 articles
   }, [latestUploads]);
 
-  if (loading) return <FeaturedSkeleton count={8} />;
+  if (loading) return <FeaturedSkeleton count={6} />;
 
   if (error)
     return <p className="text-gray-500 text-sm">No featured news available.</p>;
