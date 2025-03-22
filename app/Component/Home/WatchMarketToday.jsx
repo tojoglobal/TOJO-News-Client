@@ -48,7 +48,7 @@ const WatchMarketToday = () => {
   }
 
   return (
-    <div>
+    <div className="aspect-[1.5/1] md:aspect-[1.81/1]">
       {isVideoPlaying ? (
         // <iframe
         //   className="w-full h-48 md:h-64 rounded-lg"

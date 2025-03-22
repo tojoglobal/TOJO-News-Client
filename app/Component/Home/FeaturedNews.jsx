@@ -4,6 +4,7 @@ import useApi from "@/app/hooks/usePublicApi";
 import DateAndTime from "../RecalcFunction/DateAndTime";
 import Author from "../RecalcFunction/Author";
 import FeaturedSkeleton from "./HomeSkeleton/FeaturedSkeleton";
+import Category from "../RecalcFunction/Category";
 
 const FeaturedNews = () => {
   const { data: latestUploads, error, loading } = useApi("/api/admin/blogpost");
@@ -26,7 +27,7 @@ const FeaturedNews = () => {
       {featuredArticles.map((news) => (
         <div key={news?.ID} className="rounded-lg flex flex-col h-full">
           {/* Image */}
-          <div className="w-full relative aspect-[1.81/1]">
+          <div className="w-full relative aspect-[1.5/1] md:aspect-[1.65/1]">
             <Image
               src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/Images/${news?.thumble}`}
               alt={news?.title}
@@ -35,21 +36,21 @@ const FeaturedNews = () => {
             />
             {/* Category Tag */}
             <span className="bg-royal-indigo text-white text-xs px-2 py-1 rounded-md font-medium absolute bottom-1 left-1">
-              {news?.category || "Crypto"}
+              <Category category={news?.category_id} />
             </span>
           </div>
 
           {/* Content */}
           <div className="pt-3 flex flex-col h-full">
             {/* Title (Flexible height) */}
-            <h3 className="text-2xl font-bold text-royal-indigo mt-2 font-poppins flex-grow">
-              {news.title}
+            <h3 className="text-[15px] md:text-2xl font-bold text-royal-indigo mt-2 font-poppins flex-grow">
+              {news?.title}
             </h3>
 
             {/* Date & Author (Always at bottom) */}
-            <p className="text-sm text-royal-indigo mt-auto flex items-center flex-grow">
-              <DateAndTime dateAndTime={news?.dateAndTime} /> by{" "}
-              <span className="font-semibold">
+            <p className="text-[11px] md:text-sm text-royal-indigo mt-2 md:mt-auto flex items-center flex-grow">
+              <DateAndTime dateAndTime={news?.dateAndTime} /> {" by "}
+              <span className="ml-0.5 font-semibold">
                 <Author
                   author1={news?.author1_id}
                   author2={news?.author2_id}

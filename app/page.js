@@ -11,23 +11,23 @@ const HomePage = () => {
       {/* Component UI */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
         {/* Left Sidebar */}
-        <div className="md:col-span-3 space-y-6">
+        <div className="md:col-span-3 order-2 md:order-1 space-y-6">
           {/* Watch Market Today */}
-          <div className="p-4 pt-2 rounded-lg  text-left">
+          <div className="md:p-4 pt-2 rounded-lg  text-left">
             <h2 className="text-lg font-bold text-royal-indigo mb-3">
               {"Watch Market Today"}
             </h2>
             <WatchMarketToday />
           </div>
           {/* Latest news */}
-          <div className="p-4 w-full max-w-sm">
+          <div className="md:p-4 w-full max-w-sm">
             <h2 className="text-lg font-bold mb-3 text-royal-indigo">
               Latest News
             </h2>
             <LatestNews />
           </div>
           {/* Most read news */}
-          <div className="p-4 rounded-lg  w-full max-w-sm">
+          <div className="md:p-4 rounded-lg  w-full max-w-sm">
             <h2 className="text-lg font-bold mb-4 text-royal-indigo">
               Most Read
             </h2>{" "}
@@ -36,7 +36,7 @@ const HomePage = () => {
         </div>
         {/* right sidebar */}
         {/* Main Content */}
-        <div className="md:col-span-9 space-y-6">
+        <div className="md:col-span-9 order-1 md:order-2 space-y-6">
           {/* Poupler news slide News */}
           <PopularNews />
           {/* Advertisement Banner */}

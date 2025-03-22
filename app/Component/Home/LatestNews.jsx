@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import LatestNewsSkeleton from "./HomeSkeleton/LatestNewsSkeleton";
 import DateAndTime from "../RecalcFunction/DateAndTime";
+import Category from "../RecalcFunction/Category";
 
 const LatestNews = () => {
   const axiosPublicUrl = useAxiospublic();
@@ -37,7 +38,7 @@ const LatestNews = () => {
               className="flex flex-col items-start rounded-lg  gap-3"
             >
               {/* Image */}
-              <div className="w-full relative">
+              <div className="w-full relative aspect-[1.5/1]">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/Images/${news?.thumble}`}
                   alt={news?.title}
@@ -48,7 +49,7 @@ const LatestNews = () => {
                 />
                 {/* Category Tag */}
                 <span className="bg-royal-indigo text-white text-xs px-2 py-1 rounded-md font-medium absolute bottom-1 left-1">
-                  {news?.category || "Crypto"}
+                  <Category category={news?.category_id} />
                 </span>
               </div>
 

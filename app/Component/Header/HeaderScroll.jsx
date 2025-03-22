@@ -83,13 +83,13 @@ const HeaderScroll = () => {
 
   return (
     <div
-      className="h-[53px] mt-1 relative top-1 left-0 pb-1  bg-white w-full overflow-hidden cursor-pointer"
+      className="h-[30px] md:h-[53px] mt-3 md:mt-1 relative top-1 left-0 pb-1  bg-white w-full overflow-hidden cursor-pointer"
       ref={tickerWrapperRef}
     >
       <ul className="flex p-0 m-0 w-full" ref={listRef}>
         {symbols.map((symbol, index) => (
           <li
-            className="ml-1 w-[200px] inline-block"
+            className="ml-1 w-[250px] inline-block"
             // style={{ width: "200px", display: "inline-block" }}
             key={index}
           >
@@ -103,8 +103,8 @@ const HeaderScroll = () => {
       >
         {symbols.map((symbol, index) => (
           <li
-            className="ml-1"
-            style={{ width: "200px", display: "inline-block" }}
+            className="ml-1 w-[250px] inline-block"
+            // style={{ width: "200px", display: "inline-block" }}
             key={index + symbols.length}
           >
             <CryptoTicker symbol={symbol} />

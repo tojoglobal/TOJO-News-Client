@@ -3,6 +3,8 @@ import { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import axios from "axios";
+import { Skeleton } from "@/components/ui/skeleton";
+import React from "react";
 
 const CryptoTicker = ({ symbol }) => {
   const [price, setPrice] = useState(null);
@@ -57,19 +59,22 @@ const CryptoTicker = ({ symbol }) => {
   return (
     <div>
       {price !== null ? (
-        <Link href={`/price/${symbol.toLowerCase()}`} className="text-sm">
+        <Link
+          href={`/price/${symbol.toLowerCase()}`}
+          className="text-xs md:text-sm"
+        >
           {symbol} ${price}
           <span
-            className={`text-xs pl-1 font-light ${
+            className={`text-[10px] md:text-xs md:pl-1 font-light ${
               pricePercent >= 0 ? "text-green-500" : "text-red-500"
             }`}
           >
             {pricePercent >= 0 ? "▲" : "▼"}
           </span>
-          <span className="text-sm">{pricePercent}%</span>
+          <span className="text-xs md:text-sm">{pricePercent}%</span>
         </Link>
       ) : (
-        <p className="text-xs">Loading...</p>
+        <Skeleton className="skeleton-box h-[18px] w-full rounded-sm" />
       )}
     </div>
   );
