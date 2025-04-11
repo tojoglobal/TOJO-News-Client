@@ -40,6 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# zip file 
+# zip file edit 
 public.zip
 *.zip
