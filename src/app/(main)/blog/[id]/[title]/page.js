@@ -3,9 +3,9 @@ import axios from "axios";
 import readingTime from "reading-time";
 import GetView from "./(BLogComponent)/GetView";
 import LoveBtn from "./(BLogComponent)/LoveBtn";
-import Category from "@/src/app/(component)/RecalcFunction/Category";
+import Category from "@/src/components/RecalcFunction/Category";
 import Image from "next/image";
-import Author from "@/src/app/(component)/RecalcFunction/Author";
+import Author from "@/src/components/RecalcFunction/Author";
 
 const getBlogPost = async (id) => {
   try {

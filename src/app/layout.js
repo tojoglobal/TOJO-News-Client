@@ -1,15 +1,10 @@
+// app/layout.js
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
-import ContextProvider from "./(component)/context/AppContext";
-import Header from "./(component)/Header/Header";
-import Footer from "./(component)/Footer/Footer";
+import ContextProvider from "../components/context/AppContext";
 import { Toaster } from "react-hot-toast";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/autoplay";
 
-//Poppins Front
+// Reuse your font definitions
 const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
@@ -38,12 +33,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${poppins.variable} ${geistSans.variable} ${geistMono.variable} antialiased `}
+        className={`${poppins.variable} ${geistSans.variable} ${geistMono.variable}`}
       >
         <ContextProvider>
-          <Header />
           {children}
-          <Footer />
           <Toaster />
         </ContextProvider>
       </body>

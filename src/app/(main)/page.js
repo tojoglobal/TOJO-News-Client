@@ -1,9 +1,9 @@
 "use client";
-import LatestNews from "./(component)/Home/LatestNews";
-import MostReadNews from "./(component)/Home/MostReadNews";
-import PopularNews from "./(component)/Home/PopularNews";
-import FeaturedNews from "./(component)/Home/FeaturedNews";
-import WatchMarketToday from "./(component)/Home/WatchMarketToday";
+import LatestNews from "@/src/components/Home/LatestNews";
+import MostReadNews from "@/src/components/Home/MostReadNews";
+import PopularNews from "@/src/components/Home/PopularNews";
+import FeaturedNews from "@/src/components/Home/FeaturedNews";
+import WatchMarketToday from "@/src/components/Home/WatchMarketToday";
 
 const HomePage = () => {
   return (

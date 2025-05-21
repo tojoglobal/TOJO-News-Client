@@ -1,5 +1,5 @@
 "use client";
-import { useAxiospublic } from "@/src/app/(component)/hooks/useAxiospublic";
+import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 import { useEffect, useState, useRef } from "react";
 import { useIdle } from "react-use";
 import {

@@ -1,4 +1,4 @@
-import { Skeleton } from "@/src/components/ui/skeleton";
+import { Skeleton } from "@/src/ui/skeleton";
 import React from "react";
 
 const LatestNewsSkeleton = ({ count = 4 }) => {

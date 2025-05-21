@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useAxiospublic } from "@/src/app/(component)/hooks/useAxiospublic";
+import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 
 const Category = ({ category }) => {
   const axiosPublicUrl = useAxiospublic();

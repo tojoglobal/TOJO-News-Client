@@ -4,7 +4,7 @@ import { ArrowLeft } from "lucide-react";
 const NotFound = () => {
   const router = useRouter();
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#0b0423] to-[#1a0c4c] text-white px-4 py-20">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#0b0423] to-[#1a0c4c] text-white px-4">
       <div className="relative">
         <h1 className="text-[150px] md:text-[200px] font-bold text-purple-500/10 select-none">
           404
