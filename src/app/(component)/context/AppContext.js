@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { createContext, useEffect, useState } from "react";
 import {
@@ -17,13 +18,10 @@ import { useAxiospublic } from "../hooks/useAxiospublic";
 export const AppContext = createContext();
 
 const ContextProvider = ({ children }) => {
-  // axios public import
-  const axiosPublic = useAxiospublic();
-  // api url
-  const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-  // user State
   const [user, setUser] = useState(null);
+  const axiosPublic = useAxiospublic();
+  const [isLoading, setIsLoading] = useState(true);
+  const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -32,13 +30,11 @@ const ContextProvider = ({ children }) => {
     }
   }, []);
 
-  // logout user
-  const [isLoading, setIsLoading] = useState(true);
-
   // singup or Register user
   const RegisterUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
+
   // sinIn or login user
   const loginUser = (email, password) => {
     setIsLoading(true);
@@ -50,6 +46,7 @@ const ContextProvider = ({ children }) => {
     setIsLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
+
   // updateUser
   const updateUser = (updatedInfo) => {
     setUser((prevUser) => ({

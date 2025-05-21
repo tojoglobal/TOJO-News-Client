@@ -31,7 +31,7 @@ const UserAuth = () => {
               alt="User Avatar"
               width={30}
               height={30}
-              className="w-7 h-7 rounded-full object-cover ring-2 ring-gray-300/50 cursor-pointer"
+              className="w-7 h-7 rounded-full object-cover ring-2 ring-gray-200/50 cursor-pointer"
               onClick={() => setDropdownOpen(!dropdownOpen)}
               referrerPolicy="no-referrer"
             />
@@ -55,8 +55,6 @@ const UserAuth = () => {
               </div>
             )}
           </div>
-
-          {/* Display Name */}
           <span className="text-sm font-poppins font-medium hidden sm:block">
             {user?.displayName}
           </span>

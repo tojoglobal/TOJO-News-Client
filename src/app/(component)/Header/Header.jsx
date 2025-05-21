@@ -1,4 +1,3 @@
-import React from "react";
 import TopBar from "./TopBar";
 import MainHeader from "./MainHeader";
 import NavigationBar from "./NavigationBar";
@@ -7,13 +6,13 @@ import HeaderScroll from "./HeaderScroll";
 
 const Header = () => {
   return (
-    <div>
+    <>
       <TopBar />
       <MainHeader />
       <NavigationBar />
       {/* <CryptoTicker /> */}
       <HeaderScroll />
-    </div>
+    </>
   );
 };
 

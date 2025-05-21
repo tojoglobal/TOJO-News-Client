@@ -59,13 +59,13 @@ const CryptoPrices = () => {
       return [x, height - y];
     });
 
+    // Fix the pathD string format
     const pathD = points
       .map((point, index) => {
         const [x, y] = point;
-        // ${index === 0 ? "M" : "L"}
-        return `${x},${y} `;
+        return `${x.toFixed(2)},${y.toFixed(2)}`;
       })
-      .join(" ");
+      .join(' ');
 
     // Determine the color based on the price change
     const color =

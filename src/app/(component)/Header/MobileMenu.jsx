@@ -11,7 +11,7 @@ export default function MobileMenu() {
       {/* Menu Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="md:hidden text-royal-indigo text-lg font-semibold"
+        className="md:hidden cursor-pointer text-royal-indigo text-lg font-semibold"
       >
         <MenuIcon />
       </button>
@@ -33,7 +33,7 @@ export default function MobileMenu() {
         {/* Close Button */}
         <button
           onClick={() => setIsOpen(false)}
-          className="absolute top-4 left-4 p-2 bg-gray-100 rounded-full shadow"
+          className="absolute top-4 left-4 cursor-pointer p-2 bg-gray-100 rounded-full shadow"
         >
           <X className="h-6 w-6 text-royal-indigo" />
         </button>

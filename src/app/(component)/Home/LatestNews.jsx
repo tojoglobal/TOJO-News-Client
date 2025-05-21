@@ -74,7 +74,7 @@ const LatestNews = () => {
             </div>
           ))
         ) : (
-          <p className="text-gray-500 text-sm">No latest news available.</p>
+          <p className="text-gray-500 text-sm">No latest news available!</p>
         )}
       </div>
     </div>

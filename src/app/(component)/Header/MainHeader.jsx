@@ -56,11 +56,10 @@ const MainHeader = () => {
               />
             </Link>
           </div>
-
           {/* Right Section: Subscribe Button */}
           <div className="flex items-center gap-4">
             <span className="text-sm font-poppins">For Daily News</span>
-            <button className="bg-royal-indigo text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-800 transition">
+            <button className="bg-royal-indigo cursor-pointer text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-800 transition">
               SUBSCRIBE
             </button>
           </div>

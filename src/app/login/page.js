@@ -149,7 +149,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3 bg-gradient-to-r from-[#031741] via-[#03d2fc] to-[#022d33] text-white font-bold rounded-lg hover:bg-gradient-to-r transition duration-300 disabled:opacity-50"
+            className="w-full cursor-pointer py-3 bg-gradient-to-r from-[#031741] via-[#03d2fc] to-[#022d33] text-white font-bold rounded-lg hover:bg-gradient-to-r transition duration-300 disabled:opacity-50"
           >
             {isLoading ? (
               <div className="flex items-center justify-center">
@@ -172,7 +172,7 @@ const Login = () => {
         {/* Google Login Button */}
         <button
           onClick={handleGoogleLogin}
-          className="w-full py-3 bg-[#031741] text-white font-bold rounded-lg  transition duration-300 flex gap-3 justify-center items-center"
+          className="w-full cursor-pointer py-3 bg-[#031741] text-white font-bold rounded-lg  transition duration-300 flex gap-3 justify-center items-center"
         >
           <FaGoogle /> Continue with Google
         </button>

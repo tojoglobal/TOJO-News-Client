@@ -42,10 +42,10 @@ export default function RootLayout({ children }) {
         className={`${poppins.variable} ${geistSans.variable} ${geistMono.variable} antialiased `}
       >
         <ContextProvider>
-          <ToastContainer />
           <Header />
           {children}
           <Footer />
+          <ToastContainer />
         </ContextProvider>
       </body>
     </html>

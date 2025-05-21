@@ -7,7 +7,7 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#0A033C] text-white py-10">
+    <footer className="bg-[#0A033C] text-white py-8">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-10 md:px-16 lg:px-[72px]">
         {/* Top Links */}
         <div className="md:flex flex-wrap items-center justify-between text-sm space-x-6 mb-6">
@@ -17,14 +17,14 @@ const Footer = () => {
               <Image
                 src={footerLogo}
                 alt="TOJO News logo"
-                width={170}
+                width={150}
                 height={70}
-                className="mx-auto w-34 md:w-48 h-20 md:h-24"
+                className="mx-auto w-34 md:w-44 h-20 md:h-20"
               />
             </Link>
           </div>
           {/* foote nav */}
-          <div className="flex mt-5 md:mt-1 flex-wrap items-center justify-center md:justify-between space-x-1 md:space-x-3 text-base">
+          <div className="flex mt-5 md:mt-1 flex-wrap items-center justify-center md:justify-between space-x-1 md:space-x-2 text-base">
             <a href="#" className="hover:underline">
               Home
             </a>
@@ -50,7 +50,7 @@ const Footer = () => {
             </a>
           </div>
           {/* footer socail media */}
-          <div className="flex justify-center md:justify-end space-x-4 mt-5 md:mt-1 ">
+          <div className="flex justify-center md:justify-end space-x-3 mt-5 md:mt-1 ">
             <a
               href="https://www.facebook.com/profile.php?id=61561671656944&mibextid=ZbWKwL"
               target="_blank"
