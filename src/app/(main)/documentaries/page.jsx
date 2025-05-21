@@ -3,6 +3,7 @@ import Image from "next/image";
 import logo from "../../../../public/Documentaries.jpg";
 import { IoMdPlay } from "react-icons/io";
 import FeaturedNews from "./FeaturedNews";
+import CatchUp from "./CatchUp";
 
 export default function Documentaries() {
   return (
@@ -52,6 +53,7 @@ export default function Documentaries() {
         </div>
       </div>
       <FeaturedNews />
+      <CatchUp />
     </div>
   );
 }

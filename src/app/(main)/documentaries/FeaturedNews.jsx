@@ -32,20 +32,43 @@ export default function FeaturedNews() {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_4FBis8oXDCG39aw3z-PmKNBDv65t4-uCDg&s",
     },
   ];
+
   return (
     <div className="container mx-auto py-12">
-      <h2 className="text-2xl font-semibold text-royal-indigo mb-8">
+      <h2 className="text-2xl font-bold text-royal-indigo mb-3">
         Featured News
       </h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
         {featuredNews.map((item) => (
-          <Image
+          <div
             key={item.id}
-            src={item.image}
-            alt={item.title}
-            fill
-            className="object-cover w-20 h-44 transition-transform duration-300 group-hover:scale-110"
-          />
+            className="relative w-full h-64 group overflow-hidden rounded-md"
+          >
+            <Image
+              src={item.image}
+              alt={`Featured news ${item.id}`}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-110"
+            />
+          </div>
+        ))}
+      </div>
+      <h2 className="text-2xl font-bold text-royal-indigo mt-12 mb-3">
+        Continue Watching
+      </h2>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
+        {featuredNews.map((item) => (
+          <div
+            key={item.id}
+            className="relative w-full h-64 group overflow-hidden rounded-md"
+          >
+            <Image
+              src={item.image}
+              alt={`Featured news ${item.id}`}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-110"
+            />
+          </div>
         ))}
       </div>
     </div>
