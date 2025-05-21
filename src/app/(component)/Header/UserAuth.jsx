@@ -1,12 +1,12 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { AppContext } from "@/src/app/context/AppContext";
 import Image from "next/image";
 import { toast } from "react-toastify";
+import useAuth from "../hooks/useAuth";
 
 const UserAuth = () => {
-  const { user, logoutUser, isLoading } = useContext(AppContext);
+  const { user, logoutUser, isLoading } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleLogout = () => {

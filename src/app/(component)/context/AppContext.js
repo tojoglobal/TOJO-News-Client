@@ -10,7 +10,7 @@ import {
 } from "firebase/auth";
 
 // Firebase App (replace this with your own)
-import { auth, googleProvider } from "../Component/Auth/FirebaseAuth";
+import { auth, googleProvider } from "../Auth/FirebaseAuth";
 import { toast } from "react-toastify";
 import { useAxiospublic } from "../hooks/useAxiospublic";
 

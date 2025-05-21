@@ -1,7 +1,7 @@
 "use client";
 import { useContext, useState } from "react";
 import axios from "axios";
-import { useAxiospublic } from "../hooks/useAxiospublic";
+import { useAxiospublic } from "../(component)/hooks/useAxiospublic";
 import Swal from "sweetalert2";
 import { GiCheckMark } from "react-icons/gi";
 import {
@@ -16,7 +16,7 @@ import {
   FaXTwitter,
   FaYoutube,
 } from "react-icons/fa6";
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../(component)/context/AppContext";
 
 const Newsletters = () => {
   const { user } = useContext(AppContext);

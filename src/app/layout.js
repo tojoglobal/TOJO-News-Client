@@ -1,13 +1,13 @@
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
-import Header from "./Component/Header/Header";
-import Footer from "./Component/Footer/Footer";
+import Header from "./(component)/Header/Header";
+import Footer from "./(component)/Footer/Footer";
 // swiper
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
-import ContextProvider from "./context/AppContext";
+import ContextProvider from "./(component)/context/AppContext";
 import { ToastContainer } from "react-toastify";
 
 //Poppins Front

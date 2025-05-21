@@ -5,9 +5,9 @@ import { toast } from "react-toastify";
 
 import { FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
-import { redirect, usePathname, useRouter } from "next/navigation";
-import { AppContext } from "../context/AppContext";
-import { useAxiospublic } from "../hooks/useAxiospublic";
+import { usePathname, useRouter } from "next/navigation";
+import { AppContext } from "../(component)/context/AppContext";
+import { useAxiospublic } from "../(component)/hooks/useAxiospublic";
 
 const Login = () => {
   const { loginUser, setUser, loginWithGoogle } = useContext(AppContext);

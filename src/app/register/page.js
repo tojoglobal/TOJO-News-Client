@@ -4,8 +4,8 @@ import { toast } from "react-toastify";
 import { updateProfile } from "firebase/auth";
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import Link from "next/link";
-import { useAxiospublic } from "../hooks/useAxiospublic";
-import { AppContext } from "../context/AppContext";
+import { useAxiospublic } from "../(component)/hooks/useAxiospublic";
+import { AppContext } from "../(component)/context/AppContext";
 import { useRouter } from "next/navigation";
 
 const Registration = () => {
