@@ -35,7 +35,7 @@ export default function PastEvents() {
   return (
     <div>
       {/* Past Events Section */}
-      <h2 className="text-4xl font-bold text-royal-indigo mt-16 mb-8">
+      <h2 className="text-3xl font-bold text-royal-indigo mt-16 mb-8">
         Past Events
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
