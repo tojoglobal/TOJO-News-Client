@@ -1,22 +1,12 @@
 "use client";
-
 import Image from "next/image";
 import logo from "../../../../public/Documentaries.jpg";
 import { IoMdPlay } from "react-icons/io";
+import FeaturedNews from "./FeaturedNews";
 
 export default function Documentaries() {
-  // Fake data for featured news
-  const featuredNews = [
-    { id: 1, image: "/featured/bitcoin1.jpg", title: "Bitcoin Trends" },
-    { id: 2, image: "/featured/crypto1.jpg", title: "Crypto Analysis" },
-    { id: 3, image: "/featured/chart1.jpg", title: "Market Growth" },
-    { id: 4, image: "/featured/eth1.jpg", title: "Ethereum Updates" },
-    { id: 5, image: "/featured/market1.jpg", title: "Trading Insights" },
-    { id: 6, image: "/featured/2025.jpg", title: "2025 Forecast" },
-  ];
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#001F3F] to-[#000C1A]">
+    <div className="min-h-screen">
       {/* Hero Section */}
       <div className="relative h-[600px] w-full overflow-hidden">
         {/* Background Image */}
@@ -27,7 +17,6 @@ export default function Documentaries() {
           className="object-cover"
           priority
         />
-
         {/* Geometric Overlay */}
         <div
           className="absolute inset-0"
@@ -40,9 +29,8 @@ export default function Documentaries() {
             backgroundSize: "100px 100px, 100px 100px, 100% 100%",
           }}
         />
-
         {/* Content */}
-        <div className="absolute top-56 inset-0 flex flex-col justify-center px-12 max-w-7xl mx-auto">
+        <div className="absolute top-56 inset-0 flex flex-col justify-center container mx-auto">
           <h1 className="text-3xl text-royal-indigo font-bold mb-4">
             <span>TOP 5 Crypto Conference</span>
             <br />
@@ -63,30 +51,7 @@ export default function Documentaries() {
           </div>
         </div>
       </div>
-      {/* Featured News Section */}
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <h2 className="text-2xl font-semibold text-royal-indigo mb-8">
-          Featured News
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {featuredNews.map((item) => (
-            <div
-              key={item.id}
-              className="relative aspect-[4/3] rounded-lg overflow-hidden group cursor-pointer"
-            >
-              <Image
-                src={item.image}
-                alt={item.title}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-end p-3">
-                <h3 className="text-white text-sm font-medium">{item.title}</h3>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <FeaturedNews />
     </div>
   );
 }
