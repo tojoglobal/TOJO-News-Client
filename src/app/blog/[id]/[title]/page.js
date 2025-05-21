@@ -1,11 +1,11 @@
-import ArticleReader from "@/app/blog/[id]/[title]/(BLogComponent)/ArticleReader";
+import ArticleReader from "@/src/app/blog/[id]/[title]/(BLogComponent)/ArticleReader";
 import axios from "axios";
 import readingTime from "reading-time";
 import GetView from "./(BLogComponent)/GetView";
 import LoveBtn from "./(BLogComponent)/LoveBtn";
-import Category from "@/app/Component/RecalcFunction/Category";
+import Category from "@/src/app/Component/RecalcFunction/Category";
 import Image from "next/image";
-import Author from "@/app/Component/RecalcFunction/Author";
+import Author from "@/src/app/Component/RecalcFunction/Author";
 
 const getBlogPost = async (id) => {
   try {

@@ -1,7 +1,7 @@
 "use client"; // Ensure client-side rendering
 
 import { useEffect, useState } from "react";
-import { useAxiospublic } from "@/app/hooks/useAxiospublic";
+import { useAxiospublic } from "@/src/app/hooks/useAxiospublic";
 
 const Author = ({ author1, author2, showSingle = false }) => {
   const axiosPublicUrl = useAxiospublic();

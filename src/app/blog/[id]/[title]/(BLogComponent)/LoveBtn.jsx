@@ -1,8 +1,8 @@
 "use client";
 import { useContext, useState, useEffect } from "react";
-import { useAxiospublic } from "@/app/hooks/useAxiospublic";
+import { useAxiospublic } from "@/src/app/hooks/useAxiospublic";
 import Swal from "sweetalert2";
-import { AppContext } from "@/app/context/AppContext";
+import { AppContext } from "@/src/app/context/AppContext";
 import { FaHeart } from "react-icons/fa";
 
 const LoveBtn = ({ articleId }) => {

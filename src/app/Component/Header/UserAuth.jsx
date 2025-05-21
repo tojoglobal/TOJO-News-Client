@@ -1,7 +1,7 @@
 "use client";
 import React, { useContext, useState } from "react";
 import Link from "next/link";
-import { AppContext } from "@/app/context/AppContext";
+import { AppContext } from "@/src/app/context/AppContext";
 import Image from "next/image";
 import { toast } from "react-toastify";
 

@@ -1,4 +1,4 @@
-import { useAxiospublic } from "@/app/hooks/useAxiospublic";
+import { useAxiospublic } from "@/src/app/hooks/useAxiospublic";
 
 const getView = async (id) => {
   try {

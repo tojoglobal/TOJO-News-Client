@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import axios from "axios";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/src/components/ui/skeleton";
 import React from "react";
 
 const CryptoTicker = ({ symbol }) => {

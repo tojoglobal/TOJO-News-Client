@@ -1,5 +1,5 @@
 "use client";
-import { useAxiospublic } from "@/app/hooks/useAxiospublic";
+import { useAxiospublic } from "@/src/app/hooks/useAxiospublic";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import MostReadSkeleton from "./HomeSkeleton/MostReadSkeleton";

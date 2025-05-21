@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import Image from "next/image";
-import useApi from "@/app/hooks/usePublicApi";
+import useApi from "@/src/app/hooks/usePublicApi";
 import DateAndTime from "../RecalcFunction/DateAndTime";
 import Author from "../RecalcFunction/Author";
 import FeaturedSkeleton from "./HomeSkeleton/FeaturedSkeleton";
