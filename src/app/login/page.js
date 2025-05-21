@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext, useState } from "react";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";

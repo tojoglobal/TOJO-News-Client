@@ -12,7 +12,7 @@ import {
 
 // Firebase App (replace this with your own)
 import { auth, googleProvider } from "../Auth/FirebaseAuth";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { useAxiospublic } from "../hooks/useAxiospublic";
 
 export const AppContext = createContext();

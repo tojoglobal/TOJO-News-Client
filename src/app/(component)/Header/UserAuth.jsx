@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { toast } from "react-toastify";
 import useAuth from "../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const UserAuth = () => {
   const { user, logoutUser, isLoading } = useAuth();

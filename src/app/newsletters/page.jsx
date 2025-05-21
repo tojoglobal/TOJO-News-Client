@@ -1,6 +1,5 @@
 "use client";
 import { useContext, useState } from "react";
-import axios from "axios";
 import { useAxiospublic } from "../(component)/hooks/useAxiospublic";
 import Swal from "sweetalert2";
 import { GiCheckMark } from "react-icons/gi";
@@ -17,6 +16,7 @@ import {
   FaYoutube,
 } from "react-icons/fa6";
 import { AppContext } from "../(component)/context/AppContext";
+import toast from "react-hot-toast";
 
 const Newsletters = () => {
   const { user } = useContext(AppContext);
@@ -86,23 +86,24 @@ const Newsletters = () => {
         interests,
       });
       console.log(res.data);
-      Swal.fire({
-        title: "🎉 Congratulations!",
-        text: "You have successfully subscribed to TOJO News!",
-        icon: "success",
-        confirmButtonColor: "#4F46E5",
-      });
+      toast.success("You have successfully subscribed to TOJO News!");
+      // Swal.fire({
+      //   title: "🎉 Congratulations!",
+      //   text: "You have successfully subscribed to TOJO News!",
+      //   icon: "success",
+      //   confirmButtonColor: "#4F46E5",
+      // });
       setEmail("");
       setInterests([]);
     } catch (error) {
-      console.log();
-      const erroMessage = error.response.data.error.detail;
-      Swal.fire({
-        title: "Error!",
-        text: { erroMessage },
-        icon: "error",
-        confirmButtonColor: "#DC2626",
-      });
+      // const erroMessage = error.response.data.error.detail;
+      toast.error("Error seubscribing. Please try again.");
+      // Swal.fire({
+      //   title: "Error!",
+      //   text: { erroMessage },
+      //   icon: "error",
+      //   confirmButtonColor: "#DC2626",
+      // });
     }
   };
 
@@ -167,31 +168,27 @@ const Newsletters = () => {
                 type="checkbox"
                 checked={interests.includes(option)}
                 onChange={() => handleCheckboxChange(option)}
-                className="w-5 h-5 text-royal-indigo border-gray-500 accent-royal-indigo rounded focus:ring-purple-500"
+                className="w-5 h-5 cursor-pointer text-royal-indigo border-gray-500 accent-royal-indigo rounded focus:ring-purple-500"
               />
-              <span className="text-base md:text-xl text-royal-indigo font-semibold font-poppins">
+              <span className="text-base cursor-pointer md:text-xl text-royal-indigo font-semibold font-poppins">
                 {option}
               </span>
             </label>
           ))}
         </div>
         {/* subscribe filed */}
-        <div className="flex mt-5 md:mt-1 flex-col sm:flex-row gap-3">
+        <div className="flex mt-5 flex-col sm:flex-row gap-1">
           <input
             type="email"
             placeholder="Enter your e-mail Address"
-            className="mt-4 p-2 focus:outline-none w-full border rounded-lg text-sm md:text-base text-gray-500 placeholder:text-gray-400"
+            className="px-4 py-2.5 focus:outline-none w-full border rounded-md text-sm md:text-base text-gray-700 placeholder:text-gray-400 bg-white focus:ring-2 focus:ring-royal-indigo/20 transition-all"
             value={user?.email || email}
-            // onChange={(e) => setEmail(user?.email)}
-            // readOnly={user?.email}
-            // value={user ? user.email : email}
             onChange={(e) => !user && setEmail(e.target.value)}
             readOnly={!!user}
           />
           <button
             onClick={handleSubscribe}
-            // onClick={() => handleSubscribe(user?.email || email)}
-            className="md:mt-3 bg-royal-indigo text-white px-6 py-2 rounded hover:bg-purple-800 transition"
+            className="px-6 py-2.5 bg-royal-indigo text-white rounded-sm hover:bg-purple-800 transition-colors duration-200 font-medium whitespace-nowrap flex-shrink-0"
           >
             Subscribe
           </button>
@@ -219,13 +216,13 @@ const Newsletters = () => {
         </ul>
 
         {/* Social Media Links */}
-        <h3 className="mt-12 mb-5 font-bold text-2xl md:text-3xl text-royal-indigo">
+        <h3 className="mt-12 mb-8 font-bold text-2xl md:text-3xl text-royal-indigo">
           Social Media & Community Links
         </h3>
         <p className="text-black font-bold text-lg md:text-xl mt-2">
           Follow us on
         </p>
-        <div className="flex flex-wrap gap-3 space-x-3 mt-3">
+        <div className="flex flex-wrap gap-3 mt-3">
           {socialMedia.map((media, index) => (
             <a
               key={index}

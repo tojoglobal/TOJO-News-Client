@@ -123,7 +123,6 @@ const Footer = () => {
               <li>• Litecoin (LTC) Price</li>
             </ul>
           </div>
-
           {/* Right - Newsletter Section */}
           <div className="max-w-[300px]">
             <div className="bg-[#0A033C] pt-6 md:p-6 rounded-lg w-full max-w-[350px]">
@@ -136,20 +135,20 @@ const Footer = () => {
                 <input
                   type="email"
                   placeholder="Enter your email address"
-                  className="w-full px-4 py-3 text-sm bg-white text-gray-600 rounded-md outline-none placeholder-gray-400"
+                  className="w-full px-4 py-3 text-sm bg-white text-gray-600 rounded-[4px] outline-none placeholder-gray-400"
                 />
-                <button className="w-[140px] bg-purple-600 hover:bg-purple-700 text-white py-[5px] px-[7px] rounded-md font-semibold text-[16px]">
+                <button className="w-[140px] text-sm bg-purple-600 hover:bg-purple-700 text-white py-1.5 px-[7px] rounded-sm font-semibold text-[16px]">
                   SUBSCRIBE
                 </button>
               </div>
             </div>
           </div>
         </div>
-
         {/* Bottom Copyright & Social Icons */}
         <div className="mt-5 flex justify-center items-center border-t border-gray-600 pt-4">
           <p className="text-sm text-gray-400">
-            Copyright © 2025 TOJO News. All Rights Reserved.
+            Copyright © {new Date().getFullYear()} TOJO News. All Rights
+            Reserved.
           </p>
         </div>
       </div>

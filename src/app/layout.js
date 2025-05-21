@@ -1,14 +1,13 @@
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
+import ContextProvider from "./(component)/context/AppContext";
 import Header from "./(component)/Header/Header";
 import Footer from "./(component)/Footer/Footer";
-// swiper
+import { Toaster } from "react-hot-toast";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
-import ContextProvider from "./(component)/context/AppContext";
-import { ToastContainer } from "react-toastify";
 
 //Poppins Front
 const poppins = Poppins({
@@ -45,7 +44,7 @@ export default function RootLayout({ children }) {
           <Header />
           {children}
           <Footer />
-          <ToastContainer />
+          <Toaster />
         </ContextProvider>
       </body>
     </html>

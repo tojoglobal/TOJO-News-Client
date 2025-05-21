@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext, useState } from "react";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { updateProfile } from "firebase/auth";
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import Link from "next/link";
