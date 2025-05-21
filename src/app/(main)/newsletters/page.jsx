@@ -1,7 +1,5 @@
 "use client";
-import { useContext, useState } from "react";
-import { useAxiospublic } from "../(component)/hooks/useAxiospublic";
-import Swal from "sweetalert2";
+import { useState } from "react";
 import { GiCheckMark } from "react-icons/gi";
 import {
   FaDiscord,
@@ -15,11 +13,12 @@ import {
   FaXTwitter,
   FaYoutube,
 } from "react-icons/fa6";
-import { AppContext } from "../(component)/context/AppContext";
 import toast from "react-hot-toast";
+import useAuth from "@/src/components/hooks/useAuth";
+import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 
 const Newsletters = () => {
-  const { user } = useContext(AppContext);
+  const { user } = useAuth();
   const axiosPublicUrl = useAxiospublic();
   const [email, setEmail] = useState("");
   const [interests, setInterests] = useState([]);
@@ -71,12 +70,7 @@ const Newsletters = () => {
         `/api/check-subscription?email=${subscriberEmail}`
       );
       if (checkRes.data.subscribed) {
-        Swal.fire({
-          title: "⚠️ Already Subscribed!",
-          text: "You are already subscribed to TOJO News. Please update your interests if needed.",
-          icon: "warning",
-          confirmButtonColor: "#F59E0B",
-        });
+        toast.warning("You already subscribed to TOJO News");
         return;
       }
 
@@ -87,23 +81,11 @@ const Newsletters = () => {
       });
       console.log(res.data);
       toast.success("You have successfully subscribed to TOJO News!");
-      // Swal.fire({
-      //   title: "🎉 Congratulations!",
-      //   text: "You have successfully subscribed to TOJO News!",
-      //   icon: "success",
-      //   confirmButtonColor: "#4F46E5",
-      // });
       setEmail("");
       setInterests([]);
     } catch (error) {
       // const erroMessage = error.response.data.error.detail;
       toast.error("Error seubscribing. Please try again.");
-      // Swal.fire({
-      //   title: "Error!",
-      //   text: { erroMessage },
-      //   icon: "error",
-      //   confirmButtonColor: "#DC2626",
-      // });
     }
   };
 

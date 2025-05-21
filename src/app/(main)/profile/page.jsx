@@ -44,7 +44,7 @@ const ProfilePage = () => {
                   className="w-full h-full rounded-full object-cover"
                 />
               ) : (
-                <span className="text-3xl text-gray-600">
+                <span className="text-2xl md:text-3xl text-gray-600">
                   {user.email?.[0].toUpperCase()}
                 </span>
               )}

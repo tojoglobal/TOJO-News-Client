@@ -1,9 +1,9 @@
 "use client";
 import { useContext, useState, useEffect } from "react";
 import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
-import Swal from "sweetalert2";
 import { AppContext } from "@/src/components/context/AppContext";
 import { FaHeart } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const LoveBtn = ({ articleId }) => {
   const { user } = useContext(AppContext);
@@ -30,12 +30,7 @@ const LoveBtn = ({ articleId }) => {
   // Handle Like Click
   const handleLike = async () => {
     if (!user) {
-      Swal.fire({
-        icon: "warning",
-        title: "Please Sign In",
-        text: "You must be signed in to like this post.",
-        confirmButtonText: "OK",
-      });
+      toast.warning("You must be signed in to like this post.");
       return;
     }
 

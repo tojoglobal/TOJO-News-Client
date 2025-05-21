@@ -62,7 +62,9 @@ const recentArticles = [
 export default function SponsoredPage() {
   return (
     <div className="container mx-auto px-4 py-5">
-      <h1 className="text-3xl font-bold text-royal-indigo mb-3">Sponsored</h1>
+      <h1 className="text-2xl md:text-3xl font-bold text-royal-indigo mb-3">
+        Sponsored
+      </h1>
       <p className="text-royal-indigo font-normal mb-8">
         There are a total of {sponsoredArticles.length} articles associated with
         Sponsored.

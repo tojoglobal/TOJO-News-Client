@@ -39,10 +39,15 @@ export default function EventsPage() {
   return (
     <div className="container mx-auto px-4 py-5">
       {/* Upcoming Events Section */}
-      <h1 className="text-3xl font-bold text-royal-indigo mb-8">Events</h1>
+      <h1 className="text-2xl md:text-3xl font-bold text-royal-indigo mb-8">
+        Events
+      </h1>
       <div className="space-y-6">
         {upcomingEvents.map((event) => (
-          <div key={event.id} className="flex flex-col md:flex-row gap-6 bg-white rounded-lg overflow-hidden transition-shadow duration-300">
+          <div
+            key={event.id}
+            className="flex flex-col md:flex-row gap-6 bg-white rounded-lg overflow-hidden transition-shadow duration-300"
+          >
             <div className="md:w-1/3 h-[250px] relative">
               <img
                 src={event.image}
