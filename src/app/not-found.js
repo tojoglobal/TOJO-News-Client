@@ -28,7 +28,7 @@ const NotFound = () => {
         <button
           type="button"
           onClick={() => router.back()}
-          className="group px-6 py-3 text-purple-200 hover:text-white border border-purple-400 hover:border-purple-500 rounded-lg transition-all duration-300 flex items-center space-x-2"
+          className="group px-6 py-3 cursor-pointer text-purple-200 hover:text-white border border-purple-400 hover:border-purple-500 rounded-lg transition-all duration-300 flex items-center space-x-2"
         >
           <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
           <span>Go Back</span>
@@ -36,7 +36,7 @@ const NotFound = () => {
         <button
           type="button"
           onClick={() => router.push("/", { scroll: false })}
-          className="px-8 py-3 bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900 text-white font-semibold rounded-lg shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 transition-all duration-300 transform hover:scale-105"
+          className="px-8 py-3 cursor-pointer bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900 text-white font-semibold rounded-lg shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 transition-all duration-300 transform hover:scale-105"
         >
           Back to Homepage
         </button>

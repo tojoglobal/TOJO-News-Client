@@ -1,39 +1,32 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useQuery } from '@tanstack/react-query';
 
-const CryptoPrices = () => {
-  const [cryptoData, setCryptoData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const fetchCryptoData = async () => {
+  const response = await fetch(
+    'https://api.coingecko.com/api/v3/coins/markets?' +
+    new URLSearchParams({
+      vs_currency: 'usd',
+      order: 'market_cap_desc',
+      per_page: 60,
+      page: 1,
+      sparkline: true,
+      price_change_percentage: '1h,24h',
+    })
+  );
 
-  useEffect(() => {
-    const fetchCryptoData = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(
-          "https://api.coingecko.com/api/v3/coins/markets",
-          {
-            params: {
-              vs_currency: "usd",
-              order: "market_cap_desc",
-              per_page: 60,
-              page: 1,
-              sparkline: true,
-              price_change_percentage: "1h,24h",
-            },
-          }
-        );
-        setCryptoData(response.data);
-      } catch (error) {
-        setError("Failed to fetch cryptocurrency data.");
-      } finally {
-        setLoading(false);
-      }
-    };
+  if (!response.ok) {
+    throw new Error('Failed to fetch cryptocurrency data');
+  }
 
-    fetchCryptoData();
-  }, []);
+  return response.json();
+};
+
+export default function CryptoPrices() {
+  const { data: cryptoData, isLoading, error } = useQuery({
+    queryKey: ['cryptoData'],
+    queryFn: fetchCryptoData,
+    refetchInterval: 300000, // Refetch every 5 minutes
+  });
 
   const formatNumber = (num) => {
     if (num >= 1e12) {
@@ -65,7 +58,7 @@ const CryptoPrices = () => {
         const [x, y] = point;
         return `${x.toFixed(2)},${y.toFixed(2)}`;
       })
-      .join(' ');
+      .join(" ");
 
     // Determine the color based on the price change
     const color =
@@ -122,6 +115,22 @@ const CryptoPrices = () => {
     );
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-purple-500"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-screen text-red-500">
+        Error: {error.message}
+      </div>
+    );
+  }
+
   return (
     <>
       <section className="max-w-[1440px] w-full  mx-auto">
@@ -136,7 +145,7 @@ const CryptoPrices = () => {
             </div>
             {/* table of crypto */}
             <div className="p-6 overflow-x-auto">
-              {loading ? (
+              {isLoading ? (
                 <span className="loading loading-bars loading-xl"></span>
               ) : error ? (
                 <p>{error}</p>
@@ -240,6 +249,4 @@ const CryptoPrices = () => {
       </section>
     </>
   );
-};
-
-export default CryptoPrices;
+}
