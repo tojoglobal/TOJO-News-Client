@@ -135,25 +135,25 @@ export default function CatchUpFeatured() {
 
       {/* Featured This Week Section */}
       <div>
-        <h2 className="text-2xl font-bold text-royal-indigo mb-4">
+        <h2 className="text-2xl font-bold text-[#5E17EB] mb-4">
           Featured This Week
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {featuredNews.map((news) => (
             <div
               key={news.id}
-              className="relative h-40 rounded-lg overflow-hidden cursor-pointer"
+              className="flex items-center space-x-3 group hover:scale-105 transition-transform duration-300"
             >
-              <img
-                src={news.image}
-                alt={news.title}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                <h3 className="text-white text-sm font-semibold">
-                  {news.title}
-                </h3>
+              <div className="w-28 h-20 flex-shrink-0 rounded-xl overflow-hidden">
+                <img
+                  src={news.image}
+                  alt={news.title}
+                  className="w-full h-full object-cover"
+                />
               </div>
+              <h3 className="text-[#5E17EB] text-sm font-medium flex-1 line-clamp-2">
+                {news.title}
+              </h3>
             </div>
           ))}
         </div>
