@@ -4,12 +4,12 @@ import toast from "react-hot-toast";
 import { FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { AppContext } from "../(component)/context/AppContext";
-import { useAxiospublic } from "../(component)/hooks/useAxiospublic";
+import useAuth from "@/src/components/hooks/useAuth";
+import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { loginUser, setUser, loginWithGoogle } = useContext(AppContext);
+  const { loginUser, setUser, loginWithGoogle } = useAuth();
   const axiosPublic = useAxiospublic();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -140,7 +140,7 @@ const Login = () => {
               />
               <label
                 htmlFor="remember"
-                className="ml-2 text-sm text-gray-600 dark:text-gray-300"
+                className="ml-2 mt-2 text-sm text-gray-600 dark:text-gray-300"
               >
                 Remember me
               </label>
