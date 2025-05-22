@@ -77,7 +77,7 @@ const WatchMarketToday = () => {
         //   allowFullScreen
         // ></iframe>
         <iframe
-          className="w-full h-48 md:h-64 rounded-lg"
+          className="w-full h-48 md:h-56 rounded-lg"
           src={`https://www.youtube.com/embed/${latestVideoId}?autoplay=1&controls=0&modestbranding=1&rel=0`}
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

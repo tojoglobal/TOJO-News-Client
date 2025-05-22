@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 
 const Category = ({ category }) => {
