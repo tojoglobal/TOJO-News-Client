@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import logo from "../../../../public/Documentaries.jpg";
+import logo from "@/public/Documentaries.jpg";
 import { IoMdPlay } from "react-icons/io";
 import CatchUpFeatured from "./CatchUpFeatured";
 

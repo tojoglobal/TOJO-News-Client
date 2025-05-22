@@ -1,12 +1,12 @@
 "use client";
-import { useContext, useState, useEffect } from "react";
-import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
-import { AppContext } from "@/src/components/context/AppContext";
+import { useState, useEffect } from "react";;
 import { FaHeart } from "react-icons/fa";
 import toast from "react-hot-toast";
+import useAuth from "@/src/components/hooks/useAuth";
+import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 
 const LoveBtn = ({ articleId }) => {
-  const { user } = useContext(AppContext);
+  const { user } = useAuth();
   const axioPublicUrl = useAxiospublic();
   const [likes, setLikes] = useState(0);
   const [hasLiked, setHasLiked] = useState(false);

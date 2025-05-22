@@ -1,29 +1,33 @@
 "use client";
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 
 const fetchCryptoData = async () => {
   const response = await fetch(
-    'https://api.coingecko.com/api/v3/coins/markets?' +
-    new URLSearchParams({
-      vs_currency: 'usd',
-      order: 'market_cap_desc',
-      per_page: 60,
-      page: 1,
-      sparkline: true,
-      price_change_percentage: '1h,24h',
-    })
+    "https://api.coingecko.com/api/v3/coins/markets?" +
+      new URLSearchParams({
+        vs_currency: "usd",
+        order: "market_cap_desc",
+        per_page: 60,
+        page: 1,
+        sparkline: true,
+        price_change_percentage: "1h,24h",
+      })
   );
 
   if (!response.ok) {
-    throw new Error('Failed to fetch cryptocurrency data');
+    throw new Error("Failed to fetch cryptocurrency data");
   }
 
   return response.json();
 };
 
 export default function CryptoPrices() {
-  const { data: cryptoData, isLoading, error } = useQuery({
-    queryKey: ['cryptoData'],
+  const {
+    data: cryptoData,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["cryptoData"],
     queryFn: fetchCryptoData,
     refetchInterval: 300000, // Refetch every 5 minutes
   });
@@ -83,7 +87,6 @@ export default function CryptoPrices() {
                 }}
               />
             ))}
-
             <polyline
               points={pathD}
               fill="none"
@@ -133,10 +136,10 @@ export default function CryptoPrices() {
 
   return (
     <>
-      <section className="max-w-[1440px] w-full  mx-auto">
+      <section className="container mx-auto">
         <div className="w-full ">
           <div className="h-full p-0 ">
-            <div className="flex flex-col gap-4  p-4 lg:p-6">
+            <div className="flex flex-col gap-4 p-4 lg:p-6">
               <div>
                 <h1 className="self-stretch flex-grow-0 flex-shrink-0 w-full text-5xl font-semibold text-center text-[#110b29] capitalize py-1">
                   Today&#39;s Market Cap

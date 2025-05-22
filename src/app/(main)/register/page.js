@@ -1,15 +1,15 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { updateProfile } from "firebase/auth";
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import Link from "next/link";
-import { useAxiospublic } from "../(component)/hooks/useAxiospublic";
-import { AppContext } from "../(component)/context/AppContext";
 import { useRouter } from "next/navigation";
+import useAuth from "@/src/components/hooks/useAuth";
+import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 
 const Registration = () => {
-  const { RegisterUser, setUser, loginWithGoogle } = useContext(AppContext);
+  const { RegisterUser, setUser, loginWithGoogle } = useAuth();
   const axiosPublic = useAxiospublic();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

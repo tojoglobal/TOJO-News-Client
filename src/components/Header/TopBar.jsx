@@ -5,8 +5,8 @@ import UserAuth from "./UserAuth";
 
 const TopBar = () => {
   return (
-    <div className="bg-royal-indigo  h-11 flex items-center">
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-10 md:px-16 lg:px-[72px]  flex justify-between w-full text-white">
+    <div className="bg-royal-indigo h-11 flex items-center">
+      <div className="container mx-auto flex justify-between w-full text-white">
         <div className="flex items-center">
           <h1 className="font-poppins font-normal inline-block align-middle">
             {/* large device */}

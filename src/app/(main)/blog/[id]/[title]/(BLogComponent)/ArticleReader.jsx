@@ -1,5 +1,4 @@
 "use client";
-import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 import { useEffect, useState, useRef } from "react";
 import { useIdle } from "react-use";
 import {
@@ -9,6 +8,7 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 import DOMPurify from "dompurify";
+import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 
 export default function ArticleReader({ articleId, articleContent, title }) {
   const axioPublicUrl = useAxiospublic();

@@ -1,11 +1,11 @@
-import ArticleReader from "@/src/app/blog/[id]/[title]/(BLogComponent)/ArticleReader";
+import Author from "@/src/components/RecalcFunction/Author";
+import Category from "@/src/components/RecalcFunction/Category";
 import axios from "axios";
+import Image from "next/image";
 import readingTime from "reading-time";
 import GetView from "./(BLogComponent)/GetView";
+import ArticleReader from "./(BLogComponent)/ArticleReader";
 import LoveBtn from "./(BLogComponent)/LoveBtn";
-import Category from "@/src/components/RecalcFunction/Category";
-import Image from "next/image";
-import Author from "@/src/components/RecalcFunction/Author";
 
 const getBlogPost = async (id) => {
   try {
@@ -23,7 +23,11 @@ export default async function BlogPost({ params }) {
   const blog = await getBlogPost(id);
 
   if (!blog || blog.length === 0) {
-    return <div className="text-center text-red-500">Blog post not found</div>;
+    return (
+      <div className="flex items-center justify-center text-center min-h-[60vh] text-red-500">
+        Blog post not found
+      </div>
+    );
   }
 
   const {

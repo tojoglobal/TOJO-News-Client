@@ -61,7 +61,7 @@ const recentArticles = [
 
 export default function SponsoredPage() {
   return (
-    <div className="container mx-auto px-4 py-5">
+    <div className="container mx-auto py-5">
       <h1 className="text-2xl md:text-3xl font-bold text-royal-indigo mb-3">
         Sponsored
       </h1>
