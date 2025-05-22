@@ -29,7 +29,7 @@ const MainHeader = () => {
               <Image src={fb} alt="Facebook" width={24} height={24} />
             </Link>
             <Link
-              href="https://www.instagram.com/tojonews?igsh=ZXdiZ3JvbjBoYjB1"
+              href="https://www.instagram.com/tojonews"
               target="_blank"
             >
               <Image src={inst} alt="Instagram" width={24} height={24} />
@@ -38,7 +38,7 @@ const MainHeader = () => {
               <Image src={twitterx} alt="X (Twitter)" width={24} height={24} />
             </Link>
             <Link
-              href="https://www.linkedin.com/company/tojo-news/"
+              href="https://www.linkedin.com/company/tojo-news"
               target="_blank"
             >
               <Image src={linkedin} alt="LinkedIn" width={24} height={24} />

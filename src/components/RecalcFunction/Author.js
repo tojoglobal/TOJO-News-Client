@@ -1,4 +1,5 @@
-"use client"; // Ensure client-side rendering
+/* eslint-disable react-hooks/exhaustive-deps */
+"use client";
 
 import { useEffect, useState } from "react";
 import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";

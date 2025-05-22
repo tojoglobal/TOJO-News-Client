@@ -3,7 +3,7 @@ import LatestNews from "@/src/components/Home/LatestNews";
 import MostReadNews from "@/src/components/Home/MostReadNews";
 import PopularNews from "@/src/components/Home/PopularNews";
 import FeaturedNews from "@/src/components/Home/FeaturedNews";
-import WatchMarketToday from "@/src/components/Home/WatchMarketToday";
+// import WatchMarketToday from "@/src/components/Home/WatchMarketToday";
 
 const HomePage = () => {
   return (
@@ -15,7 +15,7 @@ const HomePage = () => {
             <h2 className="text-lg font-bold text-royal-indigo mb-3">
               {"Watch Market Today"}
             </h2>
-            <WatchMarketToday />
+            {/* <WatchMarketToday /> */}
           </div>
           {/* Latest news */}
           <div className="w-full max-w-sm">
@@ -29,7 +29,7 @@ const HomePage = () => {
             <h2 className="text-lg font-bold mb-4 text-royal-indigo">
               Most Read
             </h2>
-            <MostReadNews />
+            {/* <MostReadNews /> */}
           </div>
         </div>
         {/* right sidebar */}

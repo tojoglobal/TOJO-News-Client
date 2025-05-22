@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import Link from "next/link";
@@ -9,7 +8,6 @@ import PopulerNewsSkeleton from "./HomeSkeleton/PopulerNewsSkeleton";
 import trump from "@/public/trump.jpg";
 
 const PopularNews = () => {
-  const axiosPublicUrl = useAxiospublic();
   const [loading, setLoading] = useState(true);
   const [popularNews, setPopularNews] = useState([]);
 

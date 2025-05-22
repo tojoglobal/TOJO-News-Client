@@ -37,7 +37,7 @@ const upcomingEvents = [
 
 export default function EventsPage() {
   return (
-    <div className="container mx-auto px-4 py-5">
+    <div className="container mx-auto px-4 py-5 mb-10">
       {/* Upcoming Events Section */}
       <h1 className="text-2xl md:text-3xl font-bold text-royal-indigo mb-8">
         Events
