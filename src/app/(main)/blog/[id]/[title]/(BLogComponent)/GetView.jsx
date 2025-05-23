@@ -1,21 +1,23 @@
+"use client";
+import { useQuery } from "@tanstack/react-query";
 import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 
-const getView = async (id) => {
-  try {
-    const axiosPublic = useAxiospublic();
-    const { data } = await axiosPublic.get(`/api/${id}/view`);
-    return data.viewCount || 0;
-  } catch (error) {
-    return 0;
-  }
-};
+const GetView = ({ blogId }) => {
+  const axiosPublic = useAxiospublic();
 
-const GetView = async ({ blogId }) => {
-  const viewCount = await getView(blogId);
+  const { data, isLoading } = useQuery({
+    queryKey: ["viewCount", blogId],
+    queryFn: async () => {
+      const { data } = await axiosPublic.get(`/api/${blogId}/view`);
+      return data.viewCount || 0;
+    },
+    staleTime: 1000 * 60 * 5, // optional
+  });
+
   return (
-    <>
-      <span className="ml-2 text-sm">Views: {viewCount}</span>
-    </>
+    <span className="ml-2 text-sm">
+      {isLoading ? "Loading..." : `Views: ${data}`}
+    </span>
   );
 };
 

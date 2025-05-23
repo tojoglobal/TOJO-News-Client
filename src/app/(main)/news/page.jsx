@@ -4,7 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { FiClock, FiEye, FiBookmark } from "react-icons/fi";
+import { FiClock, FiEye } from "react-icons/fi";
+import GetView from "../blog/[id]/[title]/(BLogComponent)/GetView";
 
 const fetchNews = async (type) => {
   const axioPublicUrl = useAxiospublic();
@@ -109,9 +110,6 @@ export default function News() {
                   />
                 </div>
                 <div className="p-4">
-                  <span className="inline-block px-2 py-1 bg-blue-100 text-blue-600 text-xs font-medium rounded mb-2">
-                    {item.category_id}
-                  </span>
                   <h3 className="font-bold text-lg mb-2 line-clamp-2">
                     {item.title}
                   </h3>
@@ -135,11 +133,7 @@ export default function News() {
                     <div className="flex items-center space-x-4">
                       <div className="flex items-center space-x-1">
                         <FiEye className="text-gray-400" />
-                        <span>{item.view_count || 0}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <FiBookmark className="text-gray-400" />
-                        <span>{item.total_reading_time || 0}</span>
+                        <GetView blogId={item.ID} />
                       </div>
                     </div>
                   </div>
@@ -149,7 +143,6 @@ export default function News() {
           ))}
         </div>
       )}
-
       {/* Empty State */}
       {news && news.length === 0 && (
         <div className="text-center py-12">
