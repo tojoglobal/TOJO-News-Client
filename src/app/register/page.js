@@ -179,7 +179,7 @@ const Registration = () => {
             />
             <button
               type="button"
-              className="absolute right-3 top-10 text-gray-500 dark:text-gray-400"
+              className="absolute cursor-pointer right-3 top-11 text-gray-500 dark:text-gray-400"
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -192,27 +192,24 @@ const Registration = () => {
           {/* Register Button */}
           <button
             type="submit"
-            className="w-full py-3 bg-gradient-to-r from-[#031741] via-[#03d2fc] to-[#022d33] text-white font-bold rounded-lg hover:opacity-90 transition duration-300"
+            className="w-full cursor-pointer py-3 bg-gradient-to-r from-[#031741] via-[#03d2fc] to-[#022d33] text-white font-bold rounded-lg hover:opacity-90 transition duration-300"
           >
             Register
           </button>
         </form>
-
         {/* Divider */}
         <div className="flex items-center my-6">
           <div className="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
           <span className="px-3 text-gray-500 dark:text-gray-400">OR</span>
           <div className="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
         </div>
-
         {/* Google register Button */}
         <button
           onClick={handleGoogleRegister}
-          className="w-full py-3 bg-[#031741] text-white font-bold rounded-lg hover:opacity-90 transition duration-300 flex gap-3 justify-center items-center"
+          className="w-full py-3 cursor-pointer bg-[#031741] text-white font-bold rounded-lg hover:bg-[#0e1422] transition duration-300 flex gap-3 justify-center items-center"
         >
           <FaGoogle /> Continue with Google
         </button>
-
         {/* Login Link */}
         <p className="text-center text-gray-600 dark:text-gray-300 mt-6">
           Already have an account?{" "}
