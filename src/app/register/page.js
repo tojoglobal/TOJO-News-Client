@@ -18,7 +18,7 @@ const Registration = () => {
   const [passwordError, setPasswordError] = useState("");
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  // Password validation function
+
   const validatePassword = (password) => {
     const uppercase = /[A-Z]/;
     const lowercase = /[a-z]/;
@@ -28,7 +28,6 @@ const Registration = () => {
     if (!specialCharacter.test(password)) {
       return "Password must contain at least one special character.";
     }
-
     if (!uppercase.test(password)) {
       return "Password must contain at least one uppercase letter.";
     }
@@ -41,7 +40,6 @@ const Registration = () => {
     return "";
   };
 
-  // Registration function
   const handleRegister = async (e) => {
     e.preventDefault();
     const passwordValidationMessage = validatePassword(password);
@@ -53,32 +51,27 @@ const Registration = () => {
     }
 
     try {
-      // Firebase registration
       const userCredential = await RegisterUser(email, password);
       const user = userCredential.user;
 
-      // Firebase profile update
       await updateProfile(user, {
         displayName: name,
         photoURL: photoUrl,
       });
 
-      // Backend API sync
       const userData = {
         uid: user.uid,
         email: user.email,
         displayName: name,
         photoURL: photoUrl,
       };
-      // Use Axios to make the POST request
+
       const response = await axiosPublic.post("/api/register", userData);
       if (response.status === 201 && response.data.newUser) {
-        // New user successfully registered
         setUser(response.data.newUser);
-        toast.success("Registration successfully!");
+        toast.success("Registration successful!");
         router.push("/");
       } else if (response.data.existingUser) {
-        // User already exists
         setUser(response.data.existingUser);
         toast.info("Welcome back! You are already registered.");
       }
@@ -92,27 +85,21 @@ const Registration = () => {
 
   const handleGoogleRegister = async () => {
     try {
-      // Log in with Google
       const userCredential = await loginWithGoogle();
       const user = userCredential.user;
-      // Extract user data
       const userData = {
         uid: user.uid,
         email: user.email,
         displayName: user.displayName,
         photoURL: user.photoURL,
       };
-      console.log(userData);
 
-      // Send the user data to the server to check or register
       const response = await axiosPublic.post("/api/register", userData);
       if (response.status === 201 && response.data.newUser) {
-        // New user successfully registered
         setUser(response.data.newUser);
         toast.success("Google account registered successfully!");
         router.push("/");
       } else if (response.data.existingUser) {
-        // User already exists
         setUser(response.data.existingUser);
         toast.info("Welcome back! You are already registered.");
         router.push("/");
@@ -123,15 +110,15 @@ const Registration = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 dark:text-white px-4 py-20 mb-3">
-      <div className="w-full max-w-md p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-center dark:text-white text-gray-800 mb-6">
+    <div className="min-h-screen flex items-center justify-center px-4 py-8 bg-white dark:bg-gray-900">
+      <div className="w-full max-w-md p-6 rounded-lg shadow-lg bg-white dark:bg-gray-800">
+        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-white">
           User Registration
         </h2>
         <form onSubmit={handleRegister} className="space-y-4">
           {/* Name Field */}
           <div>
-            <label className="block dark:text-white text-gray-700 font-medium mb-2">
+            <label className="block font-medium mb-2 text-gray-700 dark:text-gray-300">
               Name
             </label>
             <input
@@ -139,14 +126,14 @@ const Registration = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Enter your name"
-              className="w-full dark:border-gray-600 dark:bg-gray-700 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
               required
             />
           </div>
 
           {/* Email Field */}
           <div>
-            <label className="block dark:text-white text-gray-700 font-medium mb-2">
+            <label className="block font-medium mb-2 text-gray-700 dark:text-gray-300">
               Email
             </label>
             <input
@@ -154,14 +141,14 @@ const Registration = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              className="w-full dark:border-gray-600 dark:bg-gray-700 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
               required
             />
           </div>
 
           {/* Photo URL Field */}
           <div>
-            <label className="block dark:text-white text-gray-700 font-medium mb-2">
+            <label className="block font-medium mb-2 text-gray-700 dark:text-gray-300">
               Photo URL
             </label>
             <input
@@ -169,14 +156,14 @@ const Registration = () => {
               value={photoUrl}
               onChange={(e) => setPhotoUrl(e.target.value)}
               placeholder="Enter your photo URL"
-              className="w-full dark:border-gray-600 dark:bg-gray-700 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
               required
             />
           </div>
 
           {/* Password Field */}
           <div className="relative">
-            <label className="block dark:text-white text-gray-700 font-medium mb-2">
+            <label className="block font-medium mb-2 text-gray-700 dark:text-gray-300">
               Password
             </label>
             <input
@@ -187,15 +174,16 @@ const Registration = () => {
                 setPasswordError("");
               }}
               placeholder="Enter your password"
-              className="w-full dark:border-gray-600 dark:bg-gray-700 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white pr-10"
               required
             />
-            <div
-              className="absolute right-3 top-11 cursor-pointer"
+            <button
+              type="button"
+              className="absolute right-3 top-10 text-gray-500 dark:text-gray-400"
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </div>
+            </button>
             {passwordError && (
               <p className="text-red-600 text-sm mt-1">{passwordError}</p>
             )}
@@ -204,7 +192,7 @@ const Registration = () => {
           {/* Register Button */}
           <button
             type="submit"
-            className="w-full py-3 bg-gradient-to-r from-[#031741] via-[#03d2fc] to-[#022d33] text-white font-bold rounded-lg hover:bg-gradient-to-r hover:from-blue-400 hover:to-green-500 transition duration-300"
+            className="w-full py-3 bg-gradient-to-r from-[#031741] via-[#03d2fc] to-[#022d33] text-white font-bold rounded-lg hover:opacity-90 transition duration-300"
           >
             Register
           </button>
@@ -212,25 +200,25 @@ const Registration = () => {
 
         {/* Divider */}
         <div className="flex items-center my-6">
-          <div className="flex-grow border-t border-gray-300"></div>
-          <span className="px-3 text-gray-500 dark:text-white">OR</span>
-          <div className="flex-grow border-t border-gray-300"></div>
+          <div className="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+          <span className="px-3 text-gray-500 dark:text-gray-400">OR</span>
+          <div className="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
         </div>
 
         {/* Google register Button */}
         <button
           onClick={handleGoogleRegister}
-          className="w-full py-3 bg-[#031741] text-white font-bold rounded-lg  transition duration-300 flex gap-3 justify-center items-center"
+          className="w-full py-3 bg-[#031741] text-white font-bold rounded-lg hover:opacity-90 transition duration-300 flex gap-3 justify-center items-center"
         >
           <FaGoogle /> Continue with Google
         </button>
 
         {/* Login Link */}
-        <p className="text-center text-gray-600 dark:text-white mt-6">
+        <p className="text-center text-gray-600 dark:text-gray-300 mt-6">
           Already have an account?{" "}
           <Link
             href="/login"
-            className="text-blue-600 dark:text-teal-500 hover:underline"
+            className="text-blue-600 dark:text-teal-400 hover:underline"
           >
             Login
           </Link>

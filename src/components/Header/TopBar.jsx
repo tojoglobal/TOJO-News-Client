@@ -5,7 +5,7 @@ import UserAuth from "./UserAuth";
 
 const TopBar = () => {
   return (
-    <div className="bg-royal-indigo h-auto py-2 px-4 sm:px-0">
+    <div className="bg-royal-indigo h-11 flex items-center py-2 px-4 sm:px-0">
       <div className="container mx-auto flex flex-wrap justify-between items-center text-white text-sm gap-y-2">
         <div>
           <h1 className="font-poppins font-normal">
