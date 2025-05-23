@@ -129,12 +129,12 @@ export default function ArticleReader({ articleId, articleContent, title }) {
   return (
     <div className="max-w-5xl mx-auto px-4">
       {/* Article Content */}
-      <article className="prose prose-lg max-w-none text-gray-800">
+      <article className="prose prose-lg max-w-none">
         <div
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(articleContent),
           }}
-          className="leading-relaxed"
+          className="leading-relaxed text-gray-800 [&_a]:text-blue-600 [&_a]:underline [&_a]:font-medium [&_a:hover]:text-blue-800 [&_a:hover]:underline-offset-4 [&_a]:transition-colors"
         />
       </article>
 

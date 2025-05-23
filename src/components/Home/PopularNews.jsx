@@ -40,21 +40,21 @@ const PopularNews = () => {
           slidesPerView="auto"
           className="h-[290px] md:h-[490px] w-full"
         >
-          {popularNews.map((news, i) => (
+          {popularNews.slice(0, 1).map((news, i) => (
             <SwiperSlide key={i}>
-              <div className="relative w-full h-[290px] md:h-[490px] md:rounded-2xl">
+              <div className="relative w-full h-[290px] md:h-[500px] md:rounded-2xl">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/Images/${news?.thumble}`}
                   alt={news?.title}
                   width={500}
                   height={250}
-                  className="w-full h-full rounded-2xl"
+                  className="w-full h-full rounded-2xl object-cover"
                 />
                 {/* Text Content ${news?.ID}*/}
                 <Link
                   href={`/blog/${news?.ID}/${news?.title.replace(/\s+/g, "-")}`}
                 >
-                  <div className="absolute bg-black/40 md:ml-6 md:mr-6 p-4 rounded-lg bottom-[15px] md:bottom-[50px] left-5 right-5 text-white">
+                  <div className="absolute bg-black/30 md:ml-6 md:mr-6 p-4 rounded-lg bottom-[15px] md:bottom-[30px] left-5 right-5 text-white">
                     <h3 className="md:text-[32px] font-bold">{news?.title}</h3>
                   </div>
                 </Link>
