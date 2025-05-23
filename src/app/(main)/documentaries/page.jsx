@@ -41,7 +41,7 @@ export default function Documentaries() {
   return (
     <div className="min-h-screen mb-16">
       {/* Hero Section */}
-      <div className="relative h-[600px] w-full overflow-hidden">
+      <div className="relative h-[450px] md:h-[600px] w-full overflow-hidden">
         {/* Background Image */}
         <Image
           src={logo}
@@ -63,36 +63,36 @@ export default function Documentaries() {
           }}
         />
         {/* Content */}
-        <div className="absolute top-56 inset-0 flex flex-col justify-center container mx-auto">
-          <h1 className="text-3xl text-royal-indigo font-bold mb-4">
+        <div className="absolute top-48 md:top-56 inset-0 flex flex-col justify-center container mx-auto px-4 sm:px-6">
+          <h1 className="text-xl md:text-3xl text-royal-indigo font-bold mb-1 sm:mb-4">
             <span>TOP 5 Crypto Conference</span>
-            <br />
+            <br className="hidden md:block" />
             in 2025
           </h1>
-          <p className="text-royal-indigo max-w-md mb-8">
+          <p className="text-royal-indigo max-w-md text-sm sm:text-base mb-3 sm:mb-8">
             The world of cryptocurrency and blockchain has transformed the way
             we think about money, technology, and innovation.
           </p>
-          <div className="flex gap-4">
-            <button className="bg-royal-indigo text-white px-8 py-3 rounded-full flex items-center gap-2 hover:bg-purple-600 transition-all duration-300">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <button className="bg-royal-indigo text-white px-6 py-2 sm:px-8 sm:py-3 rounded-full flex items-center justify-center gap-2 hover:bg-purple-600 transition-all duration-300 text-sm sm:text-base">
               <IoMdPlay className="text-white" /> WATCH NOW
             </button>
-            {/* bg-white/10 backdrop-blur-sm */}
-            <button className="text-royal-indigo border border-royal-indigo px-8 py-3 rounded-full hover:bg-white/20 transition-all duration-300">
+            <button className="text-royal-indigo border border-royal-indigo px-6 py-2 sm:px-8 sm:py-3 rounded-full hover:bg-white/20 transition-all duration-300 text-sm sm:text-base">
               EXPLORE THE SHOW
             </button>
           </div>
         </div>
       </div>
-      <div className="container mx-auto py-12">
-        <h2 className="text-2xl font-bold text-royal-indigo mb-3">
+
+      <div className="container mx-auto py-8 sm:py-12 px-3 sm:px-6">
+        <h2 className="text-xl sm:text-2xl font-bold text-royal-indigo mb-3">
           Featured News
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-5">
           {featuredNews.map((item) => (
             <div
               key={item.id}
-              className="relative w-full h-64 group overflow-hidden rounded-md"
+              className="relative w-full h-40 sm:h-64 group overflow-hidden rounded-md"
             >
               <Image
                 src={item.image}
@@ -103,14 +103,14 @@ export default function Documentaries() {
             </div>
           ))}
         </div>
-        <h2 className="text-2xl font-bold text-royal-indigo mt-12 mb-3">
+        <h2 className="text-xl sm:text-2xl font-bold text-royal-indigo mt-8 sm:mt-12 mb-3">
           Continue Watching
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-5">
           {featuredNews.map((item) => (
             <div
               key={item.id}
-              className="relative w-full h-64 group overflow-hidden rounded-md"
+              className="relative w-full h-40 sm:h-64 group overflow-hidden rounded-md"
             >
               <Image
                 src={item.image}

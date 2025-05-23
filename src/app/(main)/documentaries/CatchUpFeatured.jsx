@@ -108,8 +108,8 @@ export default function CatchUpFeatured() {
               slidesPerGroup: 3,
             },
             1536: {
-              slidesPerView: 3,
-              slidesPerGroup: 3,
+              slidesPerView: 4,
+              slidesPerGroup: 4,
             },
           }}
           className="w-full"
