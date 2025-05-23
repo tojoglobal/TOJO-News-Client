@@ -33,7 +33,7 @@ const HomePage = () => {
         {/* right sidebar Main Content */}
         <div className="md:col-span-9 order-1 md:order-2 space-y-6">
           <PopularNews />
-          <div className="bg-purple-600 text-white text-center py-6 rounded-lg">
+          <div className="bg-royal-indigo text-white text-center py-6 rounded-lg">
             Advertisements
           </div>
           <FeaturedNews />
