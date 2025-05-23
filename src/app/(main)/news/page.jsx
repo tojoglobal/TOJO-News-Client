@@ -40,10 +40,10 @@ export default function News() {
   return (
     <div className="max-w-7xl mx-auto py-5 mb-6">
       <div className="text-center mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
           News & Updates
         </h1>
-        <p className="text-lg text-gray-600 max-w-4xl mx-auto">
+        <p className="md:text-lg text-gray-600 max-w-4xl mx-auto">
           Stay informed with our latest articles, popular stories, and most read
           content
         </p>
@@ -55,7 +55,7 @@ export default function News() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-4 cursor-pointer py-2 text-sm font-medium rounded-t-lg transition-colors ${
+              className={`px-3 md:px-4 cursor-pointer py-2 text-sm font-medium rounded-t-lg transition-colors ${
                 activeTab === tab
                   ? "bg-royal-indigo text-white"
                   : "text-gray-600 hover:bg-gray-100"
@@ -68,7 +68,6 @@ export default function News() {
           ))}
         </div>
       </div>
-
       {/* Loading State */}
       {isLoading && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -80,7 +79,6 @@ export default function News() {
           ))}
         </div>
       )}
-
       {/* Error State */}
       {isError && (
         <div className="text-center py-12">
@@ -89,10 +87,9 @@ export default function News() {
           </p>
         </div>
       )}
-
       {/* News Grid */}
       {news && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mx-3 md:mx-0">
           {news.map((item) => (
             <article
               key={item.ID}

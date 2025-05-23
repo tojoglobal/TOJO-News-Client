@@ -55,7 +55,7 @@ export default function MobileMenu() {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-[70%] max-w-sm bg-white shadow-lg transform transition-all duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 h-full w-[65%] max-w-sm bg-white shadow-lg transform transition-all duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         } z-50`}
         role="dialog"
