@@ -8,7 +8,6 @@ import useAuth from "@/src/components/hooks/useAuth";
 import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 
 const Login = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const { loginUser, setUser, loginWithGoogle } = useAuth();
   const axiosPublic = useAxiospublic();
   const [email, setEmail] = useState("");
@@ -21,17 +20,16 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/";
 
   //   handle login from
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    setIsLoading(true);
     // Validate input
     if (!email || !password) {
       toast.error("Please enter both email and password.");
       return;
     }
     // Attempt to log in the user with email and password
-    try {
-      await loginUser(email, password).then((userCredential) => {
+    loginUser(email, password)
+      .then((userCredential) => {
         const user = userCredential.user;
         const userData = {
           uid: user.uid,
@@ -43,13 +41,20 @@ const Login = () => {
         localStorage.setItem("authToken", user.accessToken);
         toast.success("Login successful!");
         router.push(from, { replace: true });
-        setIsLoading(false);
+      })
+      .catch((error) => {
+        // Handle errors based on Firebase error codes
+        const errorMessage = error.code;
+        if (errorMessage === "auth/user-not-found") {
+          toast.error("User not found. Please check the email.");
+        } else if (errorMessage === "auth/wrong-password") {
+          toast.error("Incorrect password. Please try again.");
+        } else if (errorMessage === "auth/invalid-email") {
+          toast.error("Invalid email format.");
+        } else {
+          toast.error("Login failed. Please try again.");
+        }
       });
-    } catch (error) {
-      toast.error(error.message || "Login failed. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   const handleGoogleLogin = async () => {
@@ -92,7 +97,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center bg-gray-100 px-4 py-10 mb-3 dark:bg-gray-900 dark:text-white">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4 py-20 mb-3 dark:bg-gray-900 dark:text-white">
       <div className="w-full max-w-md p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-white mb-6">
           User Login
@@ -132,33 +137,14 @@ const Login = () => {
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </div>
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="remember"
-                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <label
-                htmlFor="remember"
-                className="ml-2 mt-2 text-sm text-gray-600 dark:text-gray-300"
-              >
-                Remember me
-              </label>
-            </div>
           </div>
+
+          {/* Login Button */}
           <button
             type="submit"
-            disabled={isLoading}
-            className="w-full cursor-pointer py-3 bg-gradient-to-r from-[#031741] via-[#03d2fc] to-[#022d33] text-white font-bold rounded-lg hover:bg-gradient-to-r transition duration-300 disabled:opacity-50"
+            className="w-full py-3 bg-gradient-to-r from-[#031741] via-[#03d2fc] to-[#022d33] text-white font-bold rounded-lg hover:bg-gradient-to-r  transition duration-300"
           >
-            {isLoading ? (
-              <div className="flex items-center justify-center">
-                <div className="w-5 h-5 border-t-2 border-b-2 border-white rounded-full animate-spin mr-2"></div>
-                Logging in...
-              </div>
-            ) : (
-              "Login"
-            )}
+            Login
           </button>
         </form>
 
@@ -172,7 +158,7 @@ const Login = () => {
         {/* Google Login Button */}
         <button
           onClick={handleGoogleLogin}
-          className="w-full cursor-pointer py-3 bg-[#031741] text-white font-bold rounded-lg  transition duration-300 flex gap-3 justify-center items-center"
+          className="w-full py-3 bg-[#031741] text-white font-bold rounded-lg  transition duration-300 flex gap-3 justify-center items-center"
         >
           <FaGoogle /> Continue with Google
         </button>

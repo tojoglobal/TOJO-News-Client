@@ -84,7 +84,6 @@ const Newsletters = () => {
       setEmail("");
       setInterests([]);
     } catch (error) {
-      // const erroMessage = error.response.data.error.detail;
       toast.error("Error seubscribing. Please try again.");
     }
   };
@@ -152,7 +151,7 @@ const Newsletters = () => {
                 onChange={() => handleCheckboxChange(option)}
                 className="w-5 h-5 cursor-pointer text-royal-indigo border-gray-500 accent-royal-indigo rounded focus:ring-purple-500"
               />
-              <span className="text-base cursor-pointer md:text-xl text-royal-indigo font-semibold font-poppins">
+              <span className="text-base md:text-xl cursor-pointer text-royal-indigo font-semibold font-poppins">
                 {option}
               </span>
             </label>
@@ -165,12 +164,16 @@ const Newsletters = () => {
             placeholder="Enter your e-mail Address"
             className="px-4 py-2.5 focus:outline-none w-full border rounded-md text-sm md:text-base text-gray-700 placeholder:text-gray-400 bg-white focus:ring-2 focus:ring-royal-indigo/20 transition-all"
             value={user?.email || email}
+            // onChange={(e) => setEmail(user?.email)}
+            // readOnly={user?.email}
+            // value={user ? user.email : email}
             onChange={(e) => !user && setEmail(e.target.value)}
             readOnly={!!user}
           />
           <button
             onClick={handleSubscribe}
-            className="px-6 py-2.5 bg-royal-indigo text-white rounded-sm hover:bg-purple-800 transition-colors duration-200 font-medium whitespace-nowrap flex-shrink-0"
+            // onClick={() => handleSubscribe(user?.email || email)}
+            className="px-6 py-2.5 bg-royal-indigo cursor-pointer text-white rounded-sm hover:bg-purple-800 transition-colors duration-200 font-medium whitespace-nowrap flex-shrink-0"
           >
             Subscribe
           </button>

@@ -147,7 +147,7 @@ export default function CryptoPrices() {
               </div>
             </div>
             {/* table of crypto */}
-            <div className="p-6 overflow-x-auto">
+            <div className="p-4 overflow-x-auto">
               {isLoading ? (
                 <span className="loading loading-bars loading-xl"></span>
               ) : error ? (

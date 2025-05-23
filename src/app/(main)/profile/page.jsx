@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import useAuth from "../(component)/hooks/useAuth";
+import useAuth from "@/src/components/hooks/useAuth";
 
 const ProfilePage = () => {
   const { user, logoutUser, isLoading } = useAuth();

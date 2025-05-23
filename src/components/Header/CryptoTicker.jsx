@@ -3,8 +3,8 @@ import { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import axios from "axios";
-import { Skeleton } from "@/src/ui/skeleton";
 import React from "react";
+import { Skeleton } from "@/src/ui/skeleton";
 
 const CryptoTicker = ({ symbol }) => {
   const [price, setPrice] = useState(null);

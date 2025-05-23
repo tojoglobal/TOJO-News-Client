@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";;
+import { useState, useEffect } from "react";
 import { FaHeart } from "react-icons/fa";
 import toast from "react-hot-toast";
 import useAuth from "@/src/components/hooks/useAuth";

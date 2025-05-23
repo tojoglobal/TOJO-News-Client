@@ -7,19 +7,6 @@ const axiosPublic = axios.create({
   },
   withCredentials: true,
 });
-
-// Add response interceptor
-axiosPublic.interceptors.response.use(
-  response => response,
-  error => {
-    if (error.response?.status === 500) {
-      console.error('Server Error:', error.response.data);
-      // You can add custom error handling here
-    }
-    return Promise.reject(error);
-  }
-);
-
 export const useAxiospublic = () => {
   return axiosPublic;
 };

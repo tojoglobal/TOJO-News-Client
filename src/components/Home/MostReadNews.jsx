@@ -1,9 +1,9 @@
 "use client";
-import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import MostReadSkeleton from "./HomeSkeleton/MostReadSkeleton";
 import Link from "next/link";
+import { useAxiospublic } from "../hooks/useAxiospublic";
 
 const MostReadNews = () => {
   const axiosPublicUrl = useAxiospublic();
