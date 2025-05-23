@@ -14,6 +14,7 @@ const getBlogPost = async (id) => {
     );
     return data.Result || null;
   } catch (error) {
+    console.error("Error fetching blog post:", error);
     return null;
   }
 };
@@ -24,8 +25,16 @@ export default async function BlogPost({ params }) {
 
   if (!blog || blog.length === 0) {
     return (
-      <div className="flex items-center justify-center text-center min-h-[60vh] text-red-500">
-        Blog post not found
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center p-6 max-w-md">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">
+            Post Not Found
+          </h2>
+          <p className="text-gray-600">
+            The blog post you&apos;re looking for doesn&apos;t exist or may have
+            been removed.
+          </p>
+        </div>
       </div>
     );
   }
@@ -41,70 +50,86 @@ export default async function BlogPost({ params }) {
     articalpost,
   } = blog[0];
 
-  const stats = readingTime(blog[0]?.articalpost || "");
+  const stats = readingTime(articalpost || "");
+  const publishDate = new Date(dateAndTime);
+  const formattedDate = publishDate.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
-    <div className="max-w-5xl mx-auto p-5">
-      {/* news title */}
-      <h1 className="text-xl md:text-3xl font-bold mb-3">{title}</h1>
-      {/* news sub body */}
-      <h1 className="text-gray-900 flex-grow-0 flex-shrink-0 text-sm lg:text-lg text-left">
-        {subtitle}
-      </h1>
-      {/* news author and  time */}
-      <div className="flex flex-col md:flex-row gap-2 content-baseline align-middle justify-start mt-3 mb-3 md:mb-7">
-        <div className="flex flex-wrap justify-start items-start gap-1 text-xs">
-          <div className="flex flex-wrap gap-1 uppercase">
-            by{" "}
-            <span>
+    <article className="max-w-5xl mx-auto p-5">
+      {/* Article Header */}
+      <header className="mb-8">
+        {/* Category Tag */}
+        <div className="mb-4">
+          <span className="inline-block bg-indigo-600 text-white text-xs px-3 py-1 rounded-full font-medium">
+            <Category category={category_id} />
+          </span>
+        </div>
+
+        {/* Title */}
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+          {title}
+        </h1>
+
+        {/* Subtitle */}
+        {subtitle && (
+          <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+            {subtitle}
+          </p>
+        )}
+
+        {/* Author and Date */}
+        <div className="flex items-center gap-4 mb-6">
+          <div className="flex items-center gap-2 text-sm text-gray-600">
+            <span>By</span>
+            <span className="font-medium text-gray-800">
               <Author
                 author1={author1_id}
                 author2={author2_id}
                 showSingle={true}
               />
             </span>
-            <span> /</span>
           </div>
-          <div className="flex justify-start items-start relative gap-1 uppercase">
-            <p className="text-gray-600">
-              <time dateTime={dateAndTime}>
-                {new Date(dateAndTime).toDateString()}
-              </time>
-            </p>
-          </div>
+          <span className="text-gray-400">•</span>
+          <time dateTime={dateAndTime} className="text-sm text-gray-600">
+            {formattedDate}
+          </time>
         </div>
-      </div>
 
-      {/* news thumbline  */}
-      <div className="w-full relative aspect-[1.5/1] md:aspect-[1.65/1]">
-        <Image
-          src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/Images/${thumble}`}
-          alt={title}
-          fill
-          className="rounded-lg object-fill md:object-cover"
-        />
-        {/* Category Tag */}
-        <span className="bg-royal-indigo text-white text-xs px-2 py-1 rounded-md font-medium absolute bottom-1 left-1">
-          <Category category={category_id} />
-        </span>
-      </div>
-      {/* news reading time and getview  */}
-      <div>
-        <span className="text-sm mt-4">Reading Time: {stats.text}</span>
-        <GetView blogId={id} />
-      </div>
-      {/* news reading time spent
-       and
-        news post */}
+        {/* Featured Image */}
+        <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-md mb-6">
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/Images/${thumble}`}
+            alt={title}
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+
+        {/* Meta Info */}
+        <div className="flex items-center justify-between text-sm text-gray-500 border-b border-gray-200 pb-6">
+          <span>Reading time: {stats.text}</span>
+          <GetView blogId={id} />
+        </div>
+      </header>
+
+      {/* Article Content */}
       <ArticleReader
         articleId={id}
         articleContent={articalpost}
         title={title}
       />
-      {/* news love btn */}
-      <div>
-        <LoveBtn articleId={id} />
-      </div>
-    </div>
+
+      {/* Engagement Section */}
+      <footer className="mt-12 pt-6 border-t border-gray-200">
+        <div className="flex justify-center">
+          <LoveBtn articleId={id} />
+        </div>
+      </footer>
+    </article>
   );
 }

@@ -53,7 +53,7 @@ const LoveBtn = ({ articleId }) => {
     <div className="flex items-center justify-center space-x-2">
       <button
         onClick={handleLike}
-        className="bg-orange-500 text-white px-4 py-1 rounded-full flex items-center gap-2"
+        className="bg-orange-500 cursor-pointer text-white px-4 py-1 rounded-full flex items-center gap-2"
       >
         <FaHeart />
         {likes}

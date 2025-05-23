@@ -1,11 +1,12 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useIdle } from "react-use";
 import {
   FaFacebookF,
   FaTwitter,
   FaLinkedinIn,
   FaWhatsapp,
+  FaShareAlt,
 } from "react-icons/fa";
 import DOMPurify from "dompurify";
 import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
@@ -13,33 +14,32 @@ import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 export default function ArticleReader({ articleId, articleContent, title }) {
   const axioPublicUrl = useAxiospublic();
   const [timeSpent, setTimeSpent] = useState(0);
+  const [showShareTooltip, setShowShareTooltip] = useState(false);
   const isIdle = useIdle(10000);
   const lastActiveTimeRef = useRef(Date.now());
   const hasViewed = useRef(false);
   const sessionId = getSessionId();
   const userId = getUserId();
+  const shareButtonRef = useRef(null);
 
-  const articleUrl =
-    typeof window !== "undefined"
-      ? `${window.location.origin}/blog/${articleId}/${title.replace(
-          /\s+/g,
-          "-"
-        )}`
-      : "";
+  const articleUrl = getArticleUrl(articleId, title);
+
   const shareLinks = {
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
       articleUrl
     )}`,
     twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(
       articleUrl
-    )}&text=Check%20out%20this%20article`,
+    )}&text=${encodeURIComponent(`Check out this article: ${title}`)}`,
     linkedin: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
       articleUrl
+    )}&title=${encodeURIComponent(title)}`,
+    whatsapp: `https://wa.me/?text=${encodeURIComponent(
+      `${title} - ${articleUrl}`
     )}`,
-    whatsapp: `https://wa.me/?text=${encodeURIComponent(articleUrl)}`,
   };
-  console.log(shareLinks.facebook);
 
+  // Track reading time
   useEffect(() => {
     const storedTime = localStorage.getItem(`readingTime-${articleId}`);
     if (storedTime) setTimeSpent(parseInt(storedTime, 10));
@@ -63,7 +63,8 @@ export default function ArticleReader({ articleId, articleContent, title }) {
     return () => clearInterval(interval);
   }, [isIdle, articleId]);
 
-  const sendReadingTime = async () => {
+  // Send reading time to server
+  const sendReadingTime = useCallback(async () => {
     const storedTime = localStorage.getItem(`readingTime-${articleId}`);
     const totalReadingTime = storedTime ? parseInt(storedTime, 10) : 0;
     const readingTimeInMinutes = Math.floor(totalReadingTime / 60);
@@ -77,8 +78,9 @@ export default function ArticleReader({ articleId, articleContent, title }) {
         console.error("Failed to send reading time:", error);
       }
     }
-  };
+  }, [timeSpent, articleId, axioPublicUrl]);
 
+  // Handle visibility changes and unload
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.hidden) sendReadingTime();
@@ -91,70 +93,118 @@ export default function ArticleReader({ articleId, articleContent, title }) {
       window.removeEventListener("beforeunload", sendReadingTime);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [timeSpent, articleId]);
+  }, [sendReadingTime]);
 
+  // Track article view
   useEffect(() => {
     if (!hasViewed.current) {
       hasViewed.current = true;
       axioPublicUrl.post("/api/updateViews", { articleId });
     }
-  }, [articleId]);
+  }, [articleId, axioPublicUrl]);
+
+  // Handle click outside share tooltip
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        shareButtonRef.current &&
+        !shareButtonRef.current.contains(event.target)
+      ) {
+        setShowShareTooltip(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const toggleShareTooltip = () => setShowShareTooltip(!showShareTooltip);
+
+  const formatReadingTime = () => {
+    const minutes = Math.floor(timeSpent / 60);
+    const seconds = timeSpent % 60;
+    return `${minutes > 0 ? `${minutes} min ` : ""}${seconds} sec`;
+  };
 
   return (
-    <div className="md:px-4 py-6 max-w-7xl mx-auto">
-      {/* Social Icons - Left Sticky */}
-      <div className="flex flex-row items-center gap-5">
-        <a
-          href={shareLinks?.facebook}
-          target="_blank"
-          rel="noopener noreferrer"
-          title="Share on Facebook"
-        >
-          <FaFacebookF className="text-royal-indigo hover:scale-125 transition-transform text-xl" />
-        </a>
-        <a
-          href={shareLinks?.twitter}
-          target="_blank"
-          rel="noopener noreferrer"
-          title="Share on Twitter"
-        >
-          <FaTwitter className="text-royal-indigo hover:scale-125 transition-transform text-xl" />
-        </a>
-        <a
-          href={shareLinks?.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          title="Share on LinkedIn"
-        >
-          <FaLinkedinIn className="text-royal-indigo hover:scale-125 transition-transform text-xl" />
-        </a>
-        <a
-          href={shareLinks?.whatsapp}
-          target="_blank"
-          rel="noopener noreferrer"
-          title="Share on WhatsApp"
-        >
-          <FaWhatsapp className="text-royal-indigo hover:scale-125 transition-transform text-xl" />
-        </a>
-      </div>
-
+    <div className="max-w-5xl mx-auto px-4">
       {/* Article Content */}
-      <div className="flex-1">
+      <article className="prose prose-lg max-w-none text-gray-800">
         <div
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(articleContent),
           }}
-          className="prose text-black max-w-none prose-base text-base md:text-lg md:text-justify leading-relaxed"
-        ></div>
-        <p className="mt-6 font-medium">
-          Time Spent: {Math.floor(timeSpent / 60)} min {timeSpent % 60} sec
-        </p>
+          className="leading-relaxed"
+        />
+      </article>
+
+      {/* Article Footer */}
+      <div className="mt-12 border-t border-gray-200 pt-6 flex flex-col sm:flex-row justify-between items-center">
+        {/* Reading Time */}
+        <div className="text-sm text-gray-500 mb-4 sm:mb-0">
+          Reading time: {formatReadingTime()}
+        </div>
+
+        {/* Share Buttons */}
+        <div className="relative" ref={shareButtonRef}>
+          <button
+            onClick={toggleShareTooltip}
+            className="flex cursor-pointer items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-full hover:bg-blue-100 transition-colors"
+            aria-label="Share article"
+          >
+            <FaShareAlt />
+            <span>Share</span>
+          </button>
+
+          {showShareTooltip && (
+            <div className="absolute bottom-full right-0 mb-3 bg-white shadow-lg rounded-lg p-3 w-48 z-10">
+              <div className="flex justify-between">
+                <a
+                  href={shareLinks.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 text-blue-600 hover:bg-blue-50 rounded-full"
+                  title="Share on Facebook"
+                >
+                  <FaFacebookF />
+                </a>
+                <a
+                  href={shareLinks.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 text-blue-400 hover:bg-blue-50 rounded-full"
+                  title="Share on Twitter"
+                >
+                  <FaTwitter />
+                </a>
+                <a
+                  href={shareLinks.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 text-blue-700 hover:bg-blue-50 rounded-full"
+                  title="Share on LinkedIn"
+                >
+                  <FaLinkedinIn />
+                </a>
+                <a
+                  href={shareLinks.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 text-green-500 hover:bg-blue-50 rounded-full"
+                  title="Share on WhatsApp"
+                >
+                  <FaWhatsapp />
+                </a>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
 }
 
-// Helpers
+// Helper functions
 const getSessionId = () => {
   if (typeof window !== "undefined") {
     let sessionId = localStorage.getItem("session_id") || null;
@@ -172,4 +222,14 @@ const getUserId = () => {
     return localStorage.getItem("user_id") || null;
   }
   return null;
+};
+
+const getArticleUrl = (articleId, title) => {
+  if (typeof window !== "undefined") {
+    return `${window.location.origin}/blog/${articleId}/${title.replace(
+      /\s+/g,
+      "-"
+    )}`;
+  }
+  return "";
 };
