@@ -44,9 +44,9 @@ export default async function BlogPost({ params }) {
   const stats = readingTime(blog[0]?.articalpost || "");
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
+    <div className="max-w-5xl mx-auto p-5">
       {/* news title */}
-      <h1 className="text-xl md:text-3xl font-bold mb-4">{title}</h1>
+      <h1 className="text-xl md:text-3xl font-bold mb-3">{title}</h1>
       {/* news sub body */}
       <h1 className="text-gray-900 flex-grow-0 flex-shrink-0 text-sm lg:text-lg text-left">
         {subtitle}
@@ -90,7 +90,7 @@ export default async function BlogPost({ params }) {
       </div>
       {/* news reading time and getview  */}
       <div>
-        <span className="text-sm mt-2">Reading Time: {stats.text}</span>
+        <span className="text-sm mt-4">Reading Time: {stats.text}</span>
         <GetView blogId={id} />
       </div>
       {/* news reading time spent

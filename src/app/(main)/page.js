@@ -5,12 +5,10 @@ import FeaturedNews from "@/src/components/Home/FeaturedNews";
 import WatchMarketToday from "@/src/components/Home/WatchMarketToday";
 const HomePage = () => {
   return (
-    <div className="container mx-auto px-4 py-6">
-      {/* Component UI */}
+    <div className="container mx-auto py-6">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
         {/* Left Sidebar */}
         <div className="md:col-span-3 order-2 md:order-1 space-y-6">
-          {/* Watch Market Today */}
           <div className="md:p-4 pt-2 rounded-lg  text-left">
             <h2 className="text-lg font-bold text-royal-indigo mb-3">
               {"Watch Market Today"}
@@ -28,20 +26,16 @@ const HomePage = () => {
           <div className="md:p-4 rounded-lg  w-full max-w-sm">
             <h2 className="text-lg font-bold mb-4 text-royal-indigo">
               Most Read
-            </h2>{" "}
+            </h2>
             <MostReadNews />
           </div>
         </div>
-        {/* right sidebar */}
-        {/* Main Content */}
+        {/* right sidebar Main Content */}
         <div className="md:col-span-9 order-1 md:order-2 space-y-6">
-          {/* Poupler news slide News */}
           <PopularNews />
-          {/* Advertisement Banner */}
           <div className="bg-purple-600 text-white text-center py-6 rounded-lg">
             Advertisements
           </div>
-          {/* FeaturedNews */}
           <FeaturedNews />
         </div>
       </div>

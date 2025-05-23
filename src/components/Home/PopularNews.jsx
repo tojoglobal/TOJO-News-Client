@@ -42,7 +42,7 @@ const PopularNews = () => {
         >
           {popularNews.map((news, i) => (
             <SwiperSlide key={i}>
-              <div className="relative w-full  h-[290px] md:h-[490px] md:rounded-2xl">
+              <div className="relative w-full h-[290px] md:h-[490px] md:rounded-2xl">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/Images/${news?.thumble}`}
                   alt={news?.title}
@@ -50,7 +50,6 @@ const PopularNews = () => {
                   height={250}
                   className="w-full h-full rounded-2xl"
                 />
-
                 {/* Text Content ${news?.ID}*/}
                 <Link
                   href={`/blog/${news?.ID}/${news?.title.replace(/\s+/g, "-")}`}

@@ -101,9 +101,9 @@ export default function ArticleReader({ articleId, articleContent, title }) {
   }, [articleId]);
 
   return (
-    <div className="md:flex gap-4 md:px-4 py-6 max-w-7xl mx-auto">
+    <div className="md:px-4 py-6 max-w-7xl mx-auto">
       {/* Social Icons - Left Sticky */}
-      <div className="w-[50px] md:sticky top-24 h-fit flex flex-row md:flex-col items-center gap-5">
+      <div className="flex flex-row items-center gap-5">
         <a
           href={shareLinks?.facebook}
           target="_blank"
@@ -144,9 +144,9 @@ export default function ArticleReader({ articleId, articleContent, title }) {
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(articleContent),
           }}
-          className="prose max-w-none prose-base text-base md:text-lg md:text-justify leading-relaxed"
+          className="prose text-black max-w-none prose-base text-base md:text-lg md:text-justify leading-relaxed"
         ></div>
-        <p className="mt-6 font-medium text-gray-600">
+        <p className="mt-6 font-medium">
           Time Spent: {Math.floor(timeSpent / 60)} min {timeSpent % 60} sec
         </p>
       </div>
