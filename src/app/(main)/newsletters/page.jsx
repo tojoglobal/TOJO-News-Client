@@ -119,10 +119,10 @@ const Newsletters = () => {
 
   return (
     <div className="container mx-auto py-6">
-      <h1 className="text-2xl md:text-3xl font-bold text-royal-indigo mb-5 md:mb-10 text-center">
+      <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-royal-indigo mb-5 md:mb-10 text-center">
         Newsletter
       </h1>
-      <div className="bg-gradient-to-r from-royal-indigo to-[#060044] text-white p-6 flex flex-col justify-center items-center rounded-lg text-center min-h-[321px] relative overflow-hidden">
+      <div className="bg-gradient-to-r from-royal-indigo to-[#060044] text-white p-6 flex flex-col justify-center items-center mx-2 md:mx-0 rounded-lg text-center min-h-[250px] md:min-h-[321px] relative overflow-hidden">
         <div className="bg-[#370094] rounded-[48%] w-[329px] h-[162px] absolute -right-14 -top-11"></div>
         <div className="bg-[#4900C6] rounded-[50%] w-[221px] h-[108px] absolute -left-10 -bottom-10"></div>
         <div className="w-11/12 md:w-7/12 relative">
@@ -137,7 +137,7 @@ const Newsletters = () => {
         </div>
       </div>
       {/* intrests */}
-      <div className="max-w-2xl md:w-8/12 mx-auto mb-8 md:mb-20">
+      <div className="max-w-2xl mx-3 md:w-8/12 md:mx-auto mb-8 md:mb-20">
         <h3 className="mt-10 mb-5 font-bold text-2xl md:text-3xl text-royal-indigo">
           Select Interests
         </h3>
@@ -158,7 +158,7 @@ const Newsletters = () => {
           ))}
         </div>
         {/* subscribe filed */}
-        <div className="flex mt-5 flex-col sm:flex-row gap-1">
+        <div className="flex mt-5 flex-col sm:flex-row gap-3 md:gap-1">
           <input
             type="email"
             placeholder="Enter your e-mail Address"

@@ -62,14 +62,14 @@ const recentArticles = [
 export default function SponsoredPage() {
   return (
     <div className="container mx-auto py-5">
-      <h1 className="text-2xl md:text-3xl font-bold text-royal-indigo mb-3">
+      <h1 className="text-2xl md:text-3xl lg:text-4xl text-center md:text-left font-bold text-royal-indigo mb-3">
         Sponsored
       </h1>
-      <p className="text-royal-indigo font-normal mb-8">
+      <p className="text-royal-indigo md:text-lg font-normal text-center md:text-left mb-8 mx-3 md:mx-0">
         There are a total of {sponsoredArticles.length} articles associated with
         Sponsored.
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mx-3 md:mx-0">
         {/* Main Content - 9 columns */}
         <div className="md:col-span-9 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {sponsoredArticles.map((article) => (

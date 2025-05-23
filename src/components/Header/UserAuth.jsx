@@ -24,7 +24,6 @@ const UserAuth = () => {
     <div className="relative">
       {isLoading == false && user ? (
         <div className="flex items-center gap-2">
-          {/* Profile Image Clickable */}
           <div className="relative">
             <Image
               src={user?.photoURL || "/default-avatar.png"}
@@ -35,10 +34,9 @@ const UserAuth = () => {
               onClick={() => setDropdownOpen(!dropdownOpen)}
               referrerPolicy="no-referrer"
             />
-
             {/* Dropdown Menu */}
             {dropdownOpen && (
-              <div className="absolute left-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-md">
+              <div className="absolute -left-[68px] md:left-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-md">
                 <Link
                   href="/profile"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

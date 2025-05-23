@@ -35,10 +35,10 @@ export default function PastEvents() {
   return (
     <div>
       {/* Past Events Section */}
-      <h2 className="text-2xl md:text-3xl font-bold text-royal-indigo mt-16 mb-8">
+      <h2 className="text-2xl md:text-3xl lg:text-4xl mx-3 md:mx-0 font-bold text-royal-indigo mt-16 mb-8">
         Past Events
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-3 md:mx-0">
         {pastEvents.map((event) => (
           <div
             key={event.id}
@@ -51,7 +51,7 @@ export default function PastEvents() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="p-4">
+            <div className="p-3 md:p-4">
               <div className="text-sm text-gray-600 mb-2">
                 {event.location} · {event.date}
               </div>
