@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
@@ -6,7 +7,6 @@ import moment from "moment";
 export default function SponsoredPage() {
   const axioPublicUrl = useAxiospublic();
 
-  // Query for all sponsored posts
   const {
     data: sponsoredData = [],
     isLoading: isSponsoredLoading,
@@ -15,71 +15,81 @@ export default function SponsoredPage() {
     queryKey: ["allSponsored"],
     queryFn: async () => {
       const res = await axioPublicUrl.get("/api/admin/Sponsored");
-      return res?.data?.Result;
+      return res?.data?.Result || [];
     },
   });
-console.log(sponsoredData);
-  // Helper: Get active sponsored articles
-  const getActiveSponsoredArticles = () => {
+
+  // Helper: checks if now is in [start_date, end_date] inclusive
+  const isActive = (start, end) => {
     const now = moment();
-    return sponsoredData.filter((article) => {
-      const startDate = moment(article.start_date);
-      const endDate = moment(article.end_date);
-      return now.isBetween(startDate, endDate, null, "[]");
-    });
+    return now.isSameOrAfter(moment(start)) && now.isSameOrBefore(moment(end));
   };
 
-  // Helper: Get recent articles (active and marked as recent)
-  const getRecentArticles = () => {
-    const now = moment();
-    return sponsoredData
-      .filter((article) => {
-        const startDate = moment(article.start_date);
-        const endDate = moment(article.end_date);
-        return (
-          now.isBetween(startDate, endDate, null, "[]") &&
-          article.is_recent === 1
-        );
-      })
-      .slice(0, 4);
-  };
+  // Main sponsored posts: only active (not expired, not future)
+  const articlesToDisplay = sponsoredData.filter((article) =>
+    isActive(article.start_date, article.end_date)
+  );
 
-  // Fallback: If no active articles, show all
-  const activeSponsoredArticles = getActiveSponsoredArticles();
-  const articlesToDisplay =
-    activeSponsoredArticles.length > 0 ? activeSponsoredArticles : sponsoredData;
-  const recentArticles = getRecentArticles();
+  // Recent Articles: active AND is_recent === 1
+  const recentArticles = sponsoredData
+    .filter(
+      (article) =>
+        article.is_recent === 1 &&
+        isActive(article.start_date, article.end_date)
+    )
+    .slice(0, 4);
 
   if (isSponsoredLoading) return <div>Loading...</div>;
   if (isSponsoredError) return <div>Error loading data</div>;
 
   return (
     <div className="container mx-auto py-5">
-      <h1 className="text-2xl md:text-3xl lg:text-4xl text-center md:text-left font-bold text-royal-indigo mb-3">
-        Sponsored
-      </h1>
-      <p className="text-royal-indigo md:text-lg font-normal text-center md:text-left mb-8 mx-3 md:mx-0">
+      <h1 className="text-2xl font-bold text-royal-indigo mb-3">Sponsored</h1>
+      <p className="text-royal-indigo md:text-lg font-normal mb-8">
         There are a total of {articlesToDisplay.length} sponsored articles.
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mx-3 md:mx-0">
-        {/* Main Content - 9 columns */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+        {/* Main Content */}
         <div className="md:col-span-9 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {articlesToDisplay.length === 0 && (
+            <div className="col-span-full text-center text-gray-500">
+              No sponsored articles active right now.
+            </div>
+          )}
           {articlesToDisplay.map((article) => (
             <div
               key={article.id}
               className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
             >
               <div className="relative h-48">
-                <img
-                  src={`${axioPublicUrl.defaults.baseURL}/Images/${article.image_url}`}
-                  alt={article.title}
-                  className="w-full h-full object-cover"
-                />
+                <Link
+                  href={`/sponsored/${article.id}/${encodeURIComponent(
+                    article.title.replace(/\s+/g, "-").toLowerCase()
+                  )}`}
+                  passHref
+                  legacyBehavior
+                >
+                  <a>
+                    <img
+                      src={`${axioPublicUrl.defaults.baseURL}/Images/${article.image_url}`}
+                      alt={article.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </a>
+                </Link>
               </div>
               <div className="p-4">
-                <h2 className="text-lg font-semibold text-royal-indigo mb-2 line-clamp-2 hover:text-purple-700 transition-colors duration-300">
-                  {article.title}
-                </h2>
+                <Link
+                  href={`/sponsored/${article.id}/${encodeURIComponent(
+                    article.title.replace(/\s+/g, "-").toLowerCase()
+                  )}`}
+                  passHref
+                  legacyBehavior
+                >
+                  <a className="text-lg font-semibold text-royal-indigo mb-2 line-clamp-2 hover:text-purple-700 transition-colors duration-300">
+                    {article.title}
+                  </a>
+                </Link>
                 <p className="text-gray-600 text-sm line-clamp-3">
                   {article.description}
                 </p>
@@ -88,7 +98,7 @@ console.log(sponsoredData);
           ))}
         </div>
 
-        {/* Sidebar - 3 columns */}
+        {/* Sidebar */}
         <div className="md:col-span-3 space-y-6">
           <div className="bg-white rounded-lg p-3 shadow-lg">
             <h2 className="text-xl font-bold text-royal-indigo mb-4">
@@ -97,7 +107,13 @@ console.log(sponsoredData);
             <div className="space-y-4">
               {recentArticles.length > 0 ? (
                 recentArticles.map((article) => (
-                  <div key={article.id} className="flex items-center space-x-3">
+                  <Link
+                    key={article.id}
+                    href={`/sponsored/${article.id}/${encodeURIComponent(
+                      article.title.replace(/\s+/g, "-").toLowerCase()
+                    )}`}
+                    className="flex items-center space-x-3"
+                  >
                     <div className="flex-shrink-0 w-16 h-16">
                       <img
                         src={`${axioPublicUrl.defaults.baseURL}/Images/${article.image_url}`}
@@ -113,15 +129,14 @@ console.log(sponsoredData);
                         {moment(article.published_at).format("MMM D, YYYY")}
                       </p>
                     </div>
-                  </div>
+                  </Link>
                 ))
               ) : (
                 <p className="text-gray-500 text-sm">No recent articles.</p>
               )}
             </div>
           </div>
-
-          {/* Advertisement Section */}
+          {/* Advertisement */}
           <div className="bg-royal-indigo text-white p-4 rounded-lg text-center">
             <p className="text-sm">Advertisement</p>
           </div>
