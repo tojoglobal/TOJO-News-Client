@@ -282,6 +282,12 @@ body {
   }
 }
 
+/* mew added */
+.prose-override * {
+  color: #1e293b !important;
+  /* text-gray-800 */
+}
+
 .animate-pulse {
   animation: pulse 1.9s infinite;
 }
