@@ -43,9 +43,11 @@ export default function SponsoredPage() {
   if (isSponsoredError) return <div>Error loading data</div>;
 
   return (
-    <div className="container mx-auto py-5">
-      <h1 className="text-2xl font-bold text-royal-indigo mb-3">Sponsored</h1>
-      <p className="text-royal-indigo md:text-lg font-normal mb-8">
+    <div className="container mx-auto py-5 mb-8">
+      <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-royal-indigo mb-1">
+        Sponsored
+      </h1>
+      <p className="text-royal-indigo md:text-lg font-normal mb-6">
         There are a total of {articlesToDisplay.length} sponsored articles.
       </p>
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
@@ -56,7 +58,7 @@ export default function SponsoredPage() {
               No sponsored articles active right now.
             </div>
           )}
-          {articlesToDisplay.map((article) => (
+          {articlesToDisplay?.map((article) => (
             <div
               key={article.id}
               className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
@@ -78,7 +80,7 @@ export default function SponsoredPage() {
                   </a>
                 </Link>
               </div>
-              <div className="p-4">
+              <div className="p-3">
                 <Link
                   href={`/sponsored/${article.id}/${encodeURIComponent(
                     article.title.replace(/\s+/g, "-").toLowerCase()
@@ -86,7 +88,7 @@ export default function SponsoredPage() {
                   passHref
                   legacyBehavior
                 >
-                  <a className="text-lg font-semibold text-royal-indigo mb-2 line-clamp-2 hover:text-purple-700 transition-colors duration-300 hover:underline">
+                  <a className="text-lg font-semibold text-royal-indigo mb-2 line-clamp-2 hover:text-purple-700 capitalize transition-colors duration-300 hover:underline">
                     {article.title}
                   </a>
                 </Link>
@@ -97,11 +99,10 @@ export default function SponsoredPage() {
             </div>
           ))}
         </div>
-
         {/* Sidebar */}
         <div className="md:col-span-3 space-y-6">
           <div className="bg-white rounded-lg p-3 shadow-lg">
-            <h2 className="text-xl font-bold text-royal-indigo mb-4">
+            <h2 className="text-xl md:text-2xl font-bold text-royal-indigo mb-4">
               Recent Articles
             </h2>
             <div className="space-y-4">
@@ -114,7 +115,7 @@ export default function SponsoredPage() {
                     )}`}
                     className="flex items-center space-x-3"
                   >
-                    <div className="flex-shrink-0 w-16 h-16">
+                    <div className="flex-shrink-0 w-16 h-12">
                       <img
                         src={`${axioPublicUrl.defaults.baseURL}/Images/${article.image_url}`}
                         alt={article.title}
@@ -122,7 +123,7 @@ export default function SponsoredPage() {
                       />
                     </div>
                     <div>
-                      <h3 className="text-sm font-medium text-gray-900 line-clamp-2 hover:text-royal-indigo transition-colors duration-300">
+                      <h3 className="text-sm capitalize font-medium text-gray-900 line-clamp-2 hover:text-royal-indigo transition-colors duration-300">
                         {article.title}
                       </h3>
                       <p className="text-xs text-gray-500 mt-1">
