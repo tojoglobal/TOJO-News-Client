@@ -62,7 +62,7 @@ const Newsletters = () => {
     }
     setError("");
 
-    console.log({ subscriberEmail, interests });
+    // console.log({ subscriberEmail, interests });
 
     try {
       // Check if user is already subscribed
@@ -84,7 +84,7 @@ const Newsletters = () => {
       setEmail("");
       setInterests([]);
     } catch (error) {
-      toast.error("Error seubscribing. Please try again.");
+      toast.error("Already Subscribed!");
     }
   };
 
