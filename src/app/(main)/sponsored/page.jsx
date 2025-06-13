@@ -86,7 +86,7 @@ export default function SponsoredPage() {
                   passHref
                   legacyBehavior
                 >
-                  <a className="text-lg font-semibold text-royal-indigo mb-2 line-clamp-2 hover:text-purple-700 transition-colors duration-300">
+                  <a className="text-lg font-semibold text-royal-indigo mb-2 line-clamp-2 hover:text-purple-700 transition-colors duration-300 hover:underline">
                     {article.title}
                   </a>
                 </Link>
