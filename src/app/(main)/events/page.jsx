@@ -55,7 +55,7 @@ export default function EventsPage() {
                   )}`}
                 >
                   <img
-                    src={`${apiBase}/Images/${event.image_url}`}
+  const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL;
                     alt={event.title}
                     className="w-full h-full rounded-lg object-cover"
                   />
