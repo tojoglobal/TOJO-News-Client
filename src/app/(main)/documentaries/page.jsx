@@ -4,38 +4,7 @@ import Image from "next/image";
 import axios from "axios";
 import { IoMdPlay } from "react-icons/io";
 import CatchUpFeatured from "./CatchUpFeatured";
-const featuredNews = [
-  {
-    id: 1,
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_4FBis8oXDCG39aw3z-PmKNBDv65t4-uCDg&s",
-  },
-  {
-    id: 2,
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_4FBis8oXDCG39aw3z-PmKNBDv65t4-uCDg&s",
-  },
-  {
-    id: 3,
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_4FBis8oXDCG39aw3z-PmKNBDv65t4-uCDg&s",
-  },
-  {
-    id: 4,
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_4FBis8oXDCG39aw3z-PmKNBDv65t4-uCDg&s",
-  },
-  {
-    id: 5,
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_4FBis8oXDCG39aw3z-PmKNBDv65t4-uCDg&s",
-  },
-  {
-    id: 6,
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_4FBis8oXDCG39aw3z-PmKNBDv65t4-uCDg&s",
-  },
-];
+
 export default function Documentaries() {
   const [hero, setHero] = useState(null);
   const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -45,7 +14,24 @@ export default function Documentaries() {
       .get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/documentaries-hero`)
       .then((res) => setHero(res.data));
   }, []);
-  
+
+  const [featuredNews, setFeaturedNews] = useState([]);
+  const [continueWatching, setContinueWatching] = useState([]);
+  useEffect(() => {
+    axios.get(`${apiBase}/api/documentaries-featured`).then((res) => {
+      setFeaturedNews(
+        res.data.filter(
+          (item) => item.show_in && item.show_in.includes("featured")
+        )
+      );
+      setContinueWatching(
+        res.data.filter(
+          (item) => item.show_in && item.show_in.includes("continue")
+        )
+      );
+    });
+  }, [apiBase]);
+
   if (!hero) return <div>Loading...</div>;
 
   return (
@@ -93,35 +79,41 @@ export default function Documentaries() {
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-5">
           {featuredNews.map((item) => (
-            <div
+            <a
               key={item.id}
+              href={item.link}
               className="relative w-full h-40 sm:h-64 group overflow-hidden rounded-md"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <Image
-                src={item.image}
+                src={`${apiBase}/Images/${item.image}`}
                 alt={`Featured news ${item.id}`}
                 fill
                 className="object-cover transition-transform duration-300 group-hover:scale-110"
               />
-            </div>
+            </a>
           ))}
         </div>
         <h2 className="text-xl sm:text-2xl font-bold text-royal-indigo mt-8 sm:mt-12 mb-3">
           Continue Watching
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-5">
-          {featuredNews.map((item) => (
-            <div
+          {continueWatching.map((item) => (
+            <a
               key={item.id}
+              href={item.link}
               className="relative w-full h-40 sm:h-64 group overflow-hidden rounded-md"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <Image
-                src={item.image}
-                alt={`Featured news ${item.id}`}
+                src={`${apiBase}/Images/${item.image}`}
+                alt={`Continue watching ${item.id}`}
                 fill
                 className="object-cover transition-transform duration-300 group-hover:scale-110"
               />
-            </div>
+            </a>
           ))}
         </div>
       </div>
