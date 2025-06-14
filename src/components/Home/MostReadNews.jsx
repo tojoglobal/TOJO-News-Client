@@ -1,28 +1,24 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import MostReadSkeleton from "./HomeSkeleton/MostReadSkeleton";
 import Link from "next/link";
-import { useAxiospublic } from "../hooks/useAxiospublic";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+
+const fetchMostRead = async () => {
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getMostRead`
+  );
+  return data.result || [];
+};
 
 const MostReadNews = () => {
-  const axiosPublicUrl = useAxiospublic();
-  const [mostRead, setMostRead] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data: mostRead = [], isLoading } = useQuery({
+    queryKey: ["mostReadNews"],
+    queryFn: fetchMostRead,
+  });
 
-  useEffect(() => {
-    axiosPublicUrl
-      .get("/api/getMostRead")
-      .then((res) => {
-        setMostRead(res.data.result || []);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return <MostReadSkeleton count={4} />;
   }
 
@@ -49,7 +45,6 @@ const MostReadNews = () => {
                   className="hover:underline"
                 >
                   {/* Title */}
-
                   <h3 className="text-sm font-semibold mt-2 leading-tight text-royal-indigo">
                     {news?.title}
                   </h3>

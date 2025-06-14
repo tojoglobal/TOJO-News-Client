@@ -8,7 +8,7 @@ const HomePage = () => {
     <div className="container mx-auto py-6">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
         {/* Left Sidebar */}
-        <div className="md:col-span-3 order-2 md:order-1 space-y-6">
+        <div className="md:col-span-3 order-2 md:order-1 space-y-2">
           <div className="md:p-4 pt-2 rounded-lg  text-left">
             <h2 className="text-lg font-bold text-royal-indigo mb-2">
               {"Watch Market Today"}

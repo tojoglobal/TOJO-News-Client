@@ -1,31 +1,26 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import DateAndTime from "../RecalcFunction/DateAndTime";
 import Category from "../RecalcFunction/Category";
 import Link from "next/link";
-import { useAxiospublic } from "../hooks/useAxiospublic";
 import LatestNewsSkeleton from "./HomeSkeleton/LatestNewsSkeleton";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+
+const fetchLatestNews = async () => {
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getLatestNews`
+  );
+  return data.result || [];
+};
 
 const LatestNews = () => {
-  const axiosPublicUrl = useAxiospublic();
-  const [latestNews, setLatestNews] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data: latestNews = [], isLoading } = useQuery({
+    queryKey: ["latestNews"],
+    queryFn: fetchLatestNews,
+  });
 
-  useEffect(() => {
-    axiosPublicUrl
-      .get("/api/getLatestNews")
-      .then((res) => {
-        setLatestNews(res.data.result || []);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching latest news:", error);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return <LatestNewsSkeleton count={4} />;
   }
 
@@ -33,7 +28,7 @@ const LatestNews = () => {
     <div>
       <div className="space-y-4">
         {latestNews.length > 0 ? (
-          latestNews.map((news) => (
+          latestNews.slice(0, 4).map((news) => (
             <div
               key={news?.ID}
               className="flex flex-col items-start rounded-lg  gap-3"

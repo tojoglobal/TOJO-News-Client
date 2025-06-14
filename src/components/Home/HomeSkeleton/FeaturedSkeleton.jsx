@@ -8,9 +8,9 @@ const FeaturedSkeleton = ({ count = 8 }) => {
         <div key={index} className="flex flex-col gap-3">
           <Skeleton className="skeleton-box h-[200px] w-full rounded-lg" />
           <div className="flex-1 mb-2">
-            <Skeleton className="skeleton-box h-[18px] w-full" />
-            <Skeleton className="skeleton-box h-[18px] mt-1 w-4/5" />
-            <Skeleton className="skeleton-box h-[18px] mt-1 w-3/5" />
+            <Skeleton className="skeleton-box h-[22px] w-full" />
+            <Skeleton className="skeleton-box h-[22px] mt-1 w-4/5" />
+            <Skeleton className="skeleton-box h-[22px] mt-1 w-3/5" />
           </div>
         </div>
       ))}
