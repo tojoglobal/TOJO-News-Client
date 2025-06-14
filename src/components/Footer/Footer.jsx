@@ -25,17 +25,17 @@ const Footer = () => {
           </div>
           {/* foote nav */}
           <div className="flex mt-5 md:mt-1 flex-wrap items-center justify-center md:justify-between space-x-1 md:space-x-2 text-base">
-            <a href="#" className="hover:underline">
+            <Link href="/" className="hover:underline">
               Home
-            </a>
+            </Link>
             <span>|</span>
-            <a href="#" className="hover:underline">
+            <Link href="/prices" className="hover:underline">
               Cryptocurrency
-            </a>
+            </Link>
             <span>|</span>
-            <a href="#" className="hover:underline">
+            <Link href="/news" className="hover:underline">
               News
-            </a>
+            </Link>
             <span>|</span>
             <a href="#" className="hover:underline">
               Market
