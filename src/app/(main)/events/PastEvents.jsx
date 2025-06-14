@@ -19,7 +19,7 @@ export default function PastEventsPage() {
       return res?.data?.Result || [];
     },
   });
-
+  
   // Sort by date (latest first), skip top 3 (rest are past events)
   const pastEvents = [...data]
     .sort((a, b) => moment(b.date).diff(moment(a.date)))
@@ -65,7 +65,7 @@ export default function PastEventsPage() {
                   event.title.replace(/\s+/g, "-").toLowerCase()
                 )}`}
               >
-                <h3 className="text-lg font-bold text-royal-indigo mb-2">
+                <h3 className="text-lg hover:underline font-bold text-royal-indigo mb-2">
                   {event.title}
                 </h3>
               </Link>

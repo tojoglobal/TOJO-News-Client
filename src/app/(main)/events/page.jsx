@@ -71,7 +71,7 @@ export default function EventsPage() {
                     event.title.replace(/\s+/g, "-").toLowerCase()
                   )}`}
                 >
-                  <h2 className="text-xl capitalize font-bold text-royal-indigo mb-3">
+                  <h2 className="text-xl capitalize hover:underline font-bold text-royal-indigo mb-3">
                     {event.title}
                   </h2>
                 </Link>
