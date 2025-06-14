@@ -1,38 +1,63 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import Image from "next/image";
 import axios from "axios";
 import { IoMdPlay } from "react-icons/io";
 import CatchUpFeatured from "./CatchUpFeatured";
+import { useQuery } from "@tanstack/react-query";
+
+const fetchHero = async () => {
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/documentaries-hero`
+  );
+  return data;
+};
+
+const fetchFeatured = async () => {
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/documentaries-featured`
+  );
+  return data || [];
+};
 
 export default function Documentaries() {
-  const [hero, setHero] = useState(null);
   const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-  useEffect(() => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/documentaries-hero`)
-      .then((res) => setHero(res.data));
-  }, []);
+  // Hero data
+  const {
+    data: hero,
+    isLoading: heroLoading,
+    isError: heroError,
+  } = useQuery({
+    queryKey: ["documentaries-hero"],
+    queryFn: fetchHero,
+  });
 
-  const [featuredNews, setFeaturedNews] = useState([]);
-  const [continueWatching, setContinueWatching] = useState([]);
-  useEffect(() => {
-    axios.get(`${apiBase}/api/documentaries-featured`).then((res) => {
-      setFeaturedNews(
-        res.data.filter(
-          (item) => item.show_in && item.show_in.includes("featured")
-        )
-      );
-      setContinueWatching(
-        res.data.filter(
-          (item) => item.show_in && item.show_in.includes("continue")
-        )
-      );
+  // Featured/Continue Watching
+  const { data: documentariesFeatured = [], isLoading: featuredLoading } =
+    useQuery({
+      queryKey: ["documentaries-featured"],
+      queryFn: fetchFeatured,
     });
-  }, [apiBase]);
 
-  if (!hero) return <div>Loading...</div>;
+  // Memoize filtering for performance
+  const featuredNews = useMemo(
+    () =>
+      documentariesFeatured.filter(
+        (item) => item.show_in && item.show_in.includes("featured")
+      ),
+    [documentariesFeatured]
+  );
+  const continueWatching = useMemo(
+    () =>
+      documentariesFeatured.filter(
+        (item) => item.show_in && item.show_in.includes("continue")
+      ),
+    [documentariesFeatured]
+  );
+
+  if (heroLoading) return <div>Loading...</div>;
+  if (heroError || !hero) return <div>Error loading hero section.</div>;
 
   return (
     <div className="min-h-screen mb-16">
@@ -78,43 +103,59 @@ export default function Documentaries() {
           Featured News
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-5">
-          {featuredNews.map((item) => (
-            <a
-              key={item.id}
-              href={item.link}
-              className="relative w-full h-40 sm:h-64 group overflow-hidden rounded-md"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src={`${apiBase}/Images/${item.image}`}
-                alt={`Featured news ${item.id}`}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-110"
-              />
-            </a>
-          ))}
+          {(featuredLoading ? Array.from({ length: 6 }) : featuredNews).map(
+            (item, idx) =>
+              featuredLoading ? (
+                <div
+                  key={idx}
+                  className="animate-pulse bg-gray-200 rounded-md w-full h-40 sm:h-72"
+                />
+              ) : (
+                <a
+                  key={item.id}
+                  href={item.link}
+                  className="relative w-full h-40 sm:h-72 group overflow-hidden rounded-md"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    src={`${apiBase}/Images/${item.image}`}
+                    alt={`Featured news ${item.id}`}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                </a>
+              )
+          )}
         </div>
         <h2 className="text-xl sm:text-2xl font-bold text-royal-indigo mt-8 sm:mt-12 mb-3">
           Continue Watching
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-5">
-          {continueWatching.map((item) => (
-            <a
-              key={item.id}
-              href={item.link}
-              className="relative w-full h-40 sm:h-64 group overflow-hidden rounded-md"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src={`${apiBase}/Images/${item.image}`}
-                alt={`Continue watching ${item.id}`}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-110"
-              />
-            </a>
-          ))}
+          {(featuredLoading ? Array.from({ length: 6 }) : continueWatching).map(
+            (item, idx) =>
+              featuredLoading ? (
+                <div
+                  key={idx}
+                  className="animate-pulse bg-gray-200 rounded-md w-full h-40 sm:h-72"
+                />
+              ) : (
+                <a
+                  key={item.id}
+                  href={item.link}
+                  className="relative w-full h-40 sm:h-72 group overflow-hidden rounded-md"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    src={`${apiBase}/Images/${item.image}`}
+                    alt={`Continue watching ${item.id}`}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                </a>
+              )
+          )}
         </div>
       </div>
       <CatchUpFeatured />

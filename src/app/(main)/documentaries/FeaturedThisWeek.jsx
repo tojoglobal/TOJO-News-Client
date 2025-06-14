@@ -1,35 +1,34 @@
-
-  const featuredNews = [
-    {
-      id: 1,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_4FBis8oXDCG39aw3z-PmKNBDv65t4-uCDg&s",
-      title: "UK Treasury's Cryptocurrency Holdings",
-    },
-    {
-      id: 2,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_4FBis8oXDCG39aw3z-PmKNBDv65t4-uCDg&s",
-      title: "UK Treasury's Cryptocurrency Holdings",
-    },
-    {
-      id: 3,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_4FBis8oXDCG39aw3z-PmKNBDv65t4-uCDg&s",
-      title: "UK Treasury's Cryptocurrency Holdings",
-    },
-    {
-      id: 4,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_4FBis8oXDCG39aw3z-PmKNBDv65t4-uCDg&s",
-      title: "UK Treasury's Cryptocurrency Holdings",
-    },
-  ];
+const featuredNews = [
+  {
+    id: 1,
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_4FBis8oXDCG39aw3z-PmKNBDv65t4-uCDg&s",
+    title: "UK Treasury's Cryptocurrency Holdings",
+  },
+  {
+    id: 2,
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_4FBis8oXDCG39aw3z-PmKNBDv65t4-uCDg&s",
+    title: "UK Treasury's Cryptocurrency Holdings",
+  },
+  {
+    id: 3,
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_4FBis8oXDCG39aw3z-PmKNBDv65t4-uCDg&s",
+    title: "UK Treasury's Cryptocurrency Holdings",
+  },
+  {
+    id: 4,
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_4FBis8oXDCG39aw3z-PmKNBDv65t4-uCDg&s",
+    title: "UK Treasury's Cryptocurrency Holdings",
+  },
+];
 
 const FeaturedThisWeek = () => {
   return (
     <div>
-      <h2 className="text-xl sm:text-2xl font-bold text-[#5E17EB] mb-3 sm:mb-4 mt-3">
+      <h2 className="text-xl sm:text-2xl font-bold text-[#5E17EB] mb-3 sm:mb-4 mt-12">
         Featured This Week
       </h2>
       <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">

@@ -18,10 +18,10 @@ export default function EventsPage() {
         console.error("API did not return an array:", res.data);
         return [];
       }
-      return res.data.Result;
+      return res?.data?.Result;
     },
   });
-
+  
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading data</div>;
 
@@ -35,7 +35,7 @@ export default function EventsPage() {
     .slice(0, 3);
 
   return (
-    <div className="container mx-auto py-5 mb-10">
+    <div className="max-w-7xl mx-auto py-5 mb-10">
       <h1 className="text-2xl md:text-3xl lg:text-4xl text-center md:text-left font-bold text-royal-indigo mb-8">
         Events
       </h1>
@@ -48,15 +48,14 @@ export default function EventsPage() {
               key={event.uuid}
               className="flex flex-col md:flex-row gap-2 md:gap-6 bg-white rounded-lg overflow-hidden transition-shadow duration-300"
             >
-              <div className="md:w-1/3 h-[250px] relative">
+              <div className="md:w-1/3 h-[230px] relative">
                 <Link
                   href={`/events/${event.uuid}/${encodeURIComponent(
                     event.title.replace(/\s+/g, "-").toLowerCase()
                   )}`}
                 >
                   <img
-  const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL;
-                    alt={event.title}
+                    src={`${apiBase}/Images/${event?.image_url}`}
                     className="w-full h-full rounded-lg object-cover"
                   />
                 </Link>

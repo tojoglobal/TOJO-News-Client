@@ -37,7 +37,7 @@ export default function PastEventsPage() {
         {pastEvents.length === 0 && (
           <div className="col-span-full text-gray-500">No past events.</div>
         )}
-        {pastEvents.map((event) => (
+        {pastEvents?.map((event) => (
           <div
             key={event.uuid}
             className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
