@@ -44,7 +44,7 @@ const LatestNews = () => {
                   src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/Images/${news?.thumble}`}
                   alt={news?.title}
                   width={80}
-                  height={70}
+                  height={60}
                   objectFit="cover"
                   className="rounded-lg w-full"
                 />
@@ -53,7 +53,6 @@ const LatestNews = () => {
                   <Category category={news?.category_id} />
                 </span>
               </div>
-
               {/* Content */}
               <div className="flex-1 mb-2">
                 <Link
@@ -65,7 +64,6 @@ const LatestNews = () => {
                     {news?.title}
                   </h3>
                 </Link>
-
                 {/* Date */}
                 <p className="text-xs text-royal-indigo mt-1">
                   <DateAndTime dateAndTime={news?.dateAndTime} />
