@@ -3,6 +3,8 @@ import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { BsPlayCircle } from "react-icons/bs";
 import axios from "axios";
+import YouTubeModal from "./YouTubeModal";
+import FeaturedThisWeek from "./FeaturedThisWeek";
 
 // Helper to extract YouTube video ID from URL
 function extractYouTubeId(url) {
@@ -26,7 +28,7 @@ const FeaturedContinue = () => {
       return res?.data;
     },
   });
-  console.log(documentariesFeatured);
+
   // Filter for featured and continue
   const featuredNews = useMemo(
     () =>
@@ -70,7 +72,7 @@ const FeaturedContinue = () => {
             ) : (
               <div
                 key={item.id}
-                className="relative w-full h-40 group overflow-hidden rounded-md cursor-pointer"
+                className="relative w-full h-44 group overflow-hidden rounded-md cursor-pointer"
                 onClick={() => setOpenVideo(item.youtube_url)}
               >
                 <img
@@ -91,7 +93,7 @@ const FeaturedContinue = () => {
       <h2 className="text-xl sm:text-2xl font-bold text-royal-indigo my-6">
         Continue Watching
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
         {(isLoading ? Array.from({ length: 5 }) : continueWatching).map(
           (item, idx) =>
             isLoading ? (
@@ -102,7 +104,7 @@ const FeaturedContinue = () => {
             ) : (
               <div
                 key={item.id}
-                className="relative w-full h-40 group overflow-hidden rounded-md cursor-pointer"
+                className="relative w-full h-44 group overflow-hidden rounded-md cursor-pointer"
                 onClick={() => setOpenVideo(item.youtube_url)}
               >
                 <img
@@ -120,49 +122,12 @@ const FeaturedContinue = () => {
             )
         )}
       </div>
-      {/* Video Modal Overlay */}
-      {openVideo && (
-        <div
-          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
-          onClick={() => setOpenVideo(null)}
-          style={{ cursor: "pointer" }}
-        >
-          <div
-            style={{
-              width: "80vw",
-              maxWidth: 900,
-              aspectRatio: "16/9",
-              background: "#000",
-              borderRadius: 12,
-              boxShadow: "0 4px 32px #0008",
-              position: "relative",
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setOpenVideo(null)}
-              className="absolute top-2 right-2 text-white text-2xl z-10"
-              style={{ background: "rgba(0,0,0,0.3)", borderRadius: "50%" }}
-              aria-label="Close"
-              type="button"
-            >
-              ×
-            </button>
-            <iframe
-              width="100%"
-              height="100%"
-              src={`https://www.youtube.com/embed/${extractYouTubeId(
-                openVideo
-              )}?autoplay=1`}
-              title="YouTube video"
-              frameBorder="0"
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-              style={{ borderRadius: 12, width: "100%", height: "100%" }}
-            />
-          </div>
-        </div>
-      )}
+      <YouTubeModal
+        openVideo={openVideo}
+        setOpenVideo={setOpenVideo}
+        maxWidth={900}
+      />
+      <FeaturedThisWeek />
     </div>
   );
 };
