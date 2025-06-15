@@ -50,7 +50,7 @@ export default function Documentaries() {
             backgroundSize: "100px 100px, 100px 100px, 100% 100%",
           }}
         />
-        <div className="absolute top-48 md:top-56 inset-0 flex flex-col justify-center container mx-auto px-4 sm:px-6">
+        <div className="absolute top-48 md:top-56 inset-0 flex flex-col justify-center container mx-auto px-4 md:px-0">
           <h1 className="text-xl md:text-3xl text-royal-indigo font-bold mb-1 sm:mb-4">
             {hero.heading}
           </h1>

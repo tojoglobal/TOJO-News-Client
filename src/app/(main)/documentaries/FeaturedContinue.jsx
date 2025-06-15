@@ -1,25 +1,40 @@
-import { useQuery } from "@tanstack/react-query";
-import FeaturedThisWeek from "./FeaturedThisWeek";
-import { useMemo } from "react";
-import axios from "axios";
-import Image from "next/image";
+import { useState, useMemo } from "react";
+import { BsPlayCircle } from "react-icons/bs";
+
+// Helper to extract YouTube video ID from URL
+function extractYouTubeId(url) {
+  if (!url) return "";
+  // Handles youtu.be, youtube.com/watch?v=, youtube.com/shorts/ etc.
+  const regExp =
+    /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
+  const match = url.match(regExp);
+  return match ? match[1] : "";
+}
+
+// For demonstration, you can use your static data here instead of fetching:
+const staticData = [
+  {
+    id: 6,
+    show_in: "featured",
+    youtube_url: "https://youtu.be/Lb6v6AUFWrM?si=ldgNFWlFzMMOznlK",
+  },
+  {
+    id: 5,
+    show_in: "featured",
+    youtube_url: "https://youtu.be/-emsaxZ0_XU?si=Ut86mmGUZaUeOBrm",
+  },
+  {
+    id: 4,
+    show_in: "featured",
+    youtube_url: "https://youtu.be/RD1lMyX5BMc?si=K4c9Yt1Q9UpPKMwA",
+  },
+];
 
 const FeaturedContinue = () => {
-  const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL;
-  const fetchFeatured = async () => {
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/documentaries-featured`
-    );
-    return data || [];
-  };
-  // Featured/Continue Watching
-  const { data: documentariesFeatured = [], isLoading: featuredLoading } =
-    useQuery({
-      queryKey: ["documentaries-featured"],
-      queryFn: fetchFeatured,
-    });
+  // swap staticData for your fetched data in prod
+  const documentariesFeatured = staticData;
+  const [openVideo, setOpenVideo] = useState(null);
 
-  // Memoize filtering for performance
   const featuredNews = useMemo(
     () =>
       documentariesFeatured.filter(
@@ -27,75 +42,77 @@ const FeaturedContinue = () => {
       ),
     [documentariesFeatured]
   );
-  const continueWatching = useMemo(
-    () =>
-      documentariesFeatured.filter(
-        (item) => item.show_in && item.show_in.includes("continue")
-      ),
-    [documentariesFeatured]
-  );
+
   return (
-    <div className="container mx-auto py-8 sm:py-12 px-3 sm:px-6">
+    <div className="container mx-auto py-8 px-4 md:px-0">
       <h2 className="text-xl sm:text-2xl font-bold text-royal-indigo mb-3">
         Featured News
       </h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-        {(featuredLoading ? Array.from({ length: 6 }) : featuredNews).map(
-          (item, idx) =>
-            featuredLoading ? (
-              <div
-                key={idx}
-                className="animate-pulse bg-gray-200 rounded-md w-full h-40 sm:h-72"
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2">
+        {featuredNews.map((item) => {
+          const youtubeId = extractYouTubeId(item.youtube_url);
+          return (
+            <div
+              key={item.id}
+              className="relative w-full h-40 group overflow-hidden rounded-md cursor-pointer"
+              onClick={() => setOpenVideo(item.youtube_url)}
+            >
+              <img
+                src={`https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`}
+                alt={`Featured news ${item.id}`}
+                className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
-            ) : (
-              <a
-                key={item.id}
-                href={item.link}
-                className="relative w-full h-40 sm:h-68 group overflow-hidden rounded-md"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  src={`${apiBase}/Images/${item.image}`}
-                  alt={`Featured news ${item.id}`}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-110"
-                />
-              </a>
-            )
-        )}
+              <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                <BsPlayCircle size={40} color="#fff" />
+              </div>
+            </div>
+          );
+        })}
       </div>
-      <h2 className="text-xl sm:text-2xl font-bold text-royal-indigo mt-8 sm:mt-12 mb-3">
-        Continue Watching
-      </h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-        {(featuredLoading ? Array.from({ length: 6 }) : continueWatching).map(
-          (item, idx) =>
-            featuredLoading ? (
-              <div
-                key={idx}
-                className="animate-pulse bg-gray-200 rounded-md w-full h-40 sm:h-72"
-              />
-            ) : (
-              <a
-                key={item.id}
-                href={item.link}
-                className="relative w-full h-40 sm:h-68 group overflow-hidden rounded-md"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  src={`${apiBase}/Images/${item.image}`}
-                  alt={`Continue watching ${item.id}`}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-110"
-                />
-              </a>
-            )
-        )}
-      </div>
-      {/* <CatchUpFeatured /> */}
-      <FeaturedThisWeek />
+      {/* Video Modal Overlay */}
+      {openVideo && (
+        <div
+          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
+          onClick={() => setOpenVideo(null)}
+          style={{ cursor: "pointer" }}
+        >
+          <div
+            style={{
+              width: "80vw",
+              maxWidth: 900,
+              aspectRatio: "16/9",
+              background: "#000",
+              borderRadius: 12,
+              boxShadow: "0 4px 32px #0008",
+              position: "relative",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setOpenVideo(null)}
+              className="absolute top-2 right-2 text-white text-2xl z-10"
+              style={{ background: "rgba(0,0,0,0.3)", borderRadius: "50%" }}
+              aria-label="Close"
+              type="button"
+            >
+              ×
+            </button>
+            <iframe
+              width="100%"
+              height="100%"
+              src={`https://www.youtube.com/embed/${extractYouTubeId(
+                openVideo
+              )}?autoplay=1`}
+              title="YouTube video"
+              frameBorder="0"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              style={{ borderRadius: 12, width: "100%", height: "100%" }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
