@@ -3,8 +3,8 @@ import { useMemo } from "react";
 import Image from "next/image";
 import axios from "axios";
 import { IoMdPlay } from "react-icons/io";
-import CatchUpFeatured from "./CatchUpFeatured";
 import { useQuery } from "@tanstack/react-query";
+import FeaturedThisWeek from "./FeaturedThisWeek";
 
 const fetchHero = async () => {
   const { data } = await axios.get(
@@ -158,7 +158,8 @@ export default function Documentaries() {
           )}
         </div>
       </div>
-      <CatchUpFeatured />
+      {/* <CatchUpFeatured /> */}
+      <FeaturedThisWeek />
     </div>
   );
 }
