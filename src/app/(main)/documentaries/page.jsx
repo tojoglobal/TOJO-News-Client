@@ -60,7 +60,7 @@ export default function Documentaries() {
   if (heroError || !hero) return <div>Error loading hero section.</div>;
 
   return (
-    <div className="min-h-screen mb-16">
+    <div className="min-h-screen mb-2">
       {/* Hero Section */}
       <div className="relative h-[450px] md:h-[600px] w-full overflow-hidden">
         <Image
@@ -102,7 +102,7 @@ export default function Documentaries() {
         <h2 className="text-xl sm:text-2xl font-bold text-royal-indigo mb-3">
           Featured News
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
           {(featuredLoading ? Array.from({ length: 6 }) : featuredNews).map(
             (item, idx) =>
               featuredLoading ? (
@@ -114,7 +114,7 @@ export default function Documentaries() {
                 <a
                   key={item.id}
                   href={item.link}
-                  className="relative w-full h-40 sm:h-72 group overflow-hidden rounded-md"
+                  className="relative w-full h-40 sm:h-68 group overflow-hidden rounded-md"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -131,7 +131,7 @@ export default function Documentaries() {
         <h2 className="text-xl sm:text-2xl font-bold text-royal-indigo mt-8 sm:mt-12 mb-3">
           Continue Watching
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
           {(featuredLoading ? Array.from({ length: 6 }) : continueWatching).map(
             (item, idx) =>
               featuredLoading ? (
@@ -143,7 +143,7 @@ export default function Documentaries() {
                 <a
                   key={item.id}
                   href={item.link}
-                  className="relative w-full h-40 sm:h-72 group overflow-hidden rounded-md"
+                  className="relative w-full h-40 sm:h-68 group overflow-hidden rounded-md"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -157,9 +157,9 @@ export default function Documentaries() {
               )
           )}
         </div>
+        {/* <CatchUpFeatured /> */}
+        <FeaturedThisWeek />
       </div>
-      {/* <CatchUpFeatured /> */}
-      <FeaturedThisWeek />
     </div>
   );
 }
