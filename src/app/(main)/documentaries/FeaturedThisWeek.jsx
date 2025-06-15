@@ -23,7 +23,7 @@ const FeaturedThisWeek = () => {
   if (isError) return <div>Failed to load.</div>;
 
   return (
-    <div>
+    <div className="container mx-auto">
       <h2 className="text-xl sm:text-2xl font-bold text-[#5E17EB] mb-3 sm:mb-4 mt-12">
         Featured This Week
       </h2>
