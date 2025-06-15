@@ -127,17 +127,16 @@ export default function ArticleReader({ articleId, articleContent, title }) {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4">
+    <div className="max-w-5xl mx-auto">
       {/* Article Content */}
-      <article className="prose prose-lg max-w-none">
+      <article className="prose prose-lg prose-override max-w-none">
         <div
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(articleContent),
           }}
-          className="leading-relaxed text-gray-800 [&_a]:text-blue-600 [&_a]:underline [&_a]:font-medium [&_a:hover]:text-blue-800 [&_a:hover]:underline-offset-4 [&_a]:transition-colors"
+          className="leading-relaxed"
         />
       </article>
-
       {/* Article Footer */}
       <div className="mt-12 border-t border-gray-200 pt-6 flex flex-col sm:flex-row justify-between items-center">
         {/* Reading Time */}

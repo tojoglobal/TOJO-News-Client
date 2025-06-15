@@ -23,7 +23,6 @@ const fetchNews = async (type) => {
   const { data } = await axioPublicUrl.get(endpoint);
   return data.result;
 };
-
 export default function News() {
   const [activeTab, setActiveTab] = useState("latest");
 
@@ -36,11 +35,12 @@ export default function News() {
     queryFn: () => fetchNews(activeTab),
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
+  console.log(news);
 
   return (
-    <div className="max-w-7xl mx-auto py-5 mb-6">
-      <div className="text-center mb-8">
-        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+    <div className="max-w-7xl mx-auto mt-3 mb-6">
+      <div className="text-center mb-6">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-1">
           News & Updates
         </h1>
         <p className="md:text-lg text-gray-600 max-w-4xl mx-auto">

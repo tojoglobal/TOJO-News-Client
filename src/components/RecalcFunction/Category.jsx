@@ -1,37 +1,37 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
+
+const fetchCategories = async (axiosPublicUrl) => {
+  const res = await axiosPublicUrl.get(`/api/admin/newsCategory`);
+  // support both "Result" and "result"
+  return res.data.Result || res.data.result || [];
+};
 
 const Category = ({ category }) => {
   const axiosPublicUrl = useAxiospublic();
-  const [categories, setCategories] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const {
+    data: categories = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["newsCategories"],
+    queryFn: () => fetchCategories(axiosPublicUrl),
+  });
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const res = await axiosPublicUrl.get(`/api/admin/newsCategory`);
-        setCategories(res.data.Result || []); // Ensure we always set an array
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-        setCategories([]); // Set empty array on error
-        setIsLoading(false);
-      }
-    };
-
-    fetchCategories();
-  }, []);
-
-  // Show loading state
   if (isLoading) {
     return "Loading...";
   }
 
+  if (isError) {
+    return "Uncategorized";
+  }
+
   // Find the category name using the ID, with proper type checking
-  const categoryName = Array.isArray(categories) && categories.length > 0
-    ? categories.find((cat) => cat?.ID === category)?.name || "Uncategorized"
-    : "Uncategorized";
+  const categoryName =
+    Array.isArray(categories) && categories.length > 0
+      ? categories.find((cat) => cat?.ID === category)?.name || "Uncategorized"
+      : "Uncategorized";
 
   return categoryName;
 };

@@ -1,32 +1,37 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
+
+const fetchAuthors = async (axiosPublicUrl) => {
+  const response = await axiosPublicUrl.get("/api/authors");
+  // Defensive: supports both "authors" and "result" keys
+  if (response.data?.success && Array.isArray(response.data.authors))
+    return response.data.authors;
+  if (Array.isArray(response.data.result)) return response.data.result;
+  return [];
+};
 
 const Author = ({ author1, author2, showSingle = false }) => {
   const axiosPublicUrl = useAxiospublic();
-  const [authors, setAuthors] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (!author1 && !author2) {
-      setLoading(false);
-      return;
-    }
+  // Only fetch if at least one author is provided
+  const shouldFetch = !!author1 || !!author2;
 
-    axiosPublicUrl
-      .get("/api/authors")
-      .then((response) => {
-        if (response.data.success) {
-          setAuthors(response.data.authors);
-        }
-      })
-      .catch((error) => console.error("Error fetching authors:", error))
-      .finally(() => setLoading(false));
-  }, []);
+  const {
+    data: authors = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["authors"],
+    queryFn: () => fetchAuthors(axiosPublicUrl),
+    enabled: shouldFetch,
+  });
 
-  if (loading) return <span>Loading authors...</span>;
+  if (!shouldFetch) return null;
+
+  if (isLoading) return <span>Loading authors...</span>;
+  if (isError) return <span>Unknown author</span>;
 
   // Filter authors based on IDs
   const selectedAuthors = authors.filter(
@@ -39,7 +44,7 @@ const Author = ({ author1, author2, showSingle = false }) => {
     ? [selectedAuthors[0]?.name]
     : selectedAuthors.map((author) => author?.name);
 
-  return displayedAuthors.join("& ");
+  return displayedAuthors.join(" & ");
 };
 
 export default Author;

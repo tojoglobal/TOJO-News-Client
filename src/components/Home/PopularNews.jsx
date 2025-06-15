@@ -1,30 +1,26 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import Link from "next/link";
 import Image from "next/image";
 import PopulerNewsSkeleton from "./HomeSkeleton/PopulerNewsSkeleton";
-import { useAxiospublic } from "../hooks/useAxiospublic";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+
+const fetchPopularNews = async () => {
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getMostPopulerViews`
+  );
+  return data.result || [];
+};
 
 const PopularNews = () => {
-  const axiosPublicUrl = useAxiospublic();
-  const [loading, setLoading] = useState(true);
-  const [popularNews, setPopularNews] = useState([]);
+  const { data: popularNews = [], isLoading } = useQuery({
+    queryKey: ["popularNews"],
+    queryFn: fetchPopularNews,
+  });
 
-  useEffect(() => {
-    axiosPublicUrl
-      .get("/api/getMostPopulerViews")
-      .then((res) => {
-        setPopularNews(res.data.result || []);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return <PopulerNewsSkeleton />;
   }
 
@@ -33,7 +29,6 @@ const PopularNews = () => {
       {popularNews.length > 0 ? (
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
-          // navigation
           pagination={{ clickable: true }}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           loop={true}
@@ -50,7 +45,7 @@ const PopularNews = () => {
                   height={250}
                   className="w-full h-full rounded-2xl object-cover"
                 />
-                {/* Text Content ${news?.ID}*/}
+                {/* Text Content */}
                 <Link
                   href={`/blog/${news?.ID}/${news?.title.replace(/\s+/g, "-")}`}
                 >

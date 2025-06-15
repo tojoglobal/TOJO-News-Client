@@ -85,7 +85,7 @@ export default async function BlogPost({ params }) {
         <div className="flex items-center gap-4 mb-6">
           <div className="flex items-center gap-2 text-sm text-gray-600">
             <span>By</span>
-            <span className="font-medium text-gray-800">
+            <span className="font-medium text-gray-800 capitalize">
               <Author
                 author1={author1_id}
                 author2={author2_id}

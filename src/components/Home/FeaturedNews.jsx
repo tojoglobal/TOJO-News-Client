@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -57,7 +57,7 @@ const FeaturedNews = () => {
             {/* Date & Author (Always at bottom) */}
             <p className="text-[11px] md:text-sm text-royal-indigo mt-2 md:mt-auto flex items-center flex-grow">
               <DateAndTime dateAndTime={news?.dateAndTime} /> {" by "}
-              <span className="ml-0.5 font-semibold">
+              <span className="ml-0.5 font-semibold capitalize">
                 <Author
                   author1={news?.author1_id}
                   author2={news?.author2_id}
