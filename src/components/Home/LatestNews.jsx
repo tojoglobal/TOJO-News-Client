@@ -31,7 +31,7 @@ const LatestNews = () => {
           latestNews.slice(0, 4).map((news) => (
             <div
               key={news?.ID}
-              className="flex flex-col items-start rounded-lg  gap-3"
+              className="flex flex-col items-start rounded-lg gap-3"
             >
               {/* Image */}
               <div className="w-full relative aspect-[1.5/1]">
@@ -44,7 +44,16 @@ const LatestNews = () => {
                   className="rounded-lg w-full"
                 />
                 {/* Category Tag */}
-                <span className="bg-royal-indigo text-white text-xs px-2 py-1 rounded-md font-medium absolute bottom-1 left-1">
+                <span
+                  className="
+                    bg-royal-indigo text-white text-xs px-2 py-1 rounded-md font-medium
+                    absolute left-2 bottom-2 z-20
+                  "
+                  style={{
+                    // Ensure the category is always at the left bottom with a small gap from edges
+                    pointerEvents: "none", // So it doesn't block image clicks
+                  }}
+                >
                   <Category category={news?.category_id} />
                 </span>
               </div>
@@ -54,12 +63,10 @@ const LatestNews = () => {
                   href={`/blog/${news?.ID}/${news?.title.replace(/\s+/g, "-")}`}
                   className="hover:underline"
                 >
-                  {/* Title */}
                   <h3 className="text-[16px] font-bold mt-1 leading-tight font-poppins text-royal-indigo">
                     {news?.title}
                   </h3>
                 </Link>
-                {/* Date */}
                 <p className="text-xs text-royal-indigo mt-1">
                   <DateAndTime dateAndTime={news?.dateAndTime} />
                 </p>

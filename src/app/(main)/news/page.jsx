@@ -38,7 +38,7 @@ export default function News() {
   console.log(news);
 
   return (
-    <div className="max-w-7xl mx-auto mt-3 mb-6">
+    <div className="container mx-auto mb-10 mt-4">
       <div className="text-center mb-6">
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-1">
           News & Updates

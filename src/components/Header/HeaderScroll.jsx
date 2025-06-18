@@ -83,7 +83,7 @@ const HeaderScroll = () => {
 
   return (
     <div
-      className="h-[30px] md:h-[53px] mt-3 md:mt-1 relative top-1 left-0 pb-1  bg-white w-full overflow-hidden cursor-pointer"
+      className="relative top-1 left-0 border-b pt-2 mb-2 pb-3 bg-white w-full overflow-hidden cursor-pointer"
       ref={tickerWrapperRef}
     >
       <ul className="flex p-0 m-0 w-full" ref={listRef}>
