@@ -9,14 +9,13 @@ import axios from "axios";
 
 const fetchPopularNews = async () => {
   const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getMostPopulerViews`
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/highlight-blog`
   );
-  return data.result || [];
+  return data.Result || [];
 };
-
 const PopularNews = () => {
   const { data: popularNews = [], isLoading } = useQuery({
-    queryKey: ["popularNews"],
+    queryKey: ["highlightBlog"],
     queryFn: fetchPopularNews,
   });
 
