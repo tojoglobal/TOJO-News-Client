@@ -29,17 +29,20 @@ export default function SponsoredDetailsPage() {
 
   return (
     <div className="max-w-4xl mx-auto bg-white p-3 md:p-5">
-      <img
-        src={`${axioPublicUrl.defaults.baseURL}/Images/${sponsored.image_url}`}
-        alt={sponsored.title}
-        className="w-full md:h-72 object-cover rounded mb-4"
-      />
       <h1 className="text-2xl capitalize font-bold mb-2 text-royal-indigo">
         {sponsored.title}
       </h1>
       <p className="text-gray-400 text-sm mb-2">
         Published: {moment(sponsored.published_at).format("MMM D, YYYY")}
       </p>
+      <img
+        src={`${axioPublicUrl.defaults.baseURL}/Images/${sponsored.image_url}`}
+        alt={sponsored.title}
+        className="w-full md:h-52 object-cover rounded-md md:rounded-lg mb-4"
+        width={800}
+        height={300}
+        style={{ height: "auto" }}
+      />
       <div className="text-gray-700 mb-4" style={{ whiteSpace: "pre-line" }}>
         {sponsored.description}
       </div>

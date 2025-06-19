@@ -72,7 +72,7 @@ export default function EventDetailPage() {
       <img
         src={`${apiBase}/Images/${data.image_url}`}
         alt={data.title}
-        className="w-full h-52 object-cover rounded-md md:rounded-lg mb-4"
+        className="w-full md:h-52 object-cover rounded-md md:rounded-lg mb-4"
         width={800}
         height={300}
         style={{ height: "auto" }}
