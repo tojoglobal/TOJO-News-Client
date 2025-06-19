@@ -31,7 +31,7 @@ const LatestNews = () => {
           latestNews.slice(0, 4).map((news) => (
             <div
               key={news?.ID}
-              className="flex flex-col items-start rounded-lg gap-3 mx-1 md:mx-0"
+              className="flex flex-col items-start rounded-lg gap-3 mx-2 md:mx-0"
             >
               {/* Image */}
               <div className="w-full relative aspect-[1.5/1]">

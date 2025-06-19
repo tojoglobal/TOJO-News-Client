@@ -65,7 +65,7 @@ const WatchMarketToday = () => {
   }
 
   return (
-    <div className="aspect-[1.5/1] md:aspect-[1.81/1] mx-1 md:mx-0">
+    <div className="aspect-[1.5/1] md:aspect-[1.81/1] mx-2 md:mx-0">
       {isVideoPlaying ? (
         // <iframe
         //   className="w-full h-48 md:h-64 rounded-lg"

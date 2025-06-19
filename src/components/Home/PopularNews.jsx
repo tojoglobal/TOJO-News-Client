@@ -24,7 +24,7 @@ const PopularNews = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 order-1 md:order-3 overflow-hidden mx-1 md:mx-0">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 order-1 md:order-3 overflow-hidden mx-2 md:mx-0">
       {popularNews.length > 0 ? (
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}

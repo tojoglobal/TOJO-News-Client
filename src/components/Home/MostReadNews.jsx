@@ -23,7 +23,7 @@ const MostReadNews = () => {
   }
 
   return (
-    <div className="mx-1 md:mx-0">
+    <div className="mx-2 md:mx-0">
       <div className="space-y-4">
         {mostRead.length > 0 ? (
           mostRead.slice(0, 4).map((news) => (
