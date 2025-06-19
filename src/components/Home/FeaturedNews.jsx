@@ -25,7 +25,7 @@ const FeaturedNews = () => {
     return <p className="text-gray-500 text-sm">No featured news available.</p>;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mx-1 md:mx-0">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mx-2 md:mx-0">
       {featuredArticles.map((news) => (
         <div key={news?.ID} className="rounded-lg flex flex-col h-full">
           {/* Image */}
