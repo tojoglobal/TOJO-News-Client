@@ -4,6 +4,7 @@ import axios from "axios";
 import { IoMdPlay } from "react-icons/io";
 import { useQuery } from "@tanstack/react-query";
 import FeaturedContinue from "./FeaturedContinue";
+import GlobalLoading from "@/src/components/GlobalLoading";
 
 const fetchHero = async () => {
   const { data } = await axios.get(
@@ -18,14 +19,14 @@ export default function Documentaries() {
   // Hero data
   const {
     data: hero,
-    isLoading: heroLoading,
+    isLoading,
     isError: heroError,
   } = useQuery({
     queryKey: ["documentaries-hero"],
     queryFn: fetchHero,
   });
 
-  if (heroLoading) return <div>Loading...</div>;
+  if (isLoading) return <GlobalLoading />;
   if (heroError || !hero) return <div>Error loading hero section.</div>;
 
   return (

@@ -21,24 +21,16 @@ const Registration = () => {
 
   const validatePassword = (password) => {
     const uppercase = /[A-Z]/;
-    const lowercase = /[a-z]/;
     const minLength = 6;
-    const specialCharacter = /[!@#$%^&*(),.?":{}|<>]/;
 
-    if (!specialCharacter.test(password)) {
-      return "Password must contain at least one special character.";
+    if (password.length < minLength) {
+      return "Password must be at least 6 characters long.";
     }
     if (!uppercase.test(password)) {
       return "Password must contain at least one uppercase letter.";
     }
-    if (!lowercase.test(password)) {
-      return "Password must contain at least one lowercase letter.";
-    }
-    if (password.length < minLength) {
-      return "Password must be at least 6 characters long.";
-    }
     return "";
-  };
+  };  
 
   const handleRegister = async (e) => {
     e.preventDefault();

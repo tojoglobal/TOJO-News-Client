@@ -3,6 +3,7 @@ import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
 import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
+import GlobalLoading from "@/src/components/GlobalLoading";
 
 export default function SponsoredDetailsPage() {
   const params = useParams();
@@ -23,7 +24,7 @@ export default function SponsoredDetailsPage() {
     enabled: !!id,
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <GlobalLoading />;
   if (isError || !sponsored) return <div>Not found</div>;
 
   return (
