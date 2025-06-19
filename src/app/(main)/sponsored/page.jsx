@@ -3,7 +3,12 @@ import Link from "next/link";
 import moment from "moment";
 import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 import { useQuery } from "@tanstack/react-query";
-import NewsSkeleton from "@/src/components/Home/HomeSkeleton/NewsSkeleton";
+import { Skeleton } from "@/src/ui/skeleton";
+
+export function stripPTags(html) {
+  if (!html) return "";
+  return html.replace(/^<p>|<\/p>$/g, "");
+}
 
 export default function SponsoredPage() {
   const axioPublicUrl = useAxiospublic();
@@ -50,7 +55,25 @@ export default function SponsoredPage() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
           {/* Main Content Skeleton */}
           <div className="md:col-span-9">
-            <NewsSkeleton count={6} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mx-2 md:mx-0">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col bg-white rounded-md md:rounded-lg overflow-hidden shadow-md h-80"
+                >
+                  <Skeleton className="skeleton-box h-48 w-full" />
+                  <div className="p-4 flex-1 flex flex-col gap-2">
+                    <Skeleton className="skeleton-box h-6 w-4/5" />
+                    <Skeleton className="skeleton-box h-4 w-full" />
+                    <Skeleton className="skeleton-box h-4 w-3/4" />
+                    <div className="flex justify-between mt-auto">
+                      <Skeleton className="skeleton-box h-4 w-16" />
+                      <Skeleton className="skeleton-box h-4 w-12" />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
           {/* Sidebar Skeleton */}
           <div className="md:col-span-3 space-y-6">
@@ -129,7 +152,7 @@ export default function SponsoredPage() {
                   </a>
                 </Link>
                 <p className="text-gray-600 text-sm line-clamp-3">
-                  {article.description}
+                  {stripPTags(article.description)}
                 </p>
               </div>
             </div>

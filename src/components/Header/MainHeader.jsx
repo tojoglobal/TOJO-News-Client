@@ -64,7 +64,7 @@ const MainHeader = () => {
       </div>
       {/* small device */}
       <div className="block sm:hidden">
-        <div className="w-full h-20 px-4 mx-auto flex flex-row items-center justify-between">
+        <div className="w-full h-18 md:h-20 px-4 mx-auto flex flex-row items-center justify-between">
           {/* Left Section: Logo */}
           <div>
             <Link href="/" passHref>

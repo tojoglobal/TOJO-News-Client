@@ -8,7 +8,8 @@ import {
   FaWhatsapp,
   FaShareAlt,
 } from "react-icons/fa";
-import DOMPurify from "dompurify";
+// import DOMPurify from "dompurify";
+import dynamic from "next/dynamic";
 import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 
 export default function ArticleReader({ articleId, articleContent, title }) {
@@ -21,6 +22,9 @@ export default function ArticleReader({ articleId, articleContent, title }) {
   const sessionId = getSessionId();
   const userId = getUserId();
   const shareButtonRef = useRef(null);
+  const SafeHtml = dynamic(() => import("@/src/components/hooks/SafeHtml"), {
+    ssr: false,
+  });
 
   const articleUrl = getArticleUrl(articleId, title);
 
@@ -129,16 +133,21 @@ export default function ArticleReader({ articleId, articleContent, title }) {
   return (
     <div className="max-w-5xl mx-auto">
       {/* Article Content */}
-      <article className="prose prose-lg prose-override max-w-none">
+      {/* <article className="prose prose-lg prose-override max-w-none">
         <div
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(articleContent),
           }}
           className="leading-relaxed"
         />
-      </article>
+      </article> */}
+      <div className="text-gray-700 mb-3">
+        <article className="prose prose-lg prose-override max-w-none leading-relaxed text-gray-800">
+          <SafeHtml html={articleContent} />
+        </article>
+      </div>
       {/* Article Footer */}
-      <div className="mt-12 border-t border-gray-200 pt-6 flex flex-col sm:flex-row justify-between items-center">
+      <div className="mt-6 border-t border-gray-200 pt-6 flex flex-col sm:flex-row justify-between items-center">
         {/* Reading Time */}
         <div className="text-sm text-gray-500 mb-4 sm:mb-0">
           Reading time: {formatReadingTime()}
@@ -154,7 +163,6 @@ export default function ArticleReader({ articleId, articleContent, title }) {
             <FaShareAlt />
             <span>Share</span>
           </button>
-
           {showShareTooltip && (
             <div className="absolute bottom-full right-0 mb-3 bg-white shadow-lg rounded-lg p-3 w-48 z-10">
               <div className="flex justify-between">
