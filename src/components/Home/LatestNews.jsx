@@ -20,9 +20,7 @@ const LatestNews = () => {
     queryFn: fetchLatestNews,
   });
 
-  if (isLoading) {
-    return <LatestNewsSkeleton count={4} />;
-  }
+  if (isLoading) return <LatestNewsSkeleton count={4} />;
 
   return (
     <div>

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { FiClock, FiEye } from "react-icons/fi";
 import GetView from "../blog/[id]/[title]/(BLogComponent)/GetView";
+import NewsSkeleton from "@/src/components/Home/HomeSkeleton/NewsSkeleton";
 
 const fetchNews = async (type) => {
   const axioPublicUrl = useAxiospublic();
@@ -23,6 +24,7 @@ const fetchNews = async (type) => {
   const { data } = await axioPublicUrl.get(endpoint);
   return data.result;
 };
+
 export default function News() {
   const [activeTab, setActiveTab] = useState("latest");
 
@@ -35,7 +37,6 @@ export default function News() {
     queryFn: () => fetchNews(activeTab),
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
-  console.log(news);
 
   return (
     <div className="container mx-auto mb-10 mt-4">
@@ -70,13 +71,8 @@ export default function News() {
       </div>
       {/* Loading State */}
       {isLoading && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mx-2 md:mx-0">
-          {[...Array(4)].map((_, i) => (
-            <div
-              key={i}
-              className="bg-gray-100 rounded-lg h-80 animate-pulse"
-            ></div>
-          ))}
+        <div className="mx-2 md:mx-0">
+          <NewsSkeleton count={4} />
         </div>
       )}
       {/* Error State */}

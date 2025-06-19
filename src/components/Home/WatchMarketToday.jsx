@@ -60,9 +60,7 @@ const WatchMarketToday = () => {
     }
   };
 
-  if (loading) {
-    return <MarketSkeleton />;
-  }
+  if (loading) return <MarketSkeleton />;
 
   return (
     <div className="aspect-[1.5/1] md:aspect-[1.81/1] mx-2 md:mx-0">

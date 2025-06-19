@@ -3,7 +3,7 @@ import React from "react";
 
 const MostReadSkeleton = ({ count = 4 }) => {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 mx-2 md:mx-0">
       {Array.from({ length: count }).map((_, index) => (
         <div key={index} className="flex gap-3">
           <Skeleton className="skeleton-box w-1/3 h-[70px]  rounded-lg" />
