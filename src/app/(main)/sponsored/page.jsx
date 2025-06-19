@@ -5,6 +5,11 @@ import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/src/ui/skeleton";
 
+export function stripPTags(html) {
+  if (!html) return "";
+  return html.replace(/^<p>|<\/p>$/g, "");
+}
+
 export default function SponsoredPage() {
   const axioPublicUrl = useAxiospublic();
 
@@ -19,7 +24,7 @@ export default function SponsoredPage() {
       return res?.data?.Result || [];
     },
   });
-console.log(sponsoredData);
+  
   // Helper: checks if now is in [start_date, end_date] inclusive
   const isActive = (start, end) => {
     const now = moment();
@@ -147,7 +152,7 @@ console.log(sponsoredData);
                   </a>
                 </Link>
                 <p className="text-gray-600 text-sm line-clamp-3">
-                  {article.description}
+                  {stripPTags(article.description)}
                 </p>
               </div>
             </div>

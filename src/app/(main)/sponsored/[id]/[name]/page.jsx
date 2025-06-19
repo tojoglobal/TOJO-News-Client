@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
 import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 import GlobalLoading from "@/src/components/GlobalLoading";
+import { useSanitizeHtml } from "@/src/components/hooks/useSanitizeHtml";
 
 export default function SponsoredDetailsPage() {
   const params = useParams();
@@ -28,11 +29,11 @@ export default function SponsoredDetailsPage() {
   if (isError || !sponsored) return <div>Not found</div>;
 
   return (
-    <div className="max-w-4xl mx-auto bg-white p-3 md:p-5">
-      <h1 className="text-2xl capitalize font-bold mb-2 text-royal-indigo">
+    <div className="max-w-5xl mx-auto bg-white p-3 md:p-5">
+      <h1 className="text-2xl md:text-4xl capitalize font-bold mb-2 text-royal-indigo">
         {sponsored.title}
       </h1>
-      <p className="text-gray-400 text-sm mb-2">
+      <p className="text-gray-500 mb-3">
         Published: {moment(sponsored.published_at).format("MMM D, YYYY")}
       </p>
       <img
@@ -43,8 +44,14 @@ export default function SponsoredDetailsPage() {
         height={300}
         style={{ height: "auto" }}
       />
-      <div className="text-gray-700 mb-4" style={{ whiteSpace: "pre-line" }}>
-        {sponsored.description}
+      <div className="text-gray-700 mb-4">
+        <article className="prose prose-lg prose-override max-w-none leading-relaxed text-gray-800 mb-4">
+          <div
+            dangerouslySetInnerHTML={{
+              __html: useSanitizeHtml(sponsored.description),
+            }}
+          />
+        </article>
       </div>
       <div className="flex gap-4 text-xs text-gray-500">
         <span>Start: {moment(sponsored.start_date).format("MMM D, YYYY")}</span>

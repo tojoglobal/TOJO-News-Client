@@ -60,28 +60,23 @@ export default async function BlogPost({ params }) {
 
   return (
     <article className="max-w-5xl mx-auto p-3 md:p-5">
-      {/* Article Header */}
-      <header className="mb-8">
-        {/* Category Tag */}
-        <div className="mb-4">
-          <span className="inline-block bg-indigo-600 text-white text-xs px-3 py-1 rounded-full font-medium">
-            <Category category={category_id} />
-          </span>
-        </div>
+      <header className="mb-5">
+        <span className="mb-5 mt-3 md:mt-0 inline-block bg-indigo-600 text-white text-xs px-3 py-1 rounded-full font-medium">
+          <Category category={category_id} />
+        </span>
         {/* Title */}
-        <h1 className="text-3xl capitalize md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+        <h1 className="text-3xl capitalize md:text-4xl font-bold text-gray-900 mb-2 leading-tight">
           {title}
         </h1>
         {/* Subtitle */}
         {subtitle && (
-          <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+          <p className="text-lg text-gray-600 mb-3 leading-relaxed">
             {subtitle}
           </p>
         )}
-
         {/* Author and Date */}
-        <div className="flex items-center gap-4 mb-6">
-          <div className="flex items-center gap-2 text-sm text-gray-600">
+        <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-3 mb-4">
+          <div className="flex items-center gap-1 md:gap-2 text-sm text-gray-600">
             <span>By</span>
             <span className="font-medium text-gray-800 capitalize">
               <Author
@@ -91,14 +86,13 @@ export default async function BlogPost({ params }) {
               />
             </span>
           </div>
-          <span className="text-gray-400">•</span>
+          <span className="hidden md:inline text-gray-400">•</span>
           <time dateTime={dateAndTime} className="text-sm text-gray-600">
             {formattedDate}
           </time>
         </div>
-
         {/* Featured Image */}
-        <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-md mb-6">
+        <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-md mb-5">
           <Image
             src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/Images/${thumble}`}
             alt={title}
@@ -107,14 +101,12 @@ export default async function BlogPost({ params }) {
             priority
           />
         </div>
-
         {/* Meta Info */}
-        <div className="flex items-center justify-between text-sm text-gray-500 border-b border-gray-200 pb-6">
+        <div className="flex items-center justify-between text-sm text-gray-500 border-b border-gray-200 pb-5">
           <span>Reading time: {stats.text}</span>
           <GetView blogId={id} />
         </div>
       </header>
-
       {/* Article Content */}
       <ArticleReader
         articleId={id}
@@ -123,7 +115,7 @@ export default async function BlogPost({ params }) {
       />
 
       {/* Engagement Section */}
-      <footer className="mt-12 pt-6 border-t border-gray-200">
+      <footer className="mt-6 pt-6 border-t border-gray-200">
         <div className="flex justify-center">
           <LoveBtn articleId={id} />
         </div>
