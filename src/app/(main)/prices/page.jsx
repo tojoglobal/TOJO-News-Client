@@ -1,4 +1,5 @@
 "use client";
+import GlobalLoading from "@/src/components/GlobalLoading";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchCryptoData = async () => {
@@ -122,13 +123,7 @@ export default function CryptoPrices() {
     );
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-[70vh]">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-royal-indigo"></div>
-      </div>
-    );
-  }
+  if (isLoading) return <GlobalLoading />;
 
   if (error) {
     return (
