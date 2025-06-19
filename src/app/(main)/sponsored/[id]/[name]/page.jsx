@@ -28,28 +28,24 @@ export default function SponsoredDetailsPage() {
   if (isError || !sponsored) return <div>Not found</div>;
 
   return (
-    <div className="container mx-auto py-5">
-      <div className="max-w-3xl mx-auto bg-white rounded shadow p-3">
-        <img
-          src={`${axioPublicUrl.defaults.baseURL}/Images/${sponsored.image_url}`}
-          alt={sponsored.title}
-          className="w-full md:h-72 object-cover rounded mb-4"
-        />
-        <h1 className="text-2xl capitalize font-bold mb-2 text-royal-indigo">
-          {sponsored.title}
-        </h1>
-        <p className="text-gray-400 text-sm mb-2">
-          Published: {moment(sponsored.published_at).format("MMM D, YYYY")}
-        </p>
-        <div className="text-gray-700 mb-4" style={{ whiteSpace: "pre-line" }}>
-          {sponsored.description}
-        </div>
-        <div className="flex gap-4 text-xs text-gray-500">
-          <span>
-            Start: {moment(sponsored.start_date).format("MMM D, YYYY")}
-          </span>
-          <span>End: {moment(sponsored.end_date).format("MMM D, YYYY")}</span>
-        </div>
+    <div className="max-w-4xl mx-auto bg-white p-3 md:p-5">
+      <img
+        src={`${axioPublicUrl.defaults.baseURL}/Images/${sponsored.image_url}`}
+        alt={sponsored.title}
+        className="w-full md:h-72 object-cover rounded mb-4"
+      />
+      <h1 className="text-2xl capitalize font-bold mb-2 text-royal-indigo">
+        {sponsored.title}
+      </h1>
+      <p className="text-gray-400 text-sm mb-2">
+        Published: {moment(sponsored.published_at).format("MMM D, YYYY")}
+      </p>
+      <div className="text-gray-700 mb-4" style={{ whiteSpace: "pre-line" }}>
+        {sponsored.description}
+      </div>
+      <div className="flex gap-4 text-xs text-gray-500">
+        <span>Start: {moment(sponsored.start_date).format("MMM D, YYYY")}</span>
+        <span>End: {moment(sponsored.end_date).format("MMM D, YYYY")}</span>
       </div>
     </div>
   );
