@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
 import axios from "axios";
 import PastEventsPage from "./PastEvents";
+import EventSkeleton from "./EventSkeleton";
 
 // Helper function for stripping HTML tags
 function stripHtml(html = "") {
@@ -57,9 +58,6 @@ export default function EventsPage() {
     },
   });
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error loading data</div>;
-
   // Defensive: data could be undefined/null
   const eventList = Array.isArray(data) ? data : [];
 
@@ -68,6 +66,26 @@ export default function EventsPage() {
     .filter((e) => e && e.date)
     .sort((a, b) => moment(b.date).diff(moment(a.date)))
     .slice(0, 3);
+
+  if (isLoading)
+    return (
+      <div className="container mx-auto py-5 mb-10 px-3 md:px-0">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-royal-indigo mb-4 md:mb-6">
+          Events
+        </h1>
+        <EventSkeleton count={3} />
+      </div>
+    );
+
+  if (isError)
+    return (
+      <div className="container mx-auto py-5 mb-10 px-3 md:px-0">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-royal-indigo mb-4 md:mb-6">
+          Events
+        </h1>
+        <div className="text-gray-500">Error loading data</div>
+      </div>
+    );
 
   return (
     <div className="container mx-auto py-5 mb-10 px-3 md:px-0">

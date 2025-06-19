@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
 import axios from "axios";
+import EventSkeleton from "./EventSkeleton";
 
 export default function PastEventsPage() {
   const {
@@ -19,14 +20,31 @@ export default function PastEventsPage() {
       return res?.data?.Result || [];
     },
   });
-  
+
   // Sort by date (latest first), skip top 3 (rest are past events)
   const pastEvents = [...data]
     .sort((a, b) => moment(b.date).diff(moment(a.date)))
     .slice(3);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error loading data</div>;
+  if (isLoading)
+    return (
+      <div>
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-royal-indigo mt-16 mb-4 md:mb-6">
+          Past Events
+        </h2>
+        <EventSkeleton count={3} />
+      </div>
+    );
+
+  if (isError)
+    return (
+      <div>
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-royal-indigo mt-16 mb-4 md:mb-6">
+          Past Events
+        </h2>
+        <div className="text-gray-500">Error loading data</div>
+      </div>
+    );
 
   return (
     <div>
