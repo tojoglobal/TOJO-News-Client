@@ -57,7 +57,7 @@ const FeaturedContinue = () => {
   );
 
   return (
-    <div className="container mx-auto py-8 px-4 md:px-0">
+    <div className="container mx-auto py-8 px-3 md:px-0">
       <h2 className="text-xl sm:text-2xl font-bold text-royal-indigo mb-3">
         Featured News
       </h2>
@@ -72,7 +72,7 @@ const FeaturedContinue = () => {
             ) : (
               <div
                 key={item.id}
-                className="relative w-full h-44 group overflow-hidden rounded-md cursor-pointer"
+                className="relative w-full h-44 group overflow-hidden rounded-lg cursor-pointer"
                 onClick={() => setOpenVideo(item.youtube_url)}
               >
                 <img

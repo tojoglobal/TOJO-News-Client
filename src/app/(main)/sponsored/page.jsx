@@ -43,7 +43,7 @@ export default function SponsoredPage() {
   if (isSponsoredError) return <div>Error loading data</div>;
 
   return (
-    <div className="container mx-auto py-5 mb-8">
+    <div className="container mx-auto py-5 mb-8 px-3 md:px-0">
       <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-royal-indigo mb-1">
         Sponsored
       </h1>

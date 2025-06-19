@@ -59,7 +59,7 @@ export default async function BlogPost({ params }) {
   });
 
   return (
-    <article className="max-w-5xl mx-auto p-5">
+    <article className="max-w-5xl mx-auto p-3 md:p-5">
       {/* Article Header */}
       <header className="mb-8">
         {/* Category Tag */}
@@ -68,12 +68,10 @@ export default async function BlogPost({ params }) {
             <Category category={category_id} />
           </span>
         </div>
-
         {/* Title */}
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+        <h1 className="text-3xl capitalize md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
           {title}
         </h1>
-
         {/* Subtitle */}
         {subtitle && (
           <p className="text-lg text-gray-600 mb-6 leading-relaxed">

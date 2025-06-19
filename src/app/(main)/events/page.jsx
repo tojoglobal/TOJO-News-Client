@@ -1,19 +1,54 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
 import axios from "axios";
 import PastEventsPage from "./PastEvents";
 
+// Helper function for stripping HTML tags
+function stripHtml(html = "") {
+  if (!html) return "";
+  return html.replace(/<[^>]+>/g, "");
+}
+
+// Responsive description component
+function DescriptionResponsive({ description }) {
+  const cleanText = stripHtml(description);
+
+  // SSR-safe check for mobile (defaults to desktop)
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    function handleResize() {
+      setIsMobile(window.innerWidth < 768);
+    }
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Use 120 chars for mobile, 250 for desktop/tablet
+  const desc =
+    cleanText.length > (isMobile ? 100 : 250)
+      ? cleanText.slice(0, isMobile ? 100 : 250) + "..."
+      : cleanText;
+
+  return <p className="text-royal-indigo mb-4">{desc}</p>;
+}
+
 export default function EventsPage() {
   const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL;
-  const { data, isLoading, isError } = useQuery({
+  const {
+    data = [],
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["allEvents"],
     queryFn: async () => {
       const url = `${apiBase}/api/admin/events`;
       const res = await axios.get(url);
-      console.log(res);
       if (!Array.isArray(res?.data?.Result)) {
         console.error("API did not return an array:", res.data);
         return [];
@@ -21,7 +56,7 @@ export default function EventsPage() {
       return res?.data?.Result;
     },
   });
-  
+
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading data</div>;
 
@@ -35,11 +70,11 @@ export default function EventsPage() {
     .slice(0, 3);
 
   return (
-    <div className="max-w-7xl mx-auto py-5 mb-10">
-      <h1 className="text-2xl md:text-3xl lg:text-4xl text-center md:text-left font-bold text-royal-indigo mb-8">
+    <div className="container mx-auto py-5 mb-10 px-3 md:px-0">
+      <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-royal-indigo mb-4 md:mb-6">
         Events
       </h1>
-      <div className="space-y-7 mx-3 md:mx-0">
+      <div className="space-y-7">
         {latestEvents.length === 0 ? (
           <div className="text-gray-500">No events found.</div>
         ) : (
@@ -57,6 +92,7 @@ export default function EventsPage() {
                   <img
                     src={`${apiBase}/Images/${event?.image_url}`}
                     className="w-full h-full rounded-lg object-cover"
+                    alt={event.title}
                   />
                 </Link>
               </div>
@@ -74,9 +110,7 @@ export default function EventsPage() {
                     {event.title}
                   </h2>
                 </Link>
-                <p className="text-royal-indigo mb-4">
-                  {event.description.slice(0, 250)}
-                </p>
+                <DescriptionResponsive description={event.description} />
                 <div className="flex gap-3">
                   <button className="bg-royal-indigo text-white px-6 py-2 rounded-full hover:bg-purple-700 transition-colors duration-300">
                     SUBSCRIBE

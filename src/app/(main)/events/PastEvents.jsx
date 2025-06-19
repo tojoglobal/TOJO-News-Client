@@ -30,10 +30,10 @@ export default function PastEventsPage() {
 
   return (
     <div>
-      <h2 className="text-2xl md:text-3xl lg:text-4xl mx-3 md:mx-0 font-bold text-royal-indigo mt-16 mb-8">
+      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-royal-indigo mt-16 mb-4 md:mb-6">
         Past Events
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-3 md:mx-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {pastEvents.length === 0 && (
           <div className="col-span-full text-gray-500">No past events.</div>
         )}

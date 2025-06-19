@@ -39,11 +39,11 @@ const FeaturedThisWeek = () => {
 
   return (
     <div>
-      <h2 className="text-xl sm:text-2xl font-bold text-[#5E17EB] mb-3 sm:mb-4 mt-12">
+      <h2 className="text-xl sm:text-2xl font-bold text-[#5E17EB] mb-3 sm:mb-4 mt-6 md:mt-12">
         Featured This Week
       </h2>
       <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        {featuredNews.map((news) => {
+        {featuredNews?.map((news) => {
           const youtubeId = extractYouTubeId(news.youtube_url);
           return (
             <div
@@ -61,7 +61,7 @@ const FeaturedThisWeek = () => {
                   <BsPlayCircle size={36} color="#fff" />
                 </div>
               </div>
-              <h3 className="text-[#5E17EB] text-xs sm:text-sm font-medium flex-1 line-clamp-2">
+              <h3 className="text-[#5E17EB] capitalize text-xs sm:text-sm font-medium flex-1 line-clamp-2">
                 {news.title}
               </h3>
             </div>
