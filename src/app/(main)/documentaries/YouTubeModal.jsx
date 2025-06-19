@@ -20,26 +20,22 @@ export default function YouTubeModal({
 
   return (
     <div
-      className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
+      className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-2"
       onClick={() => setOpenVideo(null)}
       style={{ cursor: "pointer" }}
     >
       <div
-        style={{
-          width: "80vw",
-          maxWidth,
-          aspectRatio: "16/9",
-          background: "#000",
-          borderRadius: 12,
-          boxShadow: "0 4px 32px #0008",
-          position: "relative",
-        }}
+        className={`
+          w-[95vw] 
+          aspect-video
+          bg-black rounded-xl shadow-2xl relative
+          max-w-[400px] sm:max-w-[700px] md:max-w-[${maxWidth}px]
+        `}
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={() => setOpenVideo(null)}
-          className="absolute cursor-pointer top-2 right-2 text-white text-2xl z-10"
-          style={{ background: "rgba(0,0,0,0.3)", borderRadius: "50%" }}
+          className="absolute cursor-pointer top-2 right-2 text-white text-2xl z-10 bg-black/50 rounded-full w-8 h-8 flex items-center justify-center"
           aria-label="Close"
           type="button"
         >
@@ -53,7 +49,7 @@ export default function YouTubeModal({
           frameBorder="0"
           allow="autoplay; encrypted-media"
           allowFullScreen
-          style={{ borderRadius: 12, width: "100%", height: "100%" }}
+          className="rounded-md md:rounded-xl w-full h-full"
         />
       </div>
     </div>

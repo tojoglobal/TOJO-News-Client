@@ -18,16 +18,17 @@ const MostReadNews = () => {
     queryFn: fetchMostRead,
   });
 
-  if (isLoading) {
-    return <MostReadSkeleton count={4} />;
-  }
+  if (isLoading) return <MostReadSkeleton count={4} />;
 
   return (
     <div className="mx-2 md:mx-0">
       <div className="space-y-4">
         {mostRead.length > 0 ? (
           mostRead.slice(0, 4).map((news) => (
-            <div key={news?.ID} className="flex items-start rounded-lg gap-2 md:gap-3">
+            <div
+              key={news?.ID}
+              className="flex items-start rounded-lg gap-2 md:gap-3"
+            >
               {/* Image */}
               <div className="w-1/3 h-[70px] md:h-[60px] relative">
                 <Image

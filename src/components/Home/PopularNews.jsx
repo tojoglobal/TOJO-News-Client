@@ -19,9 +19,7 @@ const PopularNews = () => {
     queryFn: fetchPopularNews,
   });
 
-  if (isLoading) {
-    return <PopulerNewsSkeleton />;
-  }
+  if (isLoading) return <PopulerNewsSkeleton />;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 order-1 md:order-3 overflow-hidden mx-2 md:mx-0">

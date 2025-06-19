@@ -118,7 +118,7 @@ const Newsletters = () => {
   ];
 
   return (
-    <div className="container mx-auto py-6">
+    <div className="container mx-auto py-6 px-1 md:px-0">
       <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-royal-indigo mb-5 md:mb-10 text-center">
         Newsletter
       </h1>
@@ -138,7 +138,7 @@ const Newsletters = () => {
       </div>
       {/* intrests */}
       <div className="max-w-2xl mx-3 md:w-8/12 md:mx-auto mb-8 md:mb-20">
-        <h3 className="mt-10 mb-5 font-bold text-2xl md:text-3xl text-royal-indigo">
+        <h3 className="mt-6 md:mt-10 mb-5 font-bold text-2xl md:text-3xl text-royal-indigo">
           Select Interests
         </h3>
         {/* intererst chekbox */}
@@ -184,7 +184,7 @@ const Newsletters = () => {
         )}
 
         {/* Key Benefits */}
-        <h3 className="mt-12 mb-5 font-bold text-2xl md:text-3xl text-royal-indigo">
+        <h3 className="mt-6 md:mt-12 mb-5 font-bold text-2xl md:text-3xl text-royal-indigo">
           Key Benefits
         </h3>
         <ul className="mt-4 space-y-2">
@@ -201,7 +201,7 @@ const Newsletters = () => {
         </ul>
 
         {/* Social Media Links */}
-        <h3 className="mt-12 mb-8 font-bold text-2xl md:text-3xl text-royal-indigo">
+        <h3 className="mt-6 md:mt-12 mb-3 md:mb-8 font-bold text-2xl md:text-3xl text-royal-indigo">
           Social Media & Community Links
         </h3>
         <p className="text-black font-bold text-lg md:text-xl mt-2">

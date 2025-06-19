@@ -62,11 +62,11 @@ export default function EventDetailPage() {
 
   return (
     <div className="container mx-auto">
-      <div className="max-w-3xl mx-auto bg-white rounded shadow p-6">
+      <div className="max-w-3xl mx-auto bg-white rounded shadow p-3 md:p-6">
         <img
           src={`${apiBase}/Images/${data.image_url}`}
           alt={data.title}
-          className="w-full h-56 object-cover rounded mb-4"
+          className="w-full h-56 object-cover rounded-md md:rounded-lg mb-4"
           width={800}
           height={300}
           style={{ height: "auto" }}

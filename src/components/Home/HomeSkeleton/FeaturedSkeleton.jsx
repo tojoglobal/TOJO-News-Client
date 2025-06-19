@@ -3,7 +3,7 @@ import React from "react";
 
 const FeaturedSkeleton = ({ count = 8 }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mx-2 md:mx-0">
       {Array.from({ length: count }).map((_, index) => (
         <div key={index} className="flex flex-col gap-3">
           <Skeleton className="skeleton-box h-[200px] w-full rounded-lg" />

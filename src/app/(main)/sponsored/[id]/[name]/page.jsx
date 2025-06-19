@@ -28,13 +28,13 @@ export default function SponsoredDetailsPage() {
 
   return (
     <div className="container mx-auto py-5">
-      <div className="max-w-3xl mx-auto bg-white rounded shadow p-6">
+      <div className="max-w-3xl mx-auto bg-white rounded shadow p-3">
         <img
           src={`${axioPublicUrl.defaults.baseURL}/Images/${sponsored.image_url}`}
           alt={sponsored.title}
-          className="w-full h-72 object-cover rounded mb-4"
+          className="w-full md:h-72 object-cover rounded mb-4"
         />
-        <h1 className="text-2xl font-bold mb-2 text-royal-indigo">
+        <h1 className="text-2xl capitalize font-bold mb-2 text-royal-indigo">
           {sponsored.title}
         </h1>
         <p className="text-gray-400 text-sm mb-2">

@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
+import moment from "moment";
 import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 import { useQuery } from "@tanstack/react-query";
-import moment from "moment";
+import NewsSkeleton from "@/src/components/Home/HomeSkeleton/NewsSkeleton";
 
 export default function SponsoredPage() {
   const axioPublicUrl = useAxiospublic();
@@ -39,11 +40,46 @@ export default function SponsoredPage() {
     )
     .slice(0, 4);
 
-  if (isSponsoredLoading) return <div>Loading...</div>;
+  if (isSponsoredLoading)
+    return (
+      <div className="container mx-auto py-5 mb-8 px-3 md:px-0">
+        <div className="mb-6">
+          <div className="h-8 w-40 bg-gray-200 rounded mb-2 animate-pulse"></div>
+          <div className="h-5 w-64 bg-gray-100 rounded mb-6 animate-pulse"></div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+          {/* Main Content Skeleton */}
+          <div className="md:col-span-9">
+            <NewsSkeleton count={6} />
+          </div>
+          {/* Sidebar Skeleton */}
+          <div className="md:col-span-3 space-y-6">
+            <div className="bg-white rounded-lg p-3 shadow-lg">
+              <div className="h-6 w-32 bg-gray-200 rounded mb-4 animate-pulse"></div>
+              <div className="space-y-4">
+                {[...Array(3)].map((_, idx) => (
+                  <div key={idx} className="flex items-center space-x-3">
+                    <div className="flex-shrink-0 w-16 h-12 bg-gray-200 rounded animate-pulse" />
+                    <div className="flex-1">
+                      <div className="h-4 w-28 bg-gray-200 rounded mb-2 animate-pulse"></div>
+                      <div className="h-3 w-16 bg-gray-100 rounded animate-pulse"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="bg-royal-indigo text-white p-4 rounded-lg text-center">
+              <div className="h-4 w-24 bg-white/30 rounded mx-auto animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
   if (isSponsoredError) return <div>Error loading data</div>;
 
   return (
-    <div className="container mx-auto py-5 mb-8">
+    <div className="container mx-auto py-5 mb-8 px-3 md:px-0">
       <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-royal-indigo mb-1">
         Sponsored
       </h1>
