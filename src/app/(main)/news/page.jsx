@@ -39,18 +39,18 @@ export default function News() {
   });
 
   return (
-    <div className="container mx-auto mb-10 mt-4">
+    <div className="container mx-auto mb-10 mt-5">
       <div className="text-center mb-6">
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-1">
           News & Updates
         </h1>
-        <p className="md:text-lg text-gray-600 max-w-4xl mx-auto">
+        <p className="text-gray-600 max-w-3xl mx-auto">
           Stay informed with our latest articles, popular stories, and most read
           content
         </p>
       </div>
       {/* Filter Tabs */}
-      <div className="flex justify-center mb-8 border-b border-gray-200">
+      <div className="flex justify-center mb-8 border-b border-gray-150">
         <div className="flex space-x-1">
           {["latest", "popular", "most-read"].map((tab) => (
             <button
@@ -85,7 +85,7 @@ export default function News() {
       )}
       {/* News Grid */}
       {news && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mx-2 md:mx-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mx-2 md:mx-0">
           {news.map((item) => (
             <article
               key={item.ID}
@@ -102,8 +102,8 @@ export default function News() {
                     className="object-cover"
                   />
                 </div>
-                <div className="p-4">
-                  <h3 className="font-bold text-lg mb-2 line-clamp-2">
+                <div className="p-3">
+                  <h3 className="font-bold text-2xl mb-2 line-clamp-2">
                     {item.title}
                   </h3>
                   <p className="text-gray-600 text-sm mb-4 line-clamp-3">

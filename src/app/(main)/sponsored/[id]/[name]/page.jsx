@@ -4,12 +4,15 @@ import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
 import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 import GlobalLoading from "@/src/components/GlobalLoading";
-import { useSanitizeHtml } from "@/src/components/hooks/useSanitizeHtml";
+import dynamic from "next/dynamic";
 
 export default function SponsoredDetailsPage() {
   const params = useParams();
   const id = params.id;
   const axioPublicUrl = useAxiospublic();
+  const SafeHtml = dynamic(() => import("@/src/components/hooks/SafeHtml"), {
+    ssr: false,
+  });
 
   const {
     data: sponsored,
@@ -46,11 +49,7 @@ export default function SponsoredDetailsPage() {
       />
       <div className="text-gray-700 mb-4">
         <article className="prose prose-lg prose-override max-w-none leading-relaxed text-gray-800 mb-4">
-          <div
-            dangerouslySetInnerHTML={{
-              __html: useSanitizeHtml(sponsored.description),
-            }}
-          />
+          <SafeHtml html={sponsored.description} />
         </article>
       </div>
       <div className="flex gap-4 text-xs text-gray-500">

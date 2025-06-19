@@ -9,8 +9,8 @@ import {
   FaShareAlt,
 } from "react-icons/fa";
 // import DOMPurify from "dompurify";
+import dynamic from "next/dynamic";
 import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
-import { useSanitizeHtml } from "@/src/components/hooks/useSanitizeHtml";
 
 export default function ArticleReader({ articleId, articleContent, title }) {
   const axioPublicUrl = useAxiospublic();
@@ -22,6 +22,9 @@ export default function ArticleReader({ articleId, articleContent, title }) {
   const sessionId = getSessionId();
   const userId = getUserId();
   const shareButtonRef = useRef(null);
+  const SafeHtml = dynamic(() => import("@/src/components/hooks/SafeHtml"), {
+    ssr: false,
+  });
 
   const articleUrl = getArticleUrl(articleId, title);
 
@@ -140,11 +143,7 @@ export default function ArticleReader({ articleId, articleContent, title }) {
       </article> */}
       <div className="text-gray-700 mb-3">
         <article className="prose prose-lg prose-override max-w-none leading-relaxed text-gray-800">
-          <div
-            dangerouslySetInnerHTML={{
-              __html: useSanitizeHtml(articleContent),
-            }}
-          />
+          <SafeHtml html={articleContent} />
         </article>
       </div>
       {/* Article Footer */}

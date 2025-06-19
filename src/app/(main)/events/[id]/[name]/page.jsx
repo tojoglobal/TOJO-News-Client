@@ -4,12 +4,15 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import moment from "moment";
 import GlobalLoading from "@/src/components/GlobalLoading";
-import { useSanitizeHtml } from "@/src/components/hooks/useSanitizeHtml";
+import dynamic from "next/dynamic";
 
 export default function EventDetailPage() {
   const params = useParams();
   const id = params?.id;
   const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const SafeHtml = dynamic(() => import("@/src/components/hooks/SafeHtml"), {
+    ssr: false,
+  });
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["event", id],
@@ -48,11 +51,7 @@ export default function EventDetailPage() {
       />
       <div className="text-gray-700 mb-4">
         <article className="prose prose-lg prose-override max-w-none leading-relaxed text-gray-800 mb-4">
-          <div
-            dangerouslySetInnerHTML={{
-              __html: useSanitizeHtml(data.description),
-            }}
-          />
+          <SafeHtml html={data.description} />
         </article>
       </div>
     </div>
