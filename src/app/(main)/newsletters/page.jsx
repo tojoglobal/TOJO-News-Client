@@ -75,11 +75,11 @@ const Newsletters = () => {
       }
 
       // Proceed with subscription if not subscribed
-      const res = await axiosPublicUrl.post("/api/subscribe", {
+      await axiosPublicUrl.post("/api/subscribe", {
         email: subscriberEmail,
         interests,
       });
-      console.log(res.data);
+      // console.log(res.data);
       toast.success("You have successfully subscribed to TOJO News!");
       setEmail("");
       setInterests([]);
