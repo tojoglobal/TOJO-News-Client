@@ -25,7 +25,7 @@ const FeaturedNews = () => {
     return <p className="text-gray-500 text-sm">No featured news available.</p>;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mx-1 md:mx-0">
       {featuredArticles.map((news) => (
         <div key={news?.ID} className="rounded-lg flex flex-col h-full">
           {/* Image */}
@@ -34,22 +34,21 @@ const FeaturedNews = () => {
               src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/Images/${news?.thumble}`}
               alt={news?.title}
               fill
-              className="rounded-lg object-cover"
+              className="rounded-md md:rounded-lg object-cover"
             />
             {/* Category Tag */}
             <span className="bg-royal-indigo text-white text-xs px-2 py-1 rounded-md font-medium absolute bottom-1 left-1">
               <Category category={news?.category_id} />
             </span>
           </div>
-
           {/* Content */}
-          <div className="pt-3 flex flex-col h-full">
+          <div className="pt-2 flex flex-col h-full mx-2 md:mx-0">
             <Link
               href={`/blog/${news?.ID}/${news?.title.replace(/\s+/g, "-")}`}
               className="hover:underline"
             >
               {/* Title (Flexible height) */}
-              <h3 className="text-[15px] md:text-2xl font-bold text-royal-indigo mt-2 font-poppins flex-grow">
+              <h3 className="text-xl md:text-2xl font-bold text-royal-indigo mt-2 font-poppins flex-grow">
                 {news?.title}
               </h3>
             </Link>

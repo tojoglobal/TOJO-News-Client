@@ -23,20 +23,20 @@ const MostReadNews = () => {
   }
 
   return (
-    <div>
+    <div className="mx-1 md:mx-0">
       <div className="space-y-4">
         {mostRead.length > 0 ? (
           mostRead.slice(0, 4).map((news) => (
-            <div key={news?.ID} className="flex items-start rounded-lg gap-3">
+            <div key={news?.ID} className="flex items-start rounded-lg gap-2 md:gap-3">
               {/* Image */}
-              <div className="w-1/3 h-[70px] relative">
+              <div className="w-1/3 h-[70px] md:h-[60px] relative">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/Images/${news?.thumble}`}
                   alt={news?.title}
                   width={75}
                   height={75}
                   objectFit="cover"
-                  className="rounded-lg w-full h-full"
+                  className="rounded-sm md:rounded-md w-full h-full"
                 />
               </div>
               <div className="flex-1">
@@ -45,7 +45,7 @@ const MostReadNews = () => {
                   className="hover:underline"
                 >
                   {/* Title */}
-                  <h3 className="text-sm font-semibold mt-2 leading-tight text-royal-indigo">
+                  <h3 className="text-sm font-semibold leading-tight text-royal-indigo">
                     {news?.title}
                   </h3>
                 </Link>

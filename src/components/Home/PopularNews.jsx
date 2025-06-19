@@ -24,7 +24,7 @@ const PopularNews = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 order-1 md:order-3 overflow-hidden">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 order-1 md:order-3 overflow-hidden mx-1 md:mx-0">
       {popularNews.length > 0 ? (
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
@@ -32,17 +32,17 @@ const PopularNews = () => {
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           loop={true}
           slidesPerView="auto"
-          className="h-[290px] md:h-[490px] w-full"
+          className="md:h-[490px] w-full"
         >
           {popularNews.slice(0, 1).map((news, i) => (
             <SwiperSlide key={i}>
-              <div className="relative w-full h-[290px] md:h-[500px] md:rounded-2xl">
+              <div className="relative w-full md:h-[500px] rounded-md md:rounded-2xl">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/Images/${news?.thumble}`}
                   alt={news?.title}
                   width={500}
                   height={250}
-                  className="w-full h-full rounded-2xl object-cover"
+                  className="w-full h-full rounded-md md:rounded-2xl object-cover"
                 />
                 {/* Text Content */}
                 <Link

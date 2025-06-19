@@ -65,7 +65,7 @@ const WatchMarketToday = () => {
   }
 
   return (
-    <div className="aspect-[1.5/1] md:aspect-[1.81/1]">
+    <div className="aspect-[1.5/1] md:aspect-[1.81/1] mx-1 md:mx-0">
       {isVideoPlaying ? (
         // <iframe
         //   className="w-full h-48 md:h-64 rounded-lg"
@@ -77,7 +77,7 @@ const WatchMarketToday = () => {
         //   allowFullScreen
         // ></iframe>
         <iframe
-          className="w-full h-48 md:h-56 rounded-lg"
+          className="w-full h-48 md:h-56 md:rounded-lg"
           src={`https://www.youtube.com/embed/${latestVideoId}?autoplay=1&controls=0&modestbranding=1&rel=0`}
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -89,7 +89,7 @@ const WatchMarketToday = () => {
         thumbnailUrl && (
           <div className="relative w-full h-60 md:h-[183px] cursor-pointer">
             <img
-              className="w-full h-full object-cover rounded-lg"
+              className="w-full h-full object-cover rounded-md md:rounded-lg"
               src={thumbnailUrl || undefined}
               alt={latestVideoTitle || "Video Thumbnail"}
             />

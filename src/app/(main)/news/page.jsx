@@ -70,7 +70,7 @@ export default function News() {
       </div>
       {/* Loading State */}
       {isLoading && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mx-2 md:mx-0">
           {[...Array(4)].map((_, i) => (
             <div
               key={i}
@@ -89,11 +89,11 @@ export default function News() {
       )}
       {/* News Grid */}
       {news && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mx-3 md:mx-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mx-2 md:mx-0">
           {news.map((item) => (
             <article
               key={item.ID}
-              className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"
+              className="bg-white rounded-md md:rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"
             >
               <Link
                 href={`/blog/${item.ID}/${item.title.replace(/\s+/g, "-")}`}
