@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import moment from "moment";
 import DOMPurify from "dompurify";
+import GlobalLoading from "@/src/components/GlobalLoading";
 
 /**
  * Format the event description:
@@ -57,7 +58,7 @@ export default function EventDetailPage() {
     enabled: !!id,
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <GlobalLoading />;
   if (isError || !data) return <div>Event not found</div>;
 
   return (
