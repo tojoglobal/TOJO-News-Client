@@ -31,7 +31,7 @@ const LatestNews = () => {
           latestNews.slice(0, 4).map((news) => (
             <div
               key={news?.ID}
-              className="flex flex-col items-start rounded-lg gap-3"
+              className="flex flex-col items-start rounded-lg gap-3 mx-1 md:mx-0"
             >
               {/* Image */}
               <div className="w-full relative aspect-[1.5/1]">
@@ -41,14 +41,11 @@ const LatestNews = () => {
                   width={80}
                   height={60}
                   objectFit="cover"
-                  className="rounded-lg w-full"
+                  className="rounded-md md:rounded-lg w-full"
                 />
                 {/* Category Tag */}
                 <span
-                  className="
-                    bg-royal-indigo text-white text-xs px-2 py-1 rounded-md font-medium
-                    absolute left-2 bottom-2 z-20
-                  "
+                  className="bg-royal-indigo text-white text-xs px-2 py-1 rounded-md font-medium absolute left-2 bottom-2 z-20"
                   style={{
                     // Ensure the category is always at the left bottom with a small gap from edges
                     pointerEvents: "none", // So it doesn't block image clicks
@@ -63,7 +60,7 @@ const LatestNews = () => {
                   href={`/blog/${news?.ID}/${news?.title.replace(/\s+/g, "-")}`}
                   className="hover:underline"
                 >
-                  <h3 className="text-[16px] font-bold mt-1 leading-tight font-poppins text-royal-indigo">
+                  <h3 className="text-lg md:text-xl font-bold mt-1 mx-2 md:mx-0 leading-tight font-poppins text-royal-indigo">
                     {news?.title}
                   </h3>
                 </Link>

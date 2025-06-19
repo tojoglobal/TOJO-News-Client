@@ -26,6 +26,7 @@ export default function MobileMenu() {
   }, [isOpen]);
 
   const menuItems = [
+    { name: "Home", path: "/" },
     { name: "News", path: "/news" },
     { name: "Prices", path: "/prices" },
     { name: "Documentaries", path: "/documentaries" },
