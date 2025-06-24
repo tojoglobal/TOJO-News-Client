@@ -25,8 +25,12 @@ const fetchNews = async (type) => {
   return data.result;
 };
 
+const pageSizeOptions = [4, 8, 12];
+
 export default function News() {
   const [activeTab, setActiveTab] = useState("latest");
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(8);
 
   const {
     data: news,
@@ -37,6 +41,35 @@ export default function News() {
     queryFn: () => fetchNews(activeTab),
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
+
+  // Pagination logic
+  const totalItems = news ? news.length : 0;
+  const totalPages = Math.ceil(totalItems / pageSize);
+
+  // Calculate items for current page
+  const paginatedNews = news
+    ? news.slice((page - 1) * pageSize, page * pageSize)
+    : [];
+
+  // Pagination controls
+  const canPrev = page > 1;
+  const canNext = page < totalPages;
+
+  // Handlers
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    setPage(1); // reset to first page when tab changes
+  };
+
+  const handlePageSizeChange = (e) => {
+    setPageSize(Number(e.target.value));
+    setPage(1); // reset to first page when page size changes
+  };
+
+  const goToFirst = () => setPage(1);
+  const goToPrev = () => setPage((p) => Math.max(p - 1, 1));
+  const goToNext = () => setPage((p) => Math.min(p + 1, totalPages));
+  const goToLast = () => setPage(totalPages);
 
   return (
     <div className="container mx-auto mb-10 mt-5">
@@ -55,7 +88,7 @@ export default function News() {
           {["latest", "popular", "most-read"].map((tab) => (
             <button
               key={tab}
-              onClick={() => setActiveTab(tab)}
+              onClick={() => handleTabChange(tab)}
               className={`px-3 md:px-4 cursor-pointer py-2 text-sm font-medium rounded-t-lg transition-colors ${
                 activeTab === tab
                   ? "bg-royal-indigo text-white"
@@ -69,10 +102,32 @@ export default function News() {
           ))}
         </div>
       </div>
+      {/* Page size selector */}
+      <div className="flex justify-between items-center mb-4 px-2 md:px-0">
+        <div>
+          <label className="mr-2 text-sm text-gray-600">Show:</label>
+          <select
+            className="border cursor-pointer focus:outline-none rounded px-2 py-1 text-sm"
+            value={pageSize}
+            onChange={handlePageSizeChange}
+          >
+            {pageSizeOptions.map((opt) => (
+              <option key={opt} value={opt}>
+                {opt}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <span className="text-xs text-gray-500">
+            Page {page} of {totalPages || 1}
+          </span>
+        </div>
+      </div>
       {/* Loading State */}
       {isLoading && (
         <div className="mx-2 md:mx-0">
-          <NewsSkeleton count={4} />
+          <NewsSkeleton count={pageSize} />
         </div>
       )}
       {/* Error State */}
@@ -84,9 +139,9 @@ export default function News() {
         </div>
       )}
       {/* News Grid */}
-      {news && (
+      {paginatedNews && paginatedNews.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mx-2 md:mx-0">
-          {news.map((item) => (
+          {paginatedNews.map((item) => (
             <article
               key={item.ID}
               className="bg-white rounded-md md:rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"
@@ -137,9 +192,72 @@ export default function News() {
         </div>
       )}
       {/* Empty State */}
-      {news && news.length === 0 && (
+      {paginatedNews && paginatedNews.length === 0 && (
         <div className="text-center py-12">
           <p className="text-gray-500">No news articles found.</p>
+        </div>
+      )}
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="flex justify-center gap-2 mt-6">
+          <button
+            onClick={goToFirst}
+            disabled={!canPrev}
+            className={`px-2 py-1 cursor-pointer border rounded disabled:opacity-50`}
+            aria-label="First Page"
+          >
+            {"<<"}
+          </button>
+          <button
+            onClick={goToPrev}
+            disabled={!canPrev}
+            className={`px-2 py-1 cursor-pointer border rounded disabled:opacity-50`}
+            aria-label="Previous Page"
+          >
+            {"<"}
+          </button>
+          {/* Show page numbers */}
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => {
+            // Show only first, last, current, and neighbors
+            if (num === 1 || num === totalPages || Math.abs(num - page) <= 1) {
+              return (
+                <button
+                  key={num}
+                  onClick={() => setPage(num)}
+                  className={`px-2 cursor-pointer py-1 border rounded ${
+                    page === num
+                      ? "bg-royal-indigo text-white"
+                      : "bg-white text-gray-700"
+                  }`}
+                >
+                  {num}
+                </button>
+              );
+            } else if (num === page - 2 || num === page + 2) {
+              return (
+                <span key={num} className="px-2 py-1">
+                  ...
+                </span>
+              );
+            }
+            return null;
+          })}
+          <button
+            onClick={goToNext}
+            disabled={!canNext}
+            className={`px-2 py-1 border cursor-pointer rounded disabled:opacity-50`}
+            aria-label="Next Page"
+          >
+            {">"}
+          </button>
+          <button
+            onClick={goToLast}
+            disabled={!canNext}
+            className={`px-2 py-1 border cursor-pointer rounded disabled:opacity-50`}
+            aria-label="Last Page"
+          >
+            {">>"}
+          </button>
         </div>
       )}
     </div>

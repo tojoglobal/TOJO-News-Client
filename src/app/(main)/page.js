@@ -16,7 +16,7 @@ const HomePage = () => {
             <WatchMarketToday />
           </div>
           {/* Latest news */}
-          <div className="md:p-3 w-full max-w-sm mt-5 md:mt-0">
+          <div className="md:px-3 w-full max-w-sm mt-5 md:mt-0">
             <h2 className="text-lg font-bold mb-2 text-royal-indigo mx-2 md:mx-0">
               Latest News
             </h2>
@@ -30,7 +30,6 @@ const HomePage = () => {
             <MostReadNews />
           </div>
         </div>
-        {/* right sidebar Main Content */}
         <div className="md:col-span-9 order-1 md:order-2 space-y-6">
           <PopularNews />
           <div className="bg-royal-indigo text-white text-center py-6 rounded-md md:rounded-lg mx-1 md:mx-0">

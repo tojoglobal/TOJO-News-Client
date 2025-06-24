@@ -14,6 +14,8 @@ const fetchLatestNews = async () => {
   return data.result || [];
 };
 
+const IMAGE_HEIGHT = 170;
+
 const LatestNews = () => {
   const { data: latestNews = [], isLoading } = useQuery({
     queryKey: ["latestNews"],
@@ -31,24 +33,20 @@ const LatestNews = () => {
               key={news?.ID}
               className="flex flex-col items-start rounded-lg gap-3 mx-2 md:mx-0"
             >
-              {/* Image */}
-              <div className="w-full relative aspect-[1.5/1]">
+              <div className="w-full h-[220px] lg:h-[170px] relative overflow-hidden rounded-md md:rounded-lg">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/Images/${news?.thumble}`}
                   alt={news?.title}
-                  width={80}
-                  height={60}
-                  objectFit="cover"
-                  className="rounded-md md:rounded-lg w-full"
-                />
-                {/* Category Tag */}
-                <span
-                  className="bg-royal-indigo text-white text-xs px-2 py-1 rounded-md font-medium absolute left-2 bottom-2 z-20"
+                  fill
                   style={{
-                    // Ensure the category is always at the left bottom with a small gap from edges
-                    pointerEvents: "none", // So it doesn't block image clicks
+                    objectFit: "cover",
+                    objectPosition: "center",
                   }}
-                >
+                  className="rounded-md md:rounded-lg w-full h-full"
+                  sizes="(max-width: 768px) 100vw, 300px"
+                  priority={false}
+                />
+                <span className="bg-royal-indigo text-white text-xs px-2 py-1 rounded-md font-medium absolute left-2 bottom-2 z-20 pointer-events-none">
                   <Category category={news?.category_id} />
                 </span>
               </div>
