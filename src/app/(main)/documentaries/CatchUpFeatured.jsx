@@ -28,7 +28,7 @@ export default function CatchUpFeatured() {
   });
 
   return (
-    <div className="container mx-auto space-y-6 sm:space-y-8 px-4 sm:px-6">
+    <div className="container 2xl:max-w-[1370px] mx-auto space-y-6 sm:space-y-8 px-4 sm:px-6">
       <div>
         <h2 className="text-xl sm:text-2xl font-bold text-royal-indigo mb-3 sm:mb-4">
           Catch Up on the Latest News

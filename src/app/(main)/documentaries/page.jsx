@@ -57,7 +57,7 @@ export default function Documentaries() {
           absolute
           top-24 sm:top-36 md:top-48 lg:top-56
           inset-0 flex flex-col justify-center
-          container mx-auto
+          container 2xl:max-w-[1370px] mx-auto
           px-3 md:px-6 lg:px-0
         "
         >

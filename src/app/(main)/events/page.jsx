@@ -69,7 +69,7 @@ export default function EventsPage() {
 
   if (isLoading)
     return (
-      <div className="container mx-auto py-5 mb-10 px-3 md:px-0">
+      <div className="container 2xl:max-w-[1370px] mx-auto py-5 mb-10 px-3 md:px-0">
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-royal-indigo mb-4 md:mb-6">
           Events
         </h1>
@@ -79,7 +79,7 @@ export default function EventsPage() {
 
   if (isError)
     return (
-      <div className="container mx-auto py-5 mb-10 px-3 md:px-0">
+      <div className="container 2xl:max-w-[1370px] mx-auto py-5 mb-10 px-3 md:px-0">
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-royal-indigo mb-4 md:mb-6">
           Events
         </h1>
@@ -88,7 +88,7 @@ export default function EventsPage() {
     );
 
   return (
-    <div className="container mx-auto py-5 mb-10 px-3 md:px-0">
+    <div className="container 2xl:max-w-[1370px] mx-auto py-5 mb-10 px-3 md:px-0">
       <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-royal-indigo mb-4 md:mb-6">
         Events
       </h1>

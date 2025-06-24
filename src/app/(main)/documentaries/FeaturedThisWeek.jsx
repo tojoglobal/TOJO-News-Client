@@ -51,7 +51,7 @@ const FeaturedThisWeek = () => {
               className="flex items-center space-x-2 sm:space-x-3 group hover:scale-[1.02] sm:hover:scale-105 transition-transform duration-300 cursor-pointer"
               onClick={() => setOpenVideo(news.youtube_url)}
             >
-              <div className="w-20 sm:w-28 h-16 sm:h-20 flex-shrink-0 rounded-lg sm:rounded-xl overflow-hidden relative">
+              <div className="w-20 sm:w-28 h-16 sm:h-20 flex-shrink-0 rounded-md sm:rounded-lg overflow-hidden relative">
                 <img
                   src={`https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`}
                   alt={news.title}

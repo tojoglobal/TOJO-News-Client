@@ -13,6 +13,7 @@ const fetchPopularNews = async () => {
   );
   return data.Result || [];
 };
+
 const PopularNews = () => {
   const { data: popularNews = [], isLoading } = useQuery({
     queryKey: ["highlightBlog"],
@@ -30,11 +31,11 @@ const PopularNews = () => {
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           loop={true}
           slidesPerView="auto"
-          className="md:h-[490px] w-full"
+          className="w-full"
         >
           {popularNews?.map((news, i) => (
             <SwiperSlide key={i}>
-              <div className="relative w-full h-[240px] md:h-[500px] overflow-hidden rounded-xl">
+              <div className="relative w-full aspect-[1.5/1] md:aspect-[1.80/1] overflow-hidden rounded-xl">
                 <Link
                   href={`/blog/${news?.ID}/${news?.title.replace(/\s+/g, "-")}`}
                 >

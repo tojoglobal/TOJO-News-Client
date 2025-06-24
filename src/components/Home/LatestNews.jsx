@@ -33,7 +33,7 @@ const LatestNews = () => {
               key={news?.ID}
               className="flex flex-col items-start rounded-lg gap-3 mx-2 md:mx-0"
             >
-              <div className="w-full h-[220px] lg:h-[170px] relative overflow-hidden rounded-md md:rounded-lg">
+              <div className="w-full aspect-[1.5/1] md:aspect-[1.65/1] relative overflow-hidden rounded-md md:rounded-lg">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/Images/${news?.thumble}`}
                   alt={news?.title}
