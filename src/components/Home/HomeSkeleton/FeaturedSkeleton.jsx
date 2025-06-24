@@ -6,7 +6,7 @@ const FeaturedSkeleton = ({ count = 8 }) => {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mx-2 md:mx-0">
       {Array.from({ length: count }).map((_, index) => (
         <div key={index} className="flex flex-col gap-3">
-          <Skeleton className="skeleton-box h-[200px] w-full rounded-lg" />
+          <Skeleton className="skeleton-box h-[270px] w-full rounded-lg" />
           <div className="flex-1 mb-2">
             <Skeleton className="skeleton-box h-[22px] w-full" />
             <Skeleton className="skeleton-box h-[22px] mt-1 w-4/5" />

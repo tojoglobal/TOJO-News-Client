@@ -4,7 +4,6 @@ import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 
 const fetchCategories = async (axiosPublicUrl) => {
   const res = await axiosPublicUrl.get(`/api/admin/newsCategory`);
-  // support both "Result" and "result"
   return res.data.Result || res.data.result || [];
 };
 

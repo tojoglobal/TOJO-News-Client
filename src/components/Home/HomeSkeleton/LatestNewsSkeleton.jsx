@@ -6,7 +6,7 @@ const LatestNewsSkeleton = ({ count = 4 }) => {
     <div className="flex flex-col gap-3 mx-2 md:mx-0">
       {Array.from({ length: count }).map((_, index) => (
         <div key={index} className="flex flex-col gap-3">
-          <Skeleton className="skeleton-box h-[195px] w-full rounded-lg" />
+          <Skeleton className="skeleton-box h-[170px] w-full rounded-lg" />
           <div className="flex-1 mb-2">
             <Skeleton className="skeleton-box h-[15px] w-full" />
             <Skeleton className="skeleton-box h-[15px] mt-1 w-3/5" />

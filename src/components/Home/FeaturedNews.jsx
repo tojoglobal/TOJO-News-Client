@@ -37,7 +37,7 @@ const FeaturedNews = () => {
               className="rounded-md md:rounded-lg object-cover"
             />
             {/* Category Tag */}
-            <span className="bg-royal-indigo text-white text-xs px-2 py-1 rounded-md font-medium absolute bottom-1 left-1">
+            <span className="bg-royal-indigo text-white text-xs px-2 py-1 rounded-md font-medium absolute bottom-2 left-2">
               <Category category={news?.category_id} />
             </span>
           </div>
@@ -52,7 +52,6 @@ const FeaturedNews = () => {
                 {news?.title}
               </h3>
             </Link>
-
             {/* Date & Author (Always at bottom) */}
             <p className="text-[11px] md:text-sm text-royal-indigo mt-2 md:mt-auto flex items-center flex-grow">
               <DateAndTime dateAndTime={news?.dateAndTime} /> {" by "}
