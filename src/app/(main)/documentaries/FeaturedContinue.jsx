@@ -57,7 +57,7 @@ const FeaturedContinue = () => {
   );
 
   return (
-    <div className="container mx-auto py-8 px-3 md:px-0">
+    <div className="container 2xl:max-w-[1370px] mx-auto py-8 px-3 md:px-0">
       <h2 className="text-xl sm:text-2xl font-bold text-royal-indigo mb-3">
         Featured News
       </h2>

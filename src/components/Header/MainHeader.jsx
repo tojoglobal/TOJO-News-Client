@@ -22,7 +22,7 @@ const MainHeader = () => {
     <>
       {/* large device */}
       <div className="hidden sm:block">
-        <div className="container h-24 mx-auto flex flex-wrap items-center justify-between">
+        <div className="container 2xl:max-w-[1370px] mx-auto h-24 flex flex-wrap items-center justify-between">
           {/* Left Section: Social Icons */}
           <div className="flex items-center gap-2">
             <Link href="https://www.facebook.com/TOJONews" target="_blank">

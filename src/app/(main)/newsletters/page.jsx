@@ -118,7 +118,7 @@ const Newsletters = () => {
   ];
 
   return (
-    <div className="container mx-auto py-6 px-1 md:px-0">
+    <div className="container 2xl:max-w-[1370px] mx-auto py-6 px-1 md:px-0">
       <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-royal-indigo mb-5 md:mb-10 text-center">
         Newsletter
       </h1>

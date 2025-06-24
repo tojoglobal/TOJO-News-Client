@@ -8,7 +8,7 @@ const ProfilePage = () => {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto px-4 py-6 flex items-center justify-center min-h-[60vh]">
+      <div className="container 2xl:max-w-[1370px] mx-auto px-4 py-6 flex items-center justify-center min-h-[60vh]">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-royal-indigo"></div>
       </div>
     );
@@ -16,7 +16,7 @@ const ProfilePage = () => {
 
   if (!user) {
     return (
-      <div className="container mx-auto px-4 py-6 text-center">
+      <div className="container 2xl:max-w-[1370px] mx-auto px-4 py-6 text-center">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">
           Please login to access your profile
         </h2>
@@ -31,7 +31,7 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="container 2xl:max-w-[1370px] mx-auto px-4 py-6">
       <div className="max-w-7xl mx-auto">
         {/* Profile Header */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">

@@ -72,7 +72,7 @@ export default function News() {
   const goToLast = () => setPage(totalPages);
 
   return (
-    <div className="container mx-auto mb-10 mt-5">
+    <div className="container 2xl:max-w-[1370px] mx-auto mb-10 mt-5">
       <div className="text-center mb-6">
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-1">
           News & Updates
@@ -149,7 +149,7 @@ export default function News() {
               <Link
                 href={`/blog/${item.ID}/${item.title.replace(/\s+/g, "-")}`}
               >
-                <div className="relative h-48">
+                <div className="relative aspect-[1.5/1] md:aspect-[1.65/1]">
                   <Image
                     src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/Images/${item.thumble}`}
                     alt={item.title}

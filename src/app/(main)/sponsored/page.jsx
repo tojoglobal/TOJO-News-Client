@@ -47,7 +47,7 @@ export default function SponsoredPage() {
 
   if (isSponsoredLoading)
     return (
-      <div className="container mx-auto py-5 mb-8 px-3 md:px-0">
+      <div className="container 2xl:max-w-[1370px] mx-auto py-5 mb-8 px-3 md:px-0">
         <div className="mb-6">
           <div className="h-8 w-40 bg-gray-200 rounded mb-2 animate-pulse"></div>
           <div className="h-5 w-64 bg-gray-100 rounded mb-6 animate-pulse"></div>
@@ -102,7 +102,7 @@ export default function SponsoredPage() {
   if (isSponsoredError) return <div>Error loading data</div>;
 
   return (
-    <div className="container mx-auto py-5 mb-8 px-3 md:px-0">
+    <div className="container 2xl:max-w-[1370px] mx-auto py-5 mb-8 px-3 md:px-0">
       <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-royal-indigo mb-1">
         Sponsored
       </h1>

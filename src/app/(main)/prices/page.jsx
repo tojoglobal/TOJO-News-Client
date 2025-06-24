@@ -134,115 +134,108 @@ export default function CryptoPrices() {
   }
 
   return (
-    <>
-      <section className="container mx-auto">
-        <div className="w-full ">
-          <div className="h-full p-0 ">
-            <div className="flex flex-col gap-4 p-2 lg:p-3">
-              <div>
-                <h1 className="self-stretch flex-grow-0 flex-shrink-0 w-full text-2xl md:text-3xl lg:text-4xl font-semibold text-center text-[#110b29] capitalize py-1">
-                  Today&#39;s Market Cap
-                </h1>
-              </div>
-            </div>
-            {/* table of crypto */}
-            <div className="p-4 overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead>
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      # Rank
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Name
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Price
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      1h
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      24h
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Volume (24h)
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Market Cap
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Chart
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {cryptoData.map((crypto) => (
-                    <tr key={crypto.id}>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {crypto.market_cap_rank}
-                      </td>
-                      <td className="px-2 py-4 whitespace-nowrap overflow-hidden w-[10%]">
-                        <div className="flex items-center">
-                          <div className="h-8 w-8">
-                            <img
-                              alt={crypto.name}
-                              loading="lazy"
-                              className="w-full h-full"
-                              src={crypto.image}
-                            />
-                          </div>
-                          <div className="ml-4">
-                            <div className="text-sm font-semibold text-gray-900">
-                              {crypto.name}
-                            </div>
-                            <div className="text-sm text-gray-600 uppercase">
-                              {crypto.symbol}
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        ${crypto.current_price.toLocaleString()}
-                      </td>
-                      <td
-                        className={`px-6 py-4 whitespace-nowrap ${
-                          crypto.price_change_percentage_1h_in_currency >= 0
-                            ? "text-green-500"
-                            : "text-red-500"
-                        }`}
-                      >
-                        {crypto.price_change_percentage_1h_in_currency.toFixed(
-                          2
-                        )}
-                        %
-                      </td>
-                      <td
-                        className={`px-6 py-4 whitespace-nowrap ${
-                          crypto.price_change_percentage_24h >= 0
-                            ? "text-green-500"
-                            : "text-red-500"
-                        }`}
-                      >
-                        {crypto.price_change_percentage_24h.toFixed(2)}%
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {formatNumber(crypto.total_volume)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {formatNumber(crypto.market_cap)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {renderSparkline(crypto.sparkline_in_7d.price)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+    <section className="container 2xl:max-w-[1370px] mx-auto">
+      <div className="w-full">
+        <div className="flex flex-col gap-4 p-2 lg:p-3">
+          <div>
+            <h1 className="self-stretch flex-grow-0 flex-shrink-0 w-full text-2xl md:text-3xl lg:text-4xl font-semibold text-center text-[#110b29] capitalize py-1">
+              Today&#39;s Market Cap
+            </h1>
           </div>
         </div>
-      </section>
-    </>
+        {/* table of crypto */}
+        <div className="p-4 overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead>
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  # Rank
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Name
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Price
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  1h
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  24h
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Volume (24h)
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Market Cap
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Chart
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {cryptoData?.map((crypto) => (
+                <tr key={crypto.id}>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {crypto.market_cap_rank}
+                  </td>
+                  <td className="px-2 py-4 whitespace-nowrap overflow-hidden w-[10%]">
+                    <div className="flex items-center">
+                      <div className="h-8 w-8">
+                        <img
+                          alt={crypto.name}
+                          loading="lazy"
+                          className="w-full h-full"
+                          src={crypto.image}
+                        />
+                      </div>
+                      <div className="ml-4">
+                        <div className="text-sm font-semibold text-gray-900">
+                          {crypto.name}
+                        </div>
+                        <div className="text-sm text-gray-600 uppercase">
+                          {crypto.symbol}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    ${crypto.current_price.toLocaleString()}
+                  </td>
+                  <td
+                    className={`px-6 py-4 whitespace-nowrap ${
+                      crypto.price_change_percentage_1h_in_currency >= 0
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }`}
+                  >
+                    {crypto.price_change_percentage_1h_in_currency.toFixed(2)}%
+                  </td>
+                  <td
+                    className={`px-6 py-4 whitespace-nowrap ${
+                      crypto.price_change_percentage_24h >= 0
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }`}
+                  >
+                    {crypto.price_change_percentage_24h.toFixed(2)}%
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {formatNumber(crypto.total_volume)}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {formatNumber(crypto.market_cap)}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {renderSparkline(crypto.sparkline_in_7d.price)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
   );
 }

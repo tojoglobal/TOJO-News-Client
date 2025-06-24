@@ -136,7 +136,7 @@ export default function CryptoPrices() {
 
   return (
     <>
-      <section className="container mx-auto">
+      <section className="container 2xl:max-w-[1370px] mx-auto">
         <div className="w-full ">
           <div className="h-full p-0 ">
             <div className="flex flex-col gap-4 p-4 lg:p-6">
