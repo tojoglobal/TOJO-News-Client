@@ -27,8 +27,8 @@ const WatchMarketToday = () => {
   // Fetch latest video data when component mounts or when latest video in localStorage changes
   const fetchLatestVideo = async () => {
     try {
-      const API_KEY = "AIzaSyANo2qrDnEzB68qkNvUH_D4ufpIESoZQ";
-      const CHANNEL_ID = "UCsgyweRgipGDhwD-3HA-IVz";
+      const API_KEY = "jjkjdkfjskfjskdjf";
+      const CHANNEL_ID = "ujdhwD-3HA-IVz";
       const response = await axios.get(
         `https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=${CHANNEL_ID}&maxResults=1&key=${API_KEY}`
       );
@@ -65,15 +65,6 @@ const WatchMarketToday = () => {
   return (
     <div className="aspect-[1.5/1] md:aspect-[1.81/1] mx-2 md:mx-0">
       {isVideoPlaying ? (
-        // <iframe
-        //   className="w-full h-48 md:h-64 rounded-lg"
-        //   src={`https://www.youtube.com/embed/${latestVideoId}?autoplay=1`}
-        //   title={latestVideoTitle || "YouTube Video"}
-        //   frameBorder="0"
-        //   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        //   referrerPolicy="strict-origin-when-cross-origin"
-        //   allowFullScreen
-        // ></iframe>
         <iframe
           className="w-full h-48 md:h-56 md:rounded-lg"
           src={`https://www.youtube.com/embed/${latestVideoId}?autoplay=1&controls=0&modestbranding=1&rel=0`}
