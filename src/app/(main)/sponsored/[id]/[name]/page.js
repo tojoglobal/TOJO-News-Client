@@ -1,16 +1,27 @@
 import SponsoredDetailsPageClient from "./SponsoredDetailsPage";
 
 export async function generateStaticParams() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/sponsored-all`
-  );
-  const data = await res.json();
-  const sponsoredItems = data.Result || [];
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/sponsored-all`
+    );
 
-  return sponsoredItems.map((item) => ({
-    id: item.id.toString(),
-    name: item.slug || item.name?.toLowerCase().replace(/\s+/g, "-"),
-  }));
+    if (!res.ok) {
+      console.error("Failed to fetch sponsored data:", res.statusText);
+      return [];
+    }
+
+    const data = await res.json();
+    const sponsoredItems = data.Result || [];
+
+    return sponsoredItems.map((item) => ({
+      id: item.id.toString(),
+      name: item.slug || item.name?.toLowerCase().replace(/\s+/g, "-"),
+    }));
+  } catch (error) {
+    console.error("Error in generateStaticParams:", error);
+    return [];
+  }
 }
 
 // ✅ Server component that returns the Client Component

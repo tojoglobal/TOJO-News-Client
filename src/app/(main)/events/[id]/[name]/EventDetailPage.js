@@ -5,6 +5,7 @@ import axios from "axios";
 import moment from "moment";
 import GlobalLoading from "@/src/components/GlobalLoading";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 export default function EventDetailPage() {
   const params = useParams();
@@ -41,7 +42,7 @@ export default function EventDetailPage() {
       <p className="text-gray-500 mb-3">
         {data.location} · {moment(data.date).format("dddd, MMM D, YYYY")}
       </p>
-      <img
+      <Image
         src={`${apiBase}/Images/${data.image_url}`}
         alt={data.title}
         className="w-full md:h-52 object-cover rounded-md md:rounded-lg mb-4"
