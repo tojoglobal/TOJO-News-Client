@@ -25,14 +25,26 @@ export async function generateStaticParams() {
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/allblogposts`
     );
 
-    const blogs = data.Result || [];
+    const blogs = data?.Result || [];
     return blogs.map((post) => ({
       id: post.id.toString(),
-      title: post.title.replace(/\s+/g, "-").toLowerCase(), // Optional: SEO-friendly title
+      title: post.title.replace(/\s+/g, "-").toLowerCase(),
     }));
   } catch (error) {
-    console.error("Error generating static params:", error);
-    return [];
+    console.warn("API unreachable — using fallback blog posts");
+
+    return [
+      { id: "30", title: "Influencer Marketing for Complete Guide to 2025" },
+      {
+        id: "24",
+        title:
+          "Empire Newsletter: Is Coinbase stock a proxy bet on crypto’s success?",
+      },
+      {
+        id: "29",
+        title: "Nomura’s crypto unit to offer yield-bearing ETH fund: Report",
+      },
+    ];
   }
 }
 

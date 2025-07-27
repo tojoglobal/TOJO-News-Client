@@ -1,5 +1,4 @@
 // src/app/events/[id]/[name]/page.js
-
 import EventDetailPage from "./EventDetailPage";
 
 export async function generateStaticParams() {
@@ -9,7 +8,10 @@ export async function generateStaticParams() {
 
   if (!res.ok) {
     console.error("Failed to fetch sponsored data:", res.statusText);
-    return [];
+    return [
+      { id: "1", name: "example-sponsored-post" },
+      { id: "2", name: "another-post" },
+    ];
   }
 
   const data = await res.json();

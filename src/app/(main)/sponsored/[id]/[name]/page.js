@@ -8,7 +8,10 @@ export async function generateStaticParams() {
 
     if (!res.ok) {
       console.error("Failed to fetch sponsored data:", res.statusText);
-      return [];
+      return [
+        { id: "1", name: "example-sponsored-post" },
+        { id: "2", name: "another-post" },
+      ];
     }
 
     const data = await res.json();
@@ -20,7 +23,10 @@ export async function generateStaticParams() {
     }));
   } catch (error) {
     console.error("Error in generateStaticParams:", error);
-    return [];
+    return [
+      { id: "1", name: "example-sponsored-post" },
+      { id: "2", name: "another-post" },
+    ];
   }
 }
 
