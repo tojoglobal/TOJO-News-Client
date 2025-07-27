@@ -19,8 +19,25 @@ const getBlogPost = async (id) => {
   }
 };
 
+export async function generateStaticParams() {
+  try {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/allblogposts`
+    );
+
+    const blogs = data.Result || [];
+    return blogs.map((post) => ({
+      id: post.id.toString(),
+      title: post.title.replace(/\s+/g, "-").toLowerCase(), // Optional: SEO-friendly title
+    }));
+  } catch (error) {
+    console.error("Error generating static params:", error);
+    return [];
+  }
+}
+
 export default async function BlogPost({ params }) {
-  const { id } = await params;
+  const { id } = params;
   const blog = await getBlogPost(id);
 
   if (!blog || blog.length === 0) {
@@ -64,17 +81,14 @@ export default async function BlogPost({ params }) {
         <span className="mb-5 mt-3 md:mt-0 inline-block bg-indigo-600 text-white text-xs px-3 py-1 rounded-full font-medium">
           <Category category={category_id} />
         </span>
-        {/* Title */}
         <h1 className="text-3xl capitalize md:text-4xl font-bold text-gray-900 mb-2 leading-tight">
           {title}
         </h1>
-        {/* Subtitle */}
         {subtitle && (
           <p className="text-lg text-gray-600 mb-3 leading-relaxed">
             {subtitle}
           </p>
         )}
-        {/* Author and Date */}
         <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-3 mb-4">
           <div className="flex items-center gap-1 md:gap-2 text-sm text-gray-600">
             <span>By</span>
@@ -91,7 +105,6 @@ export default async function BlogPost({ params }) {
             {formattedDate}
           </time>
         </div>
-        {/* Featured Image */}
         <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-md mb-5">
           <Image
             src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/Images/${thumble}`}
@@ -101,20 +114,18 @@ export default async function BlogPost({ params }) {
             priority
           />
         </div>
-        {/* Meta Info */}
         <div className="flex items-center justify-between text-sm text-gray-500 border-b border-gray-200 pb-5">
           <span>Reading time: {stats.text}</span>
           <GetView blogId={id} />
         </div>
       </header>
-      {/* Article Content */}
+
       <ArticleReader
         articleId={id}
         articleContent={articalpost}
         title={title}
       />
 
-      {/* Engagement Section */}
       <footer className="mt-6 pt-6 border-t border-gray-200">
         <div className="flex justify-center">
           <LoveBtn articleId={id} />

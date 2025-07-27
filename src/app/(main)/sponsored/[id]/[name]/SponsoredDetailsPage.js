@@ -5,14 +5,16 @@ import moment from "moment";
 import { useAxiospublic } from "@/src/components/hooks/useAxiospublic";
 import GlobalLoading from "@/src/components/GlobalLoading";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
-export default function SponsoredDetailsPage() {
+const SafeHtml = dynamic(() => import("@/src/components/hooks/SafeHtml"), {
+  ssr: false,
+});
+
+export default function SponsoredDetailsPageClient() {
   const params = useParams();
   const id = params.id;
   const axioPublicUrl = useAxiospublic();
-  const SafeHtml = dynamic(() => import("@/src/components/hooks/SafeHtml"), {
-    ssr: false,
-  });
 
   const {
     data: sponsored,
@@ -22,7 +24,6 @@ export default function SponsoredDetailsPage() {
     queryKey: ["sponsoredDetails", id],
     queryFn: async () => {
       const res = await axioPublicUrl.get(`/api/admin/Sponsoredbyid/${id}`);
-      // API should return single object in Result[0]
       return res.data.Result?.[0];
     },
     enabled: !!id,
@@ -39,7 +40,7 @@ export default function SponsoredDetailsPage() {
       <p className="text-gray-500 mb-3">
         Published: {moment(sponsored.published_at).format("MMM D, YYYY")}
       </p>
-      <img
+      <Image
         src={`${axioPublicUrl.defaults.baseURL}/Images/${sponsored.image_url}`}
         alt={sponsored.title}
         className="w-full md:h-52 object-cover rounded-md md:rounded-lg mb-4"
