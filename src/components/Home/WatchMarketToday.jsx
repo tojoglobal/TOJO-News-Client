@@ -27,8 +27,8 @@ const WatchMarketToday = () => {
   // Fetch latest video data when component mounts or when latest video in localStorage changes
   const fetchLatestVideo = async () => {
     try {
-      const API_KEY = "AIzaSyANo2qrDnEzB68qkNvUH_D4ufpIESoZQ_Y";
-      const CHANNEL_ID = "UCsgyweRgipGDhwD-3HA-IVA";
+      const API_KEY = "AIzaSyANo2qrDnEzB68qkNvUH_D4ufpIESoZQ";
+      const CHANNEL_ID = "UCsgyweRgipGDhwD-3HA-IVz";
       const response = await axios.get(
         `https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=${CHANNEL_ID}&maxResults=1&key=${API_KEY}`
       );

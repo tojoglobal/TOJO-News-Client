@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "export", // 🔥 This enables static HTML export
+
   images: {
-    unoptimized: true,
+    unoptimized: true, // Required for static export when using next/image
     remotePatterns: [
       {
         protocol: "http",
